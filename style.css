@@ -209,3 +209,46 @@ body {
 .note strong {
     color: var(--accent-blue);
 }
+
+
+/* 1. الحاوية اللي بتسمح بالتحريك يمين وشمال */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* ده اللي بيعمل السكرول */
+    -webkit-overflow-scrolling: touch; /* سكرول ناعم للموبايل */
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* 2. إجبار الجدول يحافظ على عرضه عشان ميتعصرش */
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    gap: 5px;
+    min-width: 1000px; /* العرض الأدنى للجدول عشان يفضل واضح */
+    margin: 0 auto;
+}
+
+/* 3. تصغير حجم المربعات شوية في الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .element {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+}
+
+/* تنسيق شريط التمرير للجدول */
+.table-wrapper::-webkit-scrollbar {
+    height: 6px; /* عرض نحيف */
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: var(--border-soft); /* لون هادئ من ألوانك */
+    border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
