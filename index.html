@@ -2,11 +2,18 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <title>استمتع بالكمياء مع الجدول الدوري الحديث</title>
+    <title>استمتع بالكيمياء مع الجدول الدوري الحديث</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="assets/كيميا_المرح.png" type="image/png" />
-
+	
+	<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d1117">
+<link rel="apple-touch-icon" href="assets/كيميا_المرح.png">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	
+	
 </head>
 <body>
     <header>
@@ -19,6 +26,7 @@
             <div class="table-container">
                 <div id="main-table" class="periodic-table" aria-label="الجدول الدوري"></div>
             </div>
+            
             <div class="series">
                 <div class="series-row">
                     <h3>اللانتانيدات</h3>
@@ -35,30 +43,55 @@
             </div>
         </section>
 
-        <!-- بطاقة التفاصيل -->
         <section class="details-wrapper">
-            <h2>اختر عنصرًا</h2>
             <div id="details" class="details-card">
+                <div class="details-header">
+                    <h2 id="d-name">اختر عنصراً</h2>
+                </div>
                 <div class="details-content">
-                    <p>رمز: <span id="d-symbol">–</span></p>
+                    <p>الرمز: <span id="d-symbol">–</span></p>
                     <p>العدد الذري: <span id="d-number">–</span></p>
-                    <p>الكتلة الذرية: <span id="d-mass">–</span></p>
-                    <p>اسم العنصر: <span id="d-name">–</span></p>
+                    <p>الكتلة: <span id="d-mass">–</span></p>
                     <p>النوع: <span id="d-type">–</span></p>
-                    <p>الحالة الفيزيائية: <span id="d-state">–</span></p>
-                    <p>النقطة الانصهار: <span id="d-mp">–</span></p>
-                    <p>النقطة الغليان: <span id="d-bp">–</span></p>
+                    <p>الحالة: <span id="d-state">–</span></p>
+                    <p>الانصهار: <span id="d-mp">–</span></p>
+                    <p>الغليان: <span id="d-bp">–</span></p>
                     <p>الكثافة: <span id="d-density">–</span></p>
-                    <p>اللون / المظهر: <span id="d-color">–</span></p>
-                    <p>التوزيع الإلكتروني: <span id="d-electrons">–</span></p>
-                    <p>الاستخدامات الشائعة: <span id="d-uses">–</span></p>
+                    <p>التوزيع: <span id="d-electrons">–</span></p>
+                    <p class="full-row">الاستخدامات الشائعة: <span id="d-uses">–</span></p>
                 </div>
             </div>
         </section>
+		
+		
+		<div class="lab-workspace">
+    <h3 class="lab-header">🧪 معمل الكيمياء الذكي</h3>
+
+    <div class="input-section">
+        <input type="text" id="slot-1" class="chem-field" placeholder="المادة الأولى">
+        <span class="operator">+</span>
+        <input type="text" id="slot-2" class="chem-field" placeholder="المادة الثانية">
+    </div>
+
+    <div class="controls-section">
+        <button class="btn-lab react" onclick="processReaction()">تفاعل ⚗️</button>
+        <button class="btn-lab heat" onclick="processHeat()">تسخين 🔥</button>
+        <button class="btn-lab oxidation" onclick="processRedox('ox')">أكسدة ⚡</button>
+        <button class="btn-lab reduction" onclick="processRedox('red')">اختزال 📉</button>
+        <button class="btn-lab clear" onclick="clearLab()">مسح 🧹</button>
+    </div>
+
+    <div id="lab-report" class="result-display">
+        <p>جاهز لإجراء التجربة...</p>
+    </div>
+</div>
+		
+		
+		
     </main>
 
     <footer>
-        <p>برمجيات العدوي وفريق الذكاءالاصطناعي ✨</p>
+        <p>برمجيات العدوي وفريق الذكاء الاصطناعي ✨</p>
     </footer>
 
     <script src="script.js"></script>
