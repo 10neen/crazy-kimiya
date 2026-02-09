@@ -267,22 +267,39 @@ document.querySelectorAll('.element').forEach(el => {
 });
 
 
-/* -------- جعل بطاقة التفاصيل draggable + تلوين ديناميكي -------- */
+
+
+/* ============================================================
+   1. وظيفة السحب (Draggable) - نسخة محسنة بدون أخطاء
+   ============================================================ */
+   
+   
+   /* -------- كود السيطرة الشاملة على البطاقة -------- */
+
 function makeDraggable(el) {
   let isDragging = false;
   let offsetX = 0, offsetY = 0;
 
-  // بداية السحب
-  el.addEventListener("mousedown", startDrag);
-  el.addEventListener("touchstart", startDrag, { passive: false });
+  // رأس البطاقة هو المكان المخصص للسحب فقط (عشان المستخدم يعرف يدوس على الزراير جوه)
+  const header = el.querySelector('.card-header') || el;
+  header.style.cursor = "move";
+
+  header.addEventListener("mousedown", startDrag);
+  header.addEventListener("touchstart", startDrag, { passive: false });
 
   function startDrag(e) {
-    e.preventDefault();
+    if (e.target.closest('button, input')) return; // منع السحب عند الضغط على أزرار
+    
     isDragging = true;
-
     const rect = el.getBoundingClientRect();
-    offsetX = (e.clientX || e.touches[0].clientX) - rect.left;
-    offsetY = (e.clientY || e.touches[0].clientY) - rect.top;
+    const clientX = e.clientX || e.touches[0].clientX;
+    const clientY = e.clientY || e.touches[0].clientY;
+
+    offsetX = clientX - rect.left;
+    offsetY = clientY - rect.top;
+
+    el.style.transition = "none"; 
+    el.style.zIndex = "9999"; // رفع البطاقة فوق أي عنصر آخر أثناء السحب
 
     document.addEventListener("mousemove", drag);
     document.addEventListener("mouseup", stopDrag);
@@ -290,19 +307,25 @@ function makeDraggable(el) {
     document.addEventListener("touchend", stopDrag);
   }
 
-  // أثناء السحب
   function drag(e) {
     if (!isDragging) return;
-    const x = (e.clientX || e.touches[0].clientX) - offsetX;
-    const y = (e.clientY || e.touches[0].clientY) - offsetY;
+    const clientX = e.clientX || e.touches[0].clientX;
+    const clientY = e.clientY || e.touches[0].clientY;
+
+    let x = clientX - offsetX;
+    let y = clientY - offsetY;
+
+    // الحفاظ على البطاقة داخل حدود المتصفح
+    x = Math.max(0, Math.min(x, window.innerWidth - el.offsetWidth));
+    y = Math.max(0, Math.min(y, window.innerHeight - el.offsetHeight));
+
     el.style.left = `${x}px`;
     el.style.top = `${y}px`;
-    el.style.right = "auto"; // علشان ما يفضلش لازق يمين
   }
 
-  // إنهاء السحب
   function stopDrag() {
     isDragging = false;
+    el.style.transition = "border-color 0.4s, box-shadow 0.4s, transform 0.2s";
     document.removeEventListener("mousemove", drag);
     document.removeEventListener("mouseup", stopDrag);
     document.removeEventListener("touchmove", drag);
@@ -310,34 +333,260 @@ function makeDraggable(el) {
   }
 }
 
-// فعلها على البطاقة
-const detailsCard = document.querySelector(".details-card");
-if (detailsCard) {
-  detailsCard.style.position = "absolute"; // مهم علشان تتحرك
-  detailsCard.style.top = "120px";
-  detailsCard.style.left = "120px";
-  makeDraggable(detailsCard);
+/* -------- تلوين البطاقة وتحديث محتواها بشكل مكثف -------- */
+
+/* تحديث دالة اختيار العنصر لملء الصفين */
+function selectElement(data, el) {
+    // 1. تحديث الكلاس النشط في الجدول
+    if (window.lastActive) window.lastActive.classList.remove("active");
+    el.classList.add("active");
+    window.lastActive = el;
+
+    // 2. تلوين البطاقة وتحديث الهالة (Glow)
+    const neonColor = getComputedStyle(el).getPropertyValue('--neon').trim();
+    const detailsCard = document.querySelector(".details-card");
+    if (detailsCard) {
+        detailsCard.style.borderColor = neonColor;
+        detailsCard.style.boxShadow = `0 0 30px ${neonColor}, inset 0 0 15px ${neonColor}33`;
+    }
+
+    // 3. توزيع البيانات على القالب الجديد (تأكد من وجود هذه الـ IDs في الـ HTML)
+    const updates = {
+        'd-symbol': data.sym,
+        'd-number': data.Z,
+        'd-mass': data.mass,
+        'd-name': data.name_ar,
+        'd-type': data.type_ar,
+        'd-state': data.state_ar,
+        'd-mp': data.melting_ar,
+        'd-bp': data.boiling_ar,
+        'd-density': data.density_ar,
+        'd-color': data.color_ar,
+        'd-electrons': data.electron_config_ar,
+        'd-uses': data.uses_ar
+    };
+
+    for (const [id, value] of Object.entries(updates)) {
+        const field = document.getElementById(id);
+        if (field) field.textContent = value || "غير معروف";
+    }
 }
 
-/* -------- تلوين البطاقة حسب العنصر -------- */
-function selectElement(data, el) {
-  // تحديث البيانات داخل البطاقة
-  document.getElementById("d-symbol").textContent = data.sym;
-  document.getElementById("d-number").textContent = data.Z;
-  document.getElementById("d-mass").textContent = data.mass;
-  document.getElementById("d-name").textContent = data.name_ar;
-  document.getElementById("d-type").textContent = data.type_ar;
-  document.getElementById("d-state").textContent = data.state_ar;
-  document.getElementById("d-mp").textContent = data.melting_ar;
-  document.getElementById("d-bp").textContent = data.boiling_ar;
-  document.getElementById("d-density").textContent = data.density_ar;
-  document.getElementById("d-color").textContent = data.color_ar;
-  document.getElementById("d-electrons").textContent = data.electron_config_ar;
-  document.getElementById("d-uses").textContent = data.uses_ar;
 
-  // تلوين البطاقة حسب لون العنصر
-  const neonColor = getComputedStyle(el).getPropertyValue('--neon');
-  const card = document.getElementById("details");
-  card.style.borderColor = neonColor;
-  card.style.boxShadow = `0 0 30px ${neonColor}, inset 0 0 12px rgba(255,255,255,0.05)`;
+
+
+
+
+// 1. قاعدة البيانات (تم إضافة اليوريا وكشف الغازات)
+const chemistryEngine = {
+    heat: {
+        "HgO": { full: "2HgO", result: "2Hg + O2 ↑", note: "أكسيد الزئبق الأحمر ينحل لزئبق فضي وأكسجين." },
+        "Cu(OH)2": { full: "Cu(OH)2", result: "CuO + H2O ↑", note: "هيدروكسيد النحاس الأزرق ينحل لأكسيد أسود وبخار ماء." },
+        "Al(OH)3": { full: "2Al(OH)3", result: "Al2O3 + 3H2O", note: "انحلال هيدروكسيد الألومنيوم لأكسيد ألومنيوم." },
+        "Fe(OH)3": { full: "2Fe(OH)3", result: "Fe2O3 + 3H2O", note: "انحلال هيدروكسيد الحديد III لأكسيد حديد III." },
+        "CuCO3": { full: "CuCO3", result: "CuO + CO2 ↑", note: "كربونات النحاس الخضراء تنحل لأكسيد أسود وثاني أكسيد كربون." },
+        "CaCO3": { full: "CaCO3", result: "CaO + CO2 ↑", note: "انحلال الحجر الجيري لإنتاج الجير الحي." },
+        "CuSO4": { full: "CuSO4", result: "CuO + SO3 ↑", note: "كبريتات النحاس الزرقاء تنحل لأكسيد أسود وثالث أكسيد الكبريت." },
+        "FeSO4": { full: "2FeSO4", result: "Fe2O3 + SO2 ↑ + SO3 ↑", note: "انحلال كبريتات الحديد II لأكسيد حديد III وأكاسيد كبريت." },
+        "NaNO3": { full: "2NaNO3", result: "2NaNO2 + O2 ↑", note: "نترات صوديوم تنحل لنيتريت صوديوم وأكسجين." },
+        "KClO3": { full: "2KClO3", result: "2KCl + 3O2 ↑", note: "انحلال كلورات البوتاسيوم لإنتاج الأكسجين." },
+        "NH4CNO": { full: "NH4CNO", result: "NH2CONH2 (Urea)", note: "تجربة فولر: تسخين سيانات الأمونيوم لإنتاج اليوريا (أول مركب عضوي)." }
+    },
+
+    react: {
+        "H2+O2": { full: "2H2 + O2", result: "2H2O", note: "تكوين الماء (يحدث انفجار وفرقعة عند الاشتعال)." },
+        "C+O2": { full: "C + O2", result: "CO2 ↑", note: "احتراق الكربون وتصاعد غاز ثاني أكسيد الكربون." },
+        "S+O2": { full: "S + O2", result: "SO2 ↑", note: "احتراق الكبريت وتصاعد غاز نفاذ الرائحة." },
+        "N2+H2": { full: "N2 + 3H2", result: "2NH3 ↑", note: "تحضير غاز النشادر (طريقة هابر-بوش)." },
+        "Na+H2O": { full: "2Na + 2H2O", result: "2NaOH + H2 ↑", note: "تفاعل عنيف جداً وتشتعل الفقاقيع بفرقعة." },
+        "Zn+HCl": { full: "Zn + 2HCl", result: "ZnCl2 + H2 ↑", note: "الخارصين يحل محل هيدروجين الحمض." },
+        "Fe+HCl": { full: "Fe + 2HCl", result: "FeCl2 + H2 ↑", note: "يتكون ملح حديد II لأن الهيدروجين عامل مختزل." },
+        "NaOH+HCl": { full: "NaOH + HCl", result: "NaCl + H2O", note: "تفاعل تعادل لإنتاج ملح الطعام والماء." },
+        "NH3+HCl": { full: "NH3 + HCl", result: "NH4Cl", note: "تكون سحب بيضاء كثيفة من كلوريد الأمونيوم." }
+    }
+};
+
+// 2. دالة المعالجة الذكية (The Brain) - المحدثة
+function runReaction(r1, r2) {
+    const normalize = (val) => {
+        const map = { "H": "H2", "O": "O2", "Cl": "Cl2", "N": "N2" };
+        return map[val] || val;
+    };
+
+    let reactant1 = normalize(r1.trim());
+    let reactant2 = normalize(r2.trim());
+
+    // الترتيب الأبجدي لضمان البحث الصحيح دائماً
+    const query = [reactant1, reactant2].sort().join('+');
+
+    // 1. البحث في القاعدة الثابتة
+    let entry = chemistryEngine.react[query];
+
+    // 2. إذا لم يوجد، نجرب منطق "الإحلال البسيط" التلقائي
+    if (!entry) {
+        const activeMetals = ["Na", "K", "Mg", "Al", "Zn", "Fe"];
+        if (activeMetals.includes(reactant1) && reactant2 === "HCl") {
+            entry = {
+                full: `${reactant1} + 2HCl`,
+                result: `${reactant1}Cl2 + H2 ↑`,
+                note: "تفاعل إحلال بسيط: الفلز يحل محل هيدروجين الحمض."
+            };
+        }
+    }
+
+    // 3. إضافة "كشف الغاز" تلقائياً لو النتيجة فيها غاز
+    if (entry) {
+        let gasTip = "";
+        if (entry.result.includes("H2 ↑")) gasTip = "🔍 كشف الغاز: يشتعل بفرقعة.";
+        if (entry.result.includes("CO2 ↑")) gasTip = "🔍 كشف الغاز: يعكر ماء الجير الرائق.";
+        if (entry.result.includes("O2 ↑")) gasTip = "🔍 كشف الغاز: يزيد اشتعال شظية مشتعلة.";
+        
+        if (gasTip) entry.note += `\n\n${gasTip}`;
+        return entry;
+    }
+
+    return { 
+        full: "تفاعل غير مسجل", 
+        result: "؟؟؟", 
+        note: "تأكد من كتابة الرموز صحيحة مثل (Mg + O2)." 
+    };
+}
+
+
+
+// 🧹 دالة المسح الشاملة
+function clearLab() {
+    document.getElementById('slot-1').value = "";
+    document.getElementById('slot-2').value = "";
+    document.getElementById('lab-report').innerHTML = `
+        <div class="welcome-msg">
+            <p>🧪 المعمل الكيميائي جاهز لاستقبال تجاربك..</p>
+            <small>جرب كتابة: Fe + Cl2 أو CaCO3</small>
+        </div>`;
+}
+
+// ✨ دالة التنظيف "الفائقة" (تصحيح تلقائي للرموز)
+
+
+
+
+// ✨ دالة التنظيف المطورة
+function superClean(input) {
+    if (!input) return "";
+    let clean = input.toLowerCase().trim()
+                 .replace(/^\d+/, '')   
+                 .replace(/\s+/g, '');
+
+    const dictionary = {
+        "hgo": "HgO", "na": "Na", "h2o": "H2O", "hcl": "HCl", "cuo": "CuO",
+        "na2co3": "Na2CO3", "naoh": "NaOH", "mg": "Mg", "zn": "Zn", "k": "K",
+        "agno3": "AgNO3", "nacl": "NaCl", "h2": "H2", "al": "Al", "fe": "Fe",
+        "cl2": "Cl2", "nh3": "NH3", "co2": "CO2", "o2": "O2", "h": "H2", // تصحيح الهيدروجين المنفرد
+        "o": "O2", "cl": "Cl2" // تصحيح الغازات
+    };
+
+    return dictionary[clean] || (input.charAt(0).toUpperCase() + input.slice(1));
+}
+
+// ⚗️ تشغيل تجربة التفاعل (النسخة الذكية)
+function processReaction() {
+    let raw1 = document.getElementById('slot-1').value;
+    let raw2 = document.getElementById('slot-2').value;
+    
+    let s1 = superClean(raw1);
+    let s2 = superClean(raw2);
+    
+    const report = document.getElementById('lab-report');
+    
+    // الترتيب الأبجدي للمفاتيح عشان نغطي التبديل
+    let keys = [s1, s2].sort();
+    const reactionKey = keys[0] + "+" + keys[1];
+    
+    const res = chemistryEngine.react[reactionKey];
+
+    if (res) {
+        report.innerHTML = `
+            <div class="res-box react">
+                <div class="badge">تفاعل كيميائي ⚗️</div>
+                <div class="edu-view">
+                    <h3>${res.full} <span class="arrow">⎯⎯→</span> ${res.result}</h3>
+                </div>
+                <p class="note">💡 <strong>ملحوظة:</strong> ${res.note}</p>
+            </div>`;
+        // تحديث الخانات بالرموز الصحيحة لتعليم الطالب
+        document.getElementById('slot-1').value = s1;
+        document.getElementById('slot-2').value = s2;
+    } else {
+        // رسالة مساعدة بدل رسالة خطأ صماء
+        report.innerHTML = `
+            <div class="error-box">
+                <p>⚠️ لم نجد تفاعلاً بين (${s1}) و (${s2})</p>
+                <small>تأكد من اختيار مواد تتفاعل مع بعضها، مثل فلز مع حمض أو حمض مع قاعدة.</small>
+            </div>`;
+    }
+}
+
+
+
+// 🔥 دالة التسخين المحدثة
+function processHeat() {
+    let raw = document.getElementById('slot-1').value;
+    let s1 = superClean(raw);
+    const report = document.getElementById('lab-report');
+    
+    // إضافة NH4CNO يدوياً إذا لم تكن في قاعدة البيانات
+    if (s1 === "NH4CNO") {
+        report.innerHTML = `
+            <div class="res-box heat">
+                <div class="badge">انحلال حراري (إعادة ترتيب) 🔥</div>
+                <div class="edu-view">
+                    <h3>NH4CNO <span class="arrow">⎯⎯Δ→</span> NH2CONH2</h3>
+                </div>
+                <p class="note">💡 <strong>اليوريا:</strong> أول مركب عضوي تم تحضيره في المختبر من مادة غير عضوية.</p>
+            </div>`;
+        return;
+    }
+
+    const entry = chemistryEngine.heat[s1];
+    if (entry) {
+        let gasTip = entry.result.includes("O2") ? "<span class='gas-info'>🔍 كشف الغاز: يزيد اشتعال الشظية.</span>" : "";
+        report.innerHTML = `
+            <div class="res-box heat">
+                <div class="badge">انحلال حراري 🔥</div>
+                <div class="edu-view">
+                    <h3>${entry.full} <span class="arrow">⎯⎯Δ→</span> ${entry.result}</h3>
+                </div>
+                <p class="note">💡 <strong>ملحوظة:</strong> ${entry.note}${gasTip}</p>
+            </div>`;
+    } else {
+        report.innerHTML = `<div class="res-box" style="border-right: 5px solid var(--red-muted)">
+            <p>⚠️ المادة (${raw}) لم تُدرج في قائمة الانحلال الحراري بعد.</p>
+        </div>`;
+    }
+}
+
+// ⚗️ دالة التفاعل المحدثة
+function processReaction() {
+    let s1 = superClean(document.getElementById('slot-1').value);
+    let s2 = superClean(document.getElementById('slot-2').value);
+    const report = document.getElementById('lab-report');
+    
+    const query = [s1, s2].sort().join('+');
+    const res = chemistryEngine.react[query];
+
+    if (res) {
+        let gasTip = res.result.includes("H2") ? "<span class='gas-info'>🔍 كشف الغاز: يشتعل بفرقعة لهب أزرق.</span>" : "";
+        report.innerHTML = `
+            <div class="res-box react">
+                <div class="badge">تفاعل كيميائي ⚗️</div>
+                <div class="edu-view">
+                    <h3>${res.full} <span class="arrow">⎯⎯→</span> ${res.result}</h3>
+                </div>
+                <p class="note">💡 <strong>ملحوظة:</strong> ${res.note}${gasTip}</p>
+            </div>`;
+    } else {
+        report.innerHTML = `<div class="res-box" style="border-right: 5px solid var(--accent-blue)">
+            <p>⚠️ لم يتم العثور على تفاعل مسجل بين (${s1}) و (${s2}).</p>
+        </div>`;
+    }
 }
