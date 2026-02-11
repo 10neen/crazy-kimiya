@@ -1,254 +1,201 @@
-/* 1. الإعدادات العامة والألوان المريحة */
+/* 1. الإعدادات العامة والتصميم الأساسي */
 :root {
-    --bg-dark: #0d1117;       /* خلفية جيت هاب الداكنة */
+    --bg-color: #0d1117;
     --card-bg: #161b22;
-    --accent-blue: #58a6ff;
-    --text-primary: #c9d1d9;
-    --border-soft: #30363d;
-    --red-muted: #da3633;     /* أحمر هادئ */
-    --green-muted: #238636;   /* أخضر هادئ */
-    --purple-muted: #8957e5;  /* بنفسجي هادئ */
+    --text-color: #c9d1d9;
+    --neon-blue: #00d2ff;
+    /* ألوان المجموعات */
+    --color-alkali: #ff4444;
+    --color-noble: #bc13fe;
+    --color-nonmetal: #00ff88;
+    --color-halogen: #ffee00;
+    --color-lanthanide: #ff00ab;
+    --color-actinide: #9d00ff;
+    --color-transition: #00d2ff;
 }
 
 body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    font-family: 'Cairo', sans-serif;
-    background: radial-gradient(circle at center, #1a3a5a 0%, var(--bg-dark) 100%);
-    color: var(--text-primary);
-    direction: rtl;
     padding: 20px;
-    min-height: 100vh;
+    line-height: 1.6;
 }
 
-/* 2. حاوية المعمل الذكي */
-.lab-workspace {
-    background: var(--card-bg);
-    border: 1px solid var(--border-soft);
-    border-radius: 15px;
-    padding: 30px;
-    max-width: 700px;
-    margin: 40px auto;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+header {
     text-align: center;
-}
-
-/* 3. تنسيق خانات الإدخال */
-.input-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
     margin-bottom: 30px;
 }
 
-.chem-field {
-    width: 150px;
-    padding: 12px;
-    background: var(--bg-dark);
-    border: 2px solid var(--border-soft);
-    border-radius: 8px;
-    color: var(--accent-blue);
-    font-size: 1.2rem;
+h1 {
+    color: var(--neon-blue);
+    text-shadow: 0 0 15px var(--neon-blue);
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* 2. محرك الجريد (أهم جزء لضبط العناصر) */
+.periodic-table {
+    display: grid !important;
+    grid-template-columns: repeat(18, 1fr); /* 18 عمود ثابت */
+    direction: rtl; /* اتجاه عربي */
+    gap: 6px;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+/* 3. تصميم الخلية (المربع) */
+.element {
+    aspect-ratio: 1 / 1;
+    border: 2px solid;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: rgba(255, 255, 255, 0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+.element:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.element.active {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 20px currentColor;
+}
+
+.element-content {
     text-align: center;
-    font-family: 'Courier New', monospace;
-    transition: 0.3s;
 }
 
-.chem-field:focus {
-    border-color: var(--accent-blue);
-    outline: none;
-    box-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
+.atomic-number {
+    font-size: 0.7rem;
+    position: absolute;
+    top: 2px;
+    right: 4px;
 }
 
-.plus-sign {
-    font-size: 1.8rem;
-    color: var(--accent-blue);
+.symbol-large {
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
-/* 4. أزرار التحكم (بدون زحمة) */
-.controls-section {
+.arabic-name {
+    font-size: 0.65rem;
+    margin-top: 2px;
+}
+
+/* الخانات الفارغة */
+.element.empty {
+    visibility: hidden;
+}
+
+/* 4. كارت التفاصيل (Details Card) */
+.details-wrapper {
+    margin-top: 40px;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
-    margin-bottom: 25px;
+}
+
+.details-card {
+    background: var(--card-bg);
+    border: 2px solid var(--neon-blue);
+    border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+}
+
+.details-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.full-row {
+    grid-column: span 2;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 10px;
+}
+
+/* 5. معمل الكيمياء الذكي */
+.lab-workspace {
+    margin: 50px auto;
+    max-width: 800px;
+    background: #1c2128;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.chem-field {
+    background: #0d1117;
+    color: white;
+    border: 1px solid #444;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
 }
 
 .btn-lab {
     padding: 10px 20px;
     border: none;
-    border-radius: 6px;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-    color: white;
-    transition: all 0.2s ease;
-    min-width: 110px;
-    font-size: 0.95rem;
-}
-
-.btn-lab:hover { transform: translateY(-3px); filter: brightness(1.2); }
-.btn-lab:active { transform: scale(0.95); }
-
-/* الألوان الهادئة للأزرار */
-.react { background-color: var(--green-muted); }
-.heat { background-color: var(--red-muted); }
-.oxidation { background-color: var(--purple-muted); }
-.reduction { background-color: #218bff; } /* أزرق مريح */
-.clear { background-color: #484f58; }      /* رمادي */
-
-/* 5. منطقة الناتج (حل مشكلة اللون الفاقع) */
-.result-display {
-    margin-top: 25px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.4); /* خلفية سوداء شفافة مريحة */
-    border-radius: 12px;
-    border: 1px solid var(--border-soft);
-    border-right: 5px solid var(--accent-blue); /* شريط جانبي شيك بدل الفقعان */
-    min-height: 100px;
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* 6. استايل الجدول الدوري (للحفاظ عليه) */
-.periodic-table {
-    display: grid;
-    grid-template-columns: repeat(18, 1fr);
-    gap: 5px;
-    margin-bottom: 40px;
-}
-
-.element {
-    aspect-ratio: 1/1.1;
-    border: 1px solid var(--accent-blue);
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px;
+    transition: 0.3s;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+.btn-lab.react { background: #238636; color: white; }
+.btn-lab.heat { background: #da3633; color: white; }
+.btn-lab.clear { background: #484f58; color: white; }
 
-
-.res-box.redox {
-    border-left: 5px solid #ff5252;
-    background: rgba(255,255,255,0.07);
-    padding: 18px;
-    border-radius: 14px;
-}
-
-
-.res-box {
-    background: rgba(255,255,255,0.06);
-    padding: 20px;
-    border-radius: 14px;
-    margin-top: 10px;
+.result-display {
+    margin-top: 20px;
+    padding: 15px;
+    background: #0d1117;
+    border-right: 4px solid var(--neon-blue);
     text-align: right;
 }
 
-.res-box.heat {
-    border-right: 5px solid var(--red-muted);
-}
-
-.res-box.react {
-    border-right: 5px solid var(--green-muted);
-}
-
-.res-box.redox {
-    border-right: 5px solid var(--purple-muted);
-}
-
-/* العنوان الصغير */
-.badge {
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: var(--accent-blue);
-}
-
-/* المعادلة */
-.edu-view h3 {
-    font-family: 'Courier New', monospace;
-    font-size: 1.2rem;
-    color: #fff;
-    margin: 10px 0;
-}
-
-/* السهم */
-.arrow {
-    color: var(--accent-blue);
-    padding: 0 8px;
-}
-
-/* الملاحظات */
-.note {
-    font-size: 0.95rem;
-    color: #cdd9e5;
-    margin-top: 8px;
-}
-
-
-/* تنسيق معلومات العنصر وكشف الغاز */
-.gas-info {
-    display: block;
-    margin-top: 10px;
-    padding: 10px;
-    background: rgba(88, 166, 255, 0.1);
-    border-right: 3px solid var(--accent-blue);
-    border-radius: 4px;
-    font-size: 0.9rem;
-    color: var(--accent-blue);
-}
-
-.note strong {
-    color: var(--accent-blue);
-}
-
-
-/* 1. الحاوية اللي بتسمح بالتحريك يمين وشمال */
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto; /* ده اللي بيعمل السكرول */
-    -webkit-overflow-scrolling: touch; /* سكرول ناعم للموبايل */
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-/* 2. إجبار الجدول يحافظ على عرضه عشان ميتعصرش */
-.periodic-table {
-    display: grid;
-    grid-template-columns: repeat(18, 1fr);
-    gap: 5px;
-    min-width: 1000px; /* العرض الأدنى للجدول عشان يفضل واضح */
-    margin: 0 auto;
-}
-
-/* 3. تصغير حجم المربعات شوية في الشاشات الصغيرة */
-@media (max-width: 768px) {
-    .element {
-        font-size: 0.7rem;
-        padding: 5px;
+/* 6. استجابة الشاشة (Responsive) */
+@media (max-width: 900px) {
+    .periodic-table {
+        gap: 2px;
     }
+    .symbol-large { font-size: 0.9rem; }
+    .arabic-name { display: none; }
 }
 
-/* تنسيق شريط التمرير للجدول */
-.table-wrapper::-webkit-scrollbar {
-    height: 6px; /* عرض نحيف */
+
+/* تنسيق الحاويات السفلية لضمان المحاذاة */
+#lanth-table, #act-table {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(18, 1fr); /* نفس تقسيم الجدول الرئيسي */
+    gap: 5px;
 }
 
-.table-wrapper::-webkit-scrollbar-thumb {
-    background: var(--border-soft); /* لون هادئ من ألوانك */
-    border-radius: 10px;
-}
-
-.table-wrapper::-webkit-scrollbar-track {
-    background: transparent;
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(5px); }
+    50% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
 }
