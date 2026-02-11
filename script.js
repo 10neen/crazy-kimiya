@@ -1,460 +1,639 @@
-/* =============== بيانات العناصر (118) مع الأسماء العربية =============== */
-const ELEMENTS = [
-  {Z:1,  sym:"H",  name:"Hydrogen",      name_ar:"هيدروجين",      mass:"1.008",   type:"Nonmetal", type_ar:"لافلز", state_ar:"غاز", melting_ar:"-259.16 °م", boiling_ar:"-252.87 °م", density_ar:"0.0899 غ/لتر", color_ar:"عديم اللون", electron_config_ar:"1s¹", uses_ar:"وقود صواريخ، مكون للماء"},
-  {Z:2,  sym:"He", name:"Helium",        name_ar:"هيليوم",        mass:"4.0026",  type:"Noble Gas", type_ar:"غاز نبيل", state_ar:"غاز", melting_ar:"-272.2 °م", boiling_ar:"-268.9 °م", density_ar:"0.1786 غ/لتر", color_ar:"عديم اللون", electron_config_ar:"1s²", uses_ar:"بالونات، تبريد فائق"},
-  {Z:3,  sym:"Li", name:"Lithium",       name_ar:"ليثيوم",        mass:"6.94",    type:"Alkali Metal", type_ar:"فلز قلوي", state_ar:"صلب", melting_ar:"180.5 °م", boiling_ar:"1342 °م", density_ar:"534 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[He] 2s¹", uses_ar:"بطاريات، سبائك خفيفة"},
-  {Z:4,  sym:"Be", name:"Beryllium",     name_ar:"بيريليوم",      mass:"9.0122",  type:"Alkaline Earth Metal", type_ar:"فلز قلوي أرضي", state_ar:"صلب", melting_ar:"1287 °م", boiling_ar:"2471 °م", density_ar:"1850 كغ/م³", color_ar:"رمادي", electron_config_ar:"[He] 2s²", uses_ar:"سبائك للطائرات والصواريخ"},
-  {Z:5,  sym:"B",  name:"Boron",         name_ar:"بورون",         mass:"10.81",   type:"Metalloid", type_ar:"شبه فلز", state_ar:"صلب", melting_ar:"2076 °م", boiling_ar:"3927 °م", density_ar:"2080 كغ/م³", color_ar:"بني-أسود", electron_config_ar:"[He] 2s² 2p¹", uses_ar:"منظفات، زجاج البوروسيليكات"},
-  {Z:6,  sym:"C",  name:"Carbon",        name_ar:"كربون",         mass:"12.011",  type:"Nonmetal", type_ar:"لافلز", state_ar:"صلب", melting_ar:"3550 °م", boiling_ar:"4827 °م", density_ar:"2267 كغ/م³", color_ar:"أسود (غرافيت)", electron_config_ar:"[He] 2s² 2p²", uses_ar:"وقود أحفوري، ألماس، غرافيت"},
-  {Z:7,  sym:"N",  name:"Nitrogen",      name_ar:"نيتروجين",      mass:"14.007",  type:"Nonmetal", type_ar:"لافلز", state_ar:"غاز", melting_ar:"-210 °م", boiling_ar:"-195.8 °م", density_ar:"1.251 غ/لتر", color_ar:"عديم اللون", electron_config_ar:"[He] 2s² 2p³", uses_ar:"مكون رئيسي للهواء، صناعة الأسمدة"},
-  {Z:8,  sym:"O",  name:"Oxygen",        name_ar:"أكسجين",        mass:"15.999",  type:"Nonmetal", type_ar:"لافلز", state_ar:"غاز", melting_ar:"-218.8 °م", boiling_ar:"-183 °م", density_ar:"1.429 غ/لتر", color_ar:"عديم اللون", electron_config_ar:"[He] 2s² 2p⁴", uses_ar:"التنفس، الاحتراق"},
-  {Z:9,  sym:"F",  name:"Fluorine",      name_ar:"فلور",          mass:"18.998",  type:"Halogen", type_ar:"هالوجين", state_ar:"غاز", melting_ar:"-219.62 °م", boiling_ar:"-188.12 °م", density_ar:"1.696 غ/لتر", color_ar:"أصفر-بني فاتح", electron_config_ar:"[He] 2s² 2p⁵", uses_ar:"معجون الأسنان، التبريد"},
-  {Z:10, sym:"Ne", name:"Neon",          name_ar:"نيون",          mass:"20.180",  type:"Noble Gas", type_ar:"غاز نبيل", state_ar:"غاز", melting_ar:"-248.59 °م", boiling_ar:"-246.08 °م", density_ar:"0.8999 غ/لتر", color_ar:"عديم اللون", electron_config_ar:"[He] 2s² 2p⁶", uses_ar:"إضاءة النيون، الليزر"},
-  {Z:11, sym:"Na", name:"Sodium",        name_ar:"صوديوم",        mass:"22.990",  type:"Alkali Metal", type_ar:"فلز قلوي", state_ar:"صلب", melting_ar:"97.72 °م", boiling_ar:"882.9 °م", density_ar:"968 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Ne] 3s¹", uses_ar:"ملح الطعام، تبريد المفاعلات"},
-  {Z:12, sym:"Mg", name:"Magnesium",     name_ar:"ماغنسيوم",      mass:"24.305",  type:"Alkaline Earth Metal", type_ar:"فلز قلوي أرضي", state_ar:"صلب", melting_ar:"650 °م", boiling_ar:"1091 °م", density_ar:"1738 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Ne] 3s²", uses_ar:"سبائك للطائرات، ألعاب نارية"},
-  {Z:13, sym:"Al", name:"Aluminium",     name_ar:"ألومنيوم",      mass:"26.982",  type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"660.32 °م", boiling_ar:"2519 °م", density_ar:"2700 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Ne] 3s² 3p¹", uses_ar:"أدوات المطبخ، هياكل الطائرات"},
-  {Z:14, sym:"Si", name:"Silicon",       name_ar:"سيليكون",       mass:"28.085",  type:"Metalloid", type_ar:"شبه فلز", state_ar:"صلب", melting_ar:"1414 °م", boiling_ar:"3265 °م", density_ar:"2329 كغ/م³", color_ar:"رمادي غامق", electron_config_ar:"[Ne] 3s² 3p²", uses_ar:"إلكترونيات، زجاج، خزف"},
-  {Z:15, sym:"P",  name:"Phosphorus",    name_ar:"فسفور",         mass:"30.974",  type:"Nonmetal", type_ar:"لافلز", state_ar:"صلب", melting_ar:"44.1 °م", boiling_ar:"280.5 °م", density_ar:"1823 كغ/م³", color_ar:"أبيض، أحمر، أسود", electron_config_ar:"[Ne] 3s² 3p³", uses_ar:"أسمدة، أعواد ثقاب، منظفات"},
-  {Z:16, sym:"S",  name:"Sulfur",        name_ar:"كبريت",         mass:"32.06",   type:"Nonmetal", type_ar:"لافلز", state_ar:"صلب", melting_ar:"115.21 °م", boiling_ar:"444.6 °م", density_ar:"2070 كغ/م³", color_ar:"أصفر", electron_config_ar:"[Ne] 3s² 3p⁴", uses_ar:"حمض الكبريتيك، أسمدة، مبيدات حشرية"},
-  {Z:17, sym:"Cl", name:"Chlorine",      name_ar:"كلور",          mass:"35.45",   type:"Halogen", type_ar:"هالوجين", state_ar:"غاز", melting_ar:"-101.5 °م", boiling_ar:"-34.04 °م", density_ar:"3.214 غ/لتر", color_ar:"أخضر مصفر", electron_config_ar:"[Ne] 3s² 3p⁵", uses_ar:"تنقية المياه، مبيضات"},
-  {Z:18, sym:"Ar", name:"Argon",         name_ar:"أرغون",         mass:"39.948",  type:"Noble Gas", type_ar:"غاز نبيل", state_ar:"غاز", melting_ar:"-189.3 °م", boiling_ar:"-185.8 °م", density_ar:"1.784 غ/لتر", color_ar:"عديم اللون", electron_config_ar:"[Ne] 3s² 3p⁶", uses_ar:"إضاءة، لحام القوس الكهربائي"},
-  {Z:19, sym:"K",  name:"Potassium",     name_ar:"بوتاسيوم",      mass:"39.098",  type:"Alkali Metal", type_ar:"فلز قلوي", state_ar:"صلب", melting_ar:"63.5 °م", boiling_ar:"759 °م", density_ar:"856 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Ar] 4s¹", uses_ar:"أسمدة، متفجرات، مكون غذائي"},
-  {Z:20, sym:"Ca", name:"Calcium",       name_ar:"كالسيوم",       mass:"40.078",  type:"Alkaline Earth Metal", type_ar:"فلز قلوي أرضي", state_ar:"صلب", melting_ar:"842 °م", boiling_ar:"1484 °م", density_ar:"1550 كغ/م³", color_ar:"فضي", electron_config_ar:"[Ar] 4s²", uses_ar:"بناء العظام، الأسمنت، الجبس"},
-  {Z:21, sym:"Sc", name:"Scandium",      name_ar:"سكانديوم",      mass:"44.956",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1541 °م", boiling_ar:"2836 °م", density_ar:"2985 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Ar] 3d¹ 4s²", uses_ar:"سبائك للطائرات، مصابيح التفريغ"},
-  {Z:22, sym:"Ti", name:"Titanium",      name_ar:"تيتانيوم",      mass:"47.867",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1668 °م", boiling_ar:"3287 °م", density_ar:"4506 كغ/م³", color_ar:"فضي", electron_config_ar:"[Ar] 3d² 4s²", uses_ar:"هياكل الطائرات، مفاصل صناعية"},
-  {Z:23, sym:"V",  name:"Vanadium",      name_ar:"فاناديوم",      mass:"50.942",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1910 °م", boiling_ar:"3407 °م", density_ar:"6110 كغ/م³", color_ar:"فضي-رمادي", electron_config_ar:"[Ar] 3d³ 4s²", uses_ar:"سبائك الفولاذ، أدوات الجراحة"},
-  {Z:24, sym:"Cr", name:"Chromium",      name_ar:"كروم",          mass:"51.996",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1907 °م", boiling_ar:"2671 °م", density_ar:"7150 كغ/م³", color_ar:"فضي", electron_config_ar:"[Ar] 3d⁵ 4s¹", uses_ar:"طلاء، فولاذ مقاوم للصدأ، صبغات"},
-  {Z:25, sym:"Mn", name:"Manganese",     name_ar:"منجنيز",        mass:"54.938",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1246 °م", boiling_ar:"2061 °م", density_ar:"7440 كغ/م³", color_ar:"فضي-رمادي", electron_config_ar:"[Ar] 3d⁵ 4s²", uses_ar:"سبائك الصلب، بطاريات جافة"},
-  {Z:26, sym:"Fe", name:"Iron",          name_ar:"حديد",          mass:"55.845",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1538 °م", boiling_ar:"2862 °م", density_ar:"7874 كغ/م³", color_ar:"فضي-رمادي لامع", electron_config_ar:"[Ar] 3d⁶ 4s²", uses_ar:"هياكل بناء، سيارات، أدوات"},
-  {Z:27, sym:"Co", name:"Cobalt",        name_ar:"كوبالت",        mass:"58.933",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1495 °م", boiling_ar:"2927 °م", density_ar:"8900 كغ/م³", color_ar:"رمادي صلب", electron_config_ar:"[Ar] 3d⁷ 4s²", uses_ar:"بطاريات، سبائك فائقة، صبغات"},
-  {Z:28, sym:"Ni", name:"Nickel",        name_ar:"نيكل",          mass:"58.693",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1455 °م", boiling_ar:"2913 °م", density_ar:"8908 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Ar] 3d⁸ 4s²", uses_ar:"سبائك، عملات معدنية، بطاريات"},
-  {Z:29, sym:"Cu", name:"Copper",        name_ar:"نحاس",          mass:"63.546",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1084.6 °م", boiling_ar:"2560 °م", density_ar:"8960 كغ/م³", color_ar:"أحمر-برتقالي", electron_config_ar:"[Ar] 3d¹⁰ 4s¹", uses_ar:"أسلاك كهربائية، عملات، أنابيب"},
-  {Z:30, sym:"Zn", name:"Zinc",          name_ar:"زنك",           mass:"65.38",   type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"419.5 °م", boiling_ar:"907 °م", density_ar:"7140 كغ/م³", color_ar:"أزرق-أبيض لامع", electron_config_ar:"[Ar] 3d¹⁰ 4s²", uses_ar:"تغطية الحديد، بطاريات، سبائك"},
-  {Z:31, sym:"Ga", name:"Gallium",       name_ar:"غاليوم",        mass:"69.723",  type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"29.76 °م", boiling_ar:"2204 °م", density_ar:"5910 كغ/م³", color_ar:"فضي", electron_config_ar:"[Ar] 3d¹⁰ 4s² 4p¹", uses_ar:"أجهزة إلكترونية، سبائك منخفضة الذوبان"},
-  {Z:32, sym:"Ge", name:"Germanium",     name_ar:"جرمانيوم",      mass:"72.630",  type:"Metalloid", type_ar:"شبه فلز", state_ar:"صلب", melting_ar:"938.2 °م", boiling_ar:"2833 °م", density_ar:"5323 كغ/م³", color_ar:"رمادي-أبيض", electron_config_ar:"[Ar] 3d¹⁰ 4s² 4p²", uses_ar:"أشباه موصلات، ألياف بصرية، عدسات"},
-  {Z:33, sym:"As", name:"Arsenic",       name_ar:"زرنيخ",         mass:"74.922",  type:"Metalloid", type_ar:"شبه فلز", state_ar:"صلب", melting_ar:"817 °م", boiling_ar:"614 °م (تسامي)", density_ar:"5727 كغ/م³", color_ar:"رمادي لامع", electron_config_ar:"[Ar] 3d¹⁰ 4s² 4p³", uses_ar:"مبيدات حشرية، سبائك، أشباه موصلات"},
-  {Z:34, sym:"Se", name:"Selenium",      name_ar:"سيلينيوم",      mass:"78.971",  type:"Nonmetal", type_ar:"لافلز", state_ar:"صلب", melting_ar:"221 °م", boiling_ar:"685 °م", density_ar:"4810 كغ/م³", color_ar:"رمادي، أحمر، أسود", electron_config_ar:"[Ar] 3d¹⁰ 4s² 4p⁴", uses_ar:"زجاج أحمر، نسخ ضوئي، خلايا شمسية"},
-  {Z:35, sym:"Br", name:"Bromine",       name_ar:"بروم",          mass:"79.904",  type:"Halogen", type_ar:"هالوجين", state_ar:"سائل", melting_ar:"-7.2 °م", boiling_ar:"58.8 °م", density_ar:"3120 كغ/م³", color_ar:"أحمر-بني", electron_config_ar:"[Ar] 3d¹⁰ 4s² 4p⁵", uses_ar:"مثبطات اللهب، مطهرات، مبيدات حشرية"},
-  {Z:36, sym:"Kr", name:"Krypton",       name_ar:"كريبتون",       mass:"83.798",  type:"Noble Gas", type_ar:"غاز نبيل", state_ar:"غاز", melting_ar:"-157.36 °م", boiling_ar:"-153.22 °م", density_ar:"3.749 غ/لتر", color_ar:"عديم اللون", electron_config_ar:"[Ar] 3d¹⁰ 4s² 4p⁶", uses_ar:"مصابيح فلورسنت، ليزر"},
-  {Z:37, sym:"Rb", name:"Rubidium",      name_ar:"روبيديوم",      mass:"85.468",  type:"Alkali Metal", type_ar:"فلز قلوي", state_ar:"صلب", melting_ar:"39.31 °م", boiling_ar:"688 °م", density_ar:"1532 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 5s¹", uses_ar:"خلايا كهروضوئية، قنابل دخان"},
-  {Z:38, sym:"Sr", name:"Strontium",     name_ar:"سترونشيوم",     mass:"87.62",   type:"Alkaline Earth Metal", type_ar:"فلز قلوي أرضي", state_ar:"صلب", melting_ar:"777 °م", boiling_ar:"1382 °م", density_ar:"2640 كغ/م³", color_ar:"فضي-أصفر", electron_config_ar:"[Kr] 5s²", uses_ar:"ألعاب نارية، إشارات استغاثة"},
-  {Z:39, sym:"Y",  name:"Yttrium",       name_ar:"إتريوم",        mass:"88.906",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1522 °م", boiling_ar:"3338 °م", density_ar:"4472 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 4d¹ 5s²", uses_ar:"أجهزة ليزر، شاشات تلفزيون"},
-  {Z:40, sym:"Zr", name:"Zirconium",     name_ar:"زركونيوم",      mass:"91.224",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1855 °م", boiling_ar:"4409 °م", density_ar:"6520 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 4d² 5s²", uses_ar:"مفاعلات نووية، سبائك، سيراميك"},
-  {Z:41, sym:"Nb", name:"Niobium",       name_ar:"نيوبيوم",       mass:"92.906",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"2477 °م", boiling_ar:"4744 °م", density_ar:"8570 كغ/م³", color_ar:"رمادي-فضي", electron_config_ar:"[Kr] 4d⁴ 5s¹", uses_ar:"سبائك فائقة، أنابيب غاز، مغناطيس فائق"},
-  {Z:42, sym:"Mo", name:"Molybdenum",    name_ar:"موليبدينوم",    mass:"95.95",   type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"2623 °م", boiling_ar:"4639 °م", density_ar:"10280 كغ/م³", color_ar:"رمادي-فضي", electron_config_ar:"[Kr] 4d⁵ 5s¹", uses_ar:"سبائك فولاذ، أقطاب كهربائية، صبغات"},
-  {Z:43, sym:"Tc", name:"Technetium",    name_ar:"تكنيتيوم",      mass:"[98]",    type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"2157 °م", boiling_ar:"4265 °م", density_ar:"11500 كغ/م³", color_ar:"رمادي-فضي", electron_config_ar:"[Kr] 4d⁵ 5s²", uses_ar:"مادة مشعة، تطبيقات طبية (التصوير)"},
-  {Z:44, sym:"Ru", name:"Ruthenium",     name_ar:"روثينيوم",      mass:"101.07",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"2334 °م", boiling_ar:"4150 °م", density_ar:"12450 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 4d⁷ 5s¹", uses_ar:"سبائك بلاتينية، محفزات كيميائية"},
-  {Z:45, sym:"Rh", name:"Rhodium",       name_ar:"روديوم",        mass:"102.91",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1964 °م", boiling_ar:"3695 °م", density_ar:"12410 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 4d⁸ 5s¹", uses_ar:"محفزات السيارات، مجوهرات"},
-  {Z:46, sym:"Pd", name:"Palladium",     name_ar:"بالاديوم",      mass:"106.42",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1554.9 °م", boiling_ar:"2963 °م", density_ar:"12020 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 4d¹⁰", uses_ar:"مجوهرات، طب الأسنان، محفزات"},
-  {Z:47, sym:"Ag", name:"Silver",        name_ar:"فضة",           mass:"107.868", type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"961.78 °م", boiling_ar:"2162 °م", density_ar:"10490 كغ/م³", color_ar:"فضي-أبيض لامع", electron_config_ar:"[Kr] 4d¹⁰ 5s¹", uses_ar:"مجوهرات، عملات، تصوير فوتوغرافي"},
-  {Z:48, sym:"Cd", name:"Cadmium",       name_ar:"كادميوم",       mass:"112.41",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"321.07 °م", boiling_ar:"767 °م", density_ar:"8650 كغ/م³", color_ar:"أزرق-أبيض", electron_config_ar:"[Kr] 4d¹⁰ 5s²", uses_ar:"بطاريات، طلاء، صبغات"},
-  {Z:49, sym:"In", name:"Indium",        name_ar:"إنديوم",        mass:"114.818", type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"156.6 °م", boiling_ar:"2072 °م", density_ar:"7310 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 4d¹⁰ 5s² 5p¹", uses_ar:"شاشات، لحام، سبائك"},
-  {Z:50, sym:"Sn", name:"Tin",           name_ar:"قصدير",         mass:"118.71",  type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"231.93 °م", boiling_ar:"2602 °م", density_ar:"7310 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 4d¹⁰ 5s² 5p²", uses_ar:"تغليف الأغذية، لحام، برونز"},
-  {Z:51, sym:"Sb", name:"Antimony",      name_ar:"أنتيمون",       mass:"121.760", type:"Metalloid", type_ar:"شبه فلز", state_ar:"صلب", melting_ar:"630.63 °م", boiling_ar:"1587 °م", density_ar:"6697 كغ/م³", color_ar:"فضي لامع", electron_config_ar:"[Kr] 4d¹⁰ 5s² 5p³", uses_ar:"سبائك، مثبطات اللهب، أشباه موصلات"},
-  {Z:52, sym:"Te", name:"Tellurium",     name_ar:"تيلوريوم",      mass:"127.60",  type:"Metalloid", type_ar:"شبه فلز", state_ar:"صلب", melting_ar:"449.5 °م", boiling_ar:"988 °م", density_ar:"6240 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 4d¹⁰ 5s² 5p⁴", uses_ar:"سبائك، خلايا شمسية، صبغ السيراميك"},
-  {Z:53, sym:"I",  name:"Iodine",        name_ar:"يود",           mass:"126.90",  type:"Halogen", type_ar:"هالوجين", state_ar:"صلب", melting_ar:"113.7 °م", boiling_ar:"184.3 °م", density_ar:"4930 كغ/م³", color_ar:"أسود مزرق", electron_config_ar:"[Kr] 4d¹⁰ 5s² 5p⁵", uses_ar:"مطهر، علاج الغدة الدرقية، صبغات"},
-  {Z:54, sym:"Xe", name:"Xenon",         name_ar:"زينون",         mass:"131.293", type:"Noble Gas", type_ar:"غاز نبيل", state_ar:"غاز", melting_ar:"-111.75 °م", boiling_ar:"-108.12 °م", density_ar:"5.894 غ/لتر", color_ar:"عديم اللون", electron_config_ar:"[Kr] 4d¹⁰ 5s² 5p⁶", uses_ar:"إضاءة، تخدير، محركات الدفع الفضائية"},
-  {Z:55, sym:"Cs", name:"Cesium",        name_ar:"سيزيوم",        mass:"132.905", type:"Alkali Metal", type_ar:"فلز قلوي", state_ar:"صلب", melting_ar:"28.44 °م", boiling_ar:"671 °م", density_ar:"1930 كغ/م³", color_ar:"فضي-ذهبي", electron_config_ar:"[Xe] 6s¹", uses_ar:"ساعات ذرية، خلايا كهروضوئية"},
-  {Z:56, sym:"Ba", name:"Barium",        name_ar:"باريوم",        mass:"137.327", type:"Alkaline Earth Metal", type_ar:"فلز قلوي أرضي", state_ar:"صلب", melting_ar:"727 °م", boiling_ar:"1897 °م", density_ar:"3510 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 6s²", uses_ar:"ألعاب نارية، سبائك، مواد إلكترونية"},
-  {Z:57, sym:"La", name:"Lanthanum",     name_ar:"لانثانوم",      mass:"138.905", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"920 °م", boiling_ar:"3464 °م", density_ar:"6162 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 5d¹ 6s²", uses_ar:"عدسات الكاميرا، مصابيح القوس الكربوني"},
-  {Z:58, sym:"Ce", name:"Cerium",        name_ar:"سيريوم",        mass:"140.116", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"795 °م", boiling_ar:"3443 °م", density_ar:"6770 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f¹ 5d¹ 6s²", uses_ar:"محفزات السيارات، مصابيح الغاز"},
-  {Z:59, sym:"Pr", name:"Praseodymium",  name_ar:"براسيوديميوم",  mass:"140.908", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"935 °م", boiling_ar:"3520 °م", density_ar:"6770 كغ/م³", color_ar:"فضي-أصفر", electron_config_ar:"[Xe] 4f³ 6s²", uses_ar:"نظارات اللحام، مغناطيس دائم"},
-  {Z:60, sym:"Nd", name:"Neodymium",     name_ar:"نيوديميوم",     mass:"144.242", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1021 °م", boiling_ar:"3074 °م", density_ar:"7010 كغ/م³", color_ar:"فضي-أصفر", electron_config_ar:"[Xe] 4f⁴ 6s²", uses_ar:"مغناطيس، أجهزة ليزر، زجاج ملون"},
-  {Z:61, sym:"Pm", name:"Promethium",    name_ar:"بروميثيوم",     mass:"[145]",   type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1042 °م", boiling_ar:"3000 °م", density_ar:"7260 كغ/م³", color_ar:"فضي-أصفر", electron_config_ar:"[Xe] 4f⁵ 6s²", uses_ar:"مصادر طاقة محمولة، قياس السماكة"},
-  {Z:62, sym:"Sm", name:"Samarium",      name_ar:"ساماريوم",      mass:"150.36",  type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1072 °م", boiling_ar:"1794 °م", density_ar:"7520 كغ/م³", color_ar:"فضي-رمادي", electron_config_ar:"[Xe] 4f⁶ 6s²", uses_ar:"مغناطيس دائم، محفزات"},
-  {Z:63, sym:"Eu", name:"Europium",      name_ar:"يوروبيوم",      mass:"151.964", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"822 °م", boiling_ar:"1529 °م", density_ar:"5244 كغ/م³", color_ar:"فضي", electron_config_ar:"[Xe] 4f⁷ 6s²", uses_ar:"أجهزة ليزر، شاشات تلفزيون ملونة"},
-  {Z:64, sym:"Gd", name:"Gadolinium",    name_ar:"جادولينيوم",    mass:"157.25",  type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1313 °م", boiling_ar:"3273 °م", density_ar:"7901 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f⁷ 5d¹ 6s²", uses_ar:"تصوير بالرنين المغناطيسي (MRI)، مفاعلات نووية"},
-  {Z:65, sym:"Tb", name:"Terbium",       name_ar:"تيربيوم",       mass:"158.925", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1356 °م", boiling_ar:"3230 °م", density_ar:"8219 كغ/م³", color_ar:"فضي-رمادي", electron_config_ar:"[Xe] 4f⁹ 6s²", uses_ar:"شاشات فلورسنت، سبائك"},
-  {Z:66, sym:"Dy", name:"Dysprosium",    name_ar:"ديسبروسيوم",    mass:"162.500", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1412 °م", boiling_ar:"2567 °م", density_ar:"8550 كغ/م³", color_ar:"فضي", electron_config_ar:"[Xe] 4f¹⁰ 6s²", uses_ar:"مغناطيس دائم، مفاعلات نووية"},
-  {Z:67, sym:"Ho", name:"Holmium",       name_ar:"هولميوم",       mass:"164.930", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1474 °م", boiling_ar:"2700 °م", density_ar:"8795 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f¹¹ 6s²", uses_ar:"مغناطيس، ليزر"},
-  {Z:68, sym:"Er", name:"Erbium",        name_ar:"إربيوم",        mass:"167.259", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1529 °م", boiling_ar:"2868 °م", density_ar:"9066 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f¹² 6s²", uses_ar:"ألياف بصرية، أجهزة ليزر طبية"},
-  {Z:69, sym:"Tm", name:"Thulium",       name_ar:"ثوليوم",        mass:"168.934", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1545 °م", boiling_ar:"1950 °م", density_ar:"9320 كغ/م³", color_ar:"فضي-رمادي", electron_config_ar:"[Xe] 4f¹³ 6s²", uses_ar:"مصادر أشعة سينية محمولة، ليزر"},
-  {Z:70, sym:"Yb", name:"Ytterbium",     name_ar:"إتيربيوم",      mass:"173.045", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"819 °م", boiling_ar:"1196 °م", density_ar:"6965 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f¹⁴ 6s²", uses_ar:"مؤشر ضوئي، مفاعلات نووية"},
-  {Z:71, sym:"Lu", name:"Lutetium",      name_ar:"لوتيتيوم",      mass:"174.967", type:"Lanthanide", type_ar:"لانثانيد", state_ar:"صلب", melting_ar:"1663 °م", boiling_ar:"3402 °م", density_ar:"9840 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f¹⁴ 5d¹ 6s²", uses_ar:"محفزات، علاج الأورام"},
-  {Z:72, sym:"Hf", name:"Hafnium",       name_ar:"هافنيوم",       mass:"178.49",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"2233 °م", boiling_ar:"4603 °م", density_ar:"13310 كغ/م³", color_ar:"فضي", electron_config_ar:"[Xe] 4f¹⁴ 5d² 6s²", uses_ar:"قضبان تحكم في المفاعلات النووية، سبائك"},
-  {Z:73, sym:"Ta", name:"Tantalum",      name_ar:"تانتالوم",      mass:"180.948", type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"3017 °م", boiling_ar:"5458 °م", density_ar:"16690 كغ/م³", color_ar:"أزرق-رمادي", electron_config_ar:"[Xe] 4f¹⁴ 5d³ 6s²", uses_ar:"أدوات جراحية، محركات الطائرات النفاثة"},
-  {Z:74, sym:"W",  name:"Tungsten",      name_ar:"تنجستن",        mass:"183.84",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"3422 °م", boiling_ar:"5930 °م", density_ar:"19300 كغ/م³", color_ar:"رمادي-أبيض", electron_config_ar:"[Xe] 4f¹⁴ 5d⁴ 6s²", uses_ar:"خيوط المصابيح الكهربائية، سبائك الفولاذ"},
-  {Z:75, sym:"Re", name:"Rhenium",       name_ar:"رينيوم",        mass:"186.207", type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"3186 °م", boiling_ar:"5596 °م", density_ar:"21020 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f¹⁴ 5d⁵ 6s²", uses_ar:"محركات الطائرات النفاثة، سبائك فائقة"},
-  {Z:76, sym:"Os", name:"Osmium",        name_ar:"أوزميوم",       mass:"190.23",  type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"3033 °م", boiling_ar:"5012 °م", density_ar:"22590 كغ/م³", color_ar:"أزرق-رمادي", electron_config_ar:"[Xe] 4f¹⁴ 5d⁶ 6s²", uses_ar:"أقلام حبر، سبائك صلبة، أجهزة قياس"},
-  {Z:77, sym:"Ir", name:"Iridium",       name_ar:"إيريديوم",      mass:"192.217", type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"2446 °م", boiling_ar:"4428 °م", density_ar:"22560 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f¹⁴ 5d⁷ 6s²", uses_ar:"سبائك، أقلام حبر، مقاييس الوزن"},
-  {Z:78, sym:"Pt", name:"Platinum",      name_ar:"بلاتين",        mass:"195.084", type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1768.3 °م", boiling_ar:"3825 °م", density_ar:"21450 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f¹⁴ 5d⁹ 6s¹", uses_ar:"مجوهرات، محفزات السيارات، مختبرات"},
-  {Z:79, sym:"Au", name:"Gold",          name_ar:"ذهب",           mass:"196.967", type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"1064.18 °م", boiling_ar:"2856 °م", density_ar:"19300 كغ/م³", color_ar:"أصفر", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s¹", uses_ar:"مجوهرات، عملات، إلكترونيات"},
-  {Z:80, sym:"Hg", name:"Mercury",       name_ar:"زئبق",          mass:"200.592", type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"سائل", melting_ar:"-38.83 °م", boiling_ar:"356.73 °م", density_ar:"13534 كغ/م³", color_ar:"فضي", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s²", uses_ar:"مقياس حرارة، بارومتر"},
-  {Z:81, sym:"Tl", name:"Thallium",      name_ar:"ثاليوم",        mass:"204.38",  type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"304 °م", boiling_ar:"1473 °م", density_ar:"11850 كغ/م³", color_ar:"رمادي-أزرق", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹", uses_ar:"خلايا كهروضوئية، أجهزة كشف الأشعة تحت الحمراء"},
-  {Z:82, sym:"Pb", name:"Lead",          name_ar:"رصاص",          mass:"207.2",   type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"327.46 °م", boiling_ar:"1749 °م", density_ar:"11340 كغ/م³", color_ar:"أزرق-أبيض", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²", uses_ar:"بطاريات، حماية من الإشعاع، سبائك"},
-  {Z:83, sym:"Bi", name:"Bismuth",       name_ar:"بزموت",         mass:"208.980", type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"271.4 °م", boiling_ar:"1564 °م", density_ar:"9780 كغ/م³", color_ar:"وردي-فضي", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³", uses_ar:"مستحضرات تجميل، أدوية، سبائك منخفضة الذوبان"},
-  {Z:84, sym:"Po", name:"Polonium",      name_ar:"بولونيوم",      mass:"[209]",   type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"254 °م", boiling_ar:"962 °م", density_ar:"9320 كغ/م³", color_ar:"فضي-أسود", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴", uses_ar:"مصادر حرارة نووية، مضاد للكهرباء الساكنة"},
-  {Z:85, sym:"At", name:"Astatine",      name_ar:"أستاتين",       mass:"[210]",   type:"Halogen", type_ar:"هالوجين", state_ar:"صلب", melting_ar:"302 °م", boiling_ar:"337 °م", density_ar:"غير معروفة", color_ar:"أسود", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵", uses_ar:"علاج السرطان (طب نووي)"},
-  {Z:86, sym:"Rn", name:"Radon",         name_ar:"رادون",         mass:"[222]",   type:"Noble Gas", type_ar:"غاز نبيل", state_ar:"غاز", melting_ar:"-71 °م", boiling_ar:"-61.7 °م", density_ar:"9.73 غ/لتر", color_ar:"عديم اللون", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶", uses_ar:"علاج السرطان، أبحاث الزلازل"},
-  {Z:87, sym:"Fr", name:"Francium",      name_ar:"فرانسيوم",      mass:"[223]",   type:"Alkali Metal", type_ar:"فلز قلوي", state_ar:"صلب", melting_ar:"27 °م", boiling_ar:"677 °م", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 7s¹", uses_ar:"لا توجد استخدامات معروفة بسبب ندرته وقصر عمره"},
-  {Z:88, sym:"Ra", name:"Radium",        name_ar:"راديوم",        mass:"226",     type:"Alkaline Earth Metal", type_ar:"فلز قلوي أرضي", state_ar:"صلب", melting_ar:"700 °م", boiling_ar:"1737 °م", density_ar:"5500 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Rn] 7s²", uses_ar:"دهانات مضيئة (قديمًا)، علاج السرطان (قديمًا)"},
-  {Z:89, sym:"Ac", name:"Actinium",      name_ar:"أكتينيوم",      mass:"227",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"1050 °م", boiling_ar:"3200 °م", density_ar:"10070 كغ/م³", color_ar:"فضي", electron_config_ar:"[Rn] 6d¹ 7s²", uses_ar:"مصادر نيوترونات، تطبيقات طبية (تجريبي)"},
-  {Z:90, sym:"Th", name:"Thorium",       name_ar:"ثوريوم",        mass:"232.038", type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"1750 °م", boiling_ar:"4788 °م", density_ar:"11724 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Rn] 6d² 7s²", uses_ar:"مفاعلات نووية، زجاج عالي الجودة، مصابيح غاز"},
-  {Z:91, sym:"Pa", name:"Protactinium",  name_ar:"بروتاكتينيوم",  mass:"231.036", type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"1568 °م", boiling_ar:"4027 °م", density_ar:"15370 كغ/م³", color_ar:"فضي-رمادي", electron_config_ar:"[Rn] 5f² 6d¹ 7s²", uses_ar:"أبحاث علمية (مادة شديدة السُمية)"},
-  {Z:92, sym:"U",  name:"Uranium",       name_ar:"يورانيوم",      mass:"238.029", type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"1132.3 °م", boiling_ar:"4131 °م", density_ar:"19050 كغ/م³", color_ar:"فضي-رمادي", electron_config_ar:"[Rn] 5f³ 6d¹ 7s²", uses_ar:"وقود نووي، أسلحة نووية، تصوير بالأشعة السينية"},
-  {Z:93, sym:"Np", name:"Neptunium",     name_ar:"نبتونيوم",      mass:"237",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"639 °م", boiling_ar:"4174 °م", density_ar:"20450 كغ/م³", color_ar:"فضي", electron_config_ar:"[Rn] 5f⁴ 6d¹ 7s²", uses_ar:"مستشعرات نيوترونات، مكونات عسكرية"},
-  {Z:94, sym:"Pu", name:"Plutonium",     name_ar:"بلوتونيوم",     mass:"244",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"639.4 °م", boiling_ar:"3228 °م", density_ar:"19816 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Rn] 5f⁶ 7s²", uses_ar:"أسلحة نووية، وقود نووي"},
-  {Z:95, sym:"Am", name:"Americium",     name_ar:"أميريسيوم",     mass:"243",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"1176 °م", boiling_ar:"2607 °م", density_ar:"13670 كغ/م³", color_ar:"فضي-أبيض", electron_config_ar:"[Rn] 5f⁷ 7s²", uses_ar:"كاشف دخان، مصادر إشعاع للبحث"},
-  {Z:96, sym:"Cm", name:"Curium",        name_ar:"كوريوم",        mass:"247",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"1340 °م", boiling_ar:"3100 °م", density_ar:"13510 كغ/م³", color_ar:"فضي", electron_config_ar:"[Rn] 5f⁷ 6d¹ 7s²", uses_ar:"مصدر للطاقة الحرارية في المركبات الفضائية"},
-  {Z:97, sym:"Bk", name:"Berkelium",     name_ar:"بركليوم",       mass:"247",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"986 °م", boiling_ar:"2627 °م", density_ar:"14780 كغ/م³", color_ar:"فضي", electron_config_ar:"[Rn] 5f⁹ 7s²", uses_ar:"لا توجد استخدامات عملية معروفة"},
-  {Z:98, sym:"Cf", name:"Californium",   name_ar:"كاليفورنيوم",   mass:"251",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"900 °م", boiling_ar:"1470 °م", density_ar:"15100 كغ/م³", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁰ 7s²", uses_ar:"مصادر نيوترونات، أبحاث علمية"},
-  {Z:99, sym:"Es", name:"Einsteinium",   name_ar:"أينشتاينيوم",   mass:"252",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"860 °م", boiling_ar:"996 °م", density_ar:"8840 كغ/م³", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹¹ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:100,sym:"Fm", name:"Fermium",       name_ar:"فيرميوم",       mass:"257",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"1527 °م", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹² 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:101,sym:"Md", name:"Mendelevium",   name_ar:"مندليفيوم",     mass:"258",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"827 °م", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹³ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:102,sym:"No", name:"Nobelium",      name_ar:"نوبليوم",       mass:"259",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"827 °م", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:103,sym:"Lr", name:"Lawrencium",    name_ar:"لورنسيوم",      mass:"266",     type:"Actinide", type_ar:"أكتينيد", state_ar:"صلب", melting_ar:"1627 °م", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:104,sym:"Rf", name:"Rutherfordium", name_ar:"روذرفورديوم",   mass:"267",     type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d² 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:105,sym:"Db", name:"Dubnium",       name_ar:"دوبنيوم",       mass:"268",     type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d³ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:106,sym:"Sg", name:"Seaborgium",    name_ar:"سيبورجيوم",     mass:"269",     type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁴ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:107,sym:"Bh", name:"Bohrium",       name_ar:"بوريوم",        mass:"270",     type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁵ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:108,sym:"Hs", name:"Hassium",       name_ar:"هاسيوم",        mass:"269",     type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁶ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:109,sym:"Mt", name:"Meitnerium",    name_ar:"مايتنريوم",     mass:"278",     type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁷ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:110,sym:"Ds", name:"Darmstadtium",  name_ar:"دارمشتادتيوم",  mass:"281",     type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁸ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:111,sym:"Rg", name:"Roentgenium",   name_ar:"رونتجينيوم",    mass:"282",     type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁹ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:112,sym:"Cn", name:"Copernicium",   name_ar:"كوبرنيسيوم",    mass:"285",     type:"Transition Metal", type_ar:"فلز انتقالي", state_ar:"غاز", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:113,sym:"Nh", name:"Nihonium",      name_ar:"نيهونيوم",      mass:"286",     type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"430 °م", boiling_ar:"1100 °م", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹", uses_ar:"أبحاث علمية بحتة"},
-  {Z:114,sym:"Fl", name:"Flerovium",     name_ar:"فليروفيوم",     mass:"289",     type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p²", uses_ar:"أبحاث علمية بحتة"},
-  {Z:115,sym:"Mc", name:"Moscovium",     name_ar:"موسكوفيوم",     mass:"290",     type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"400 °م", boiling_ar:"1100 °م", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³", uses_ar:"أبحاث علمية بحتة"},
-  {Z:116,sym:"Lv", name:"Livermorium",   name_ar:"ليفرموريوم",    mass:"293",     type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴", uses_ar:"أبحاث علمية بحتة"},
-  {Z:117,sym:"Ts", name:"Tennessine",    name_ar:"تينيسين",       mass:"294",     type:"Halogen", type_ar:"هالوجين", state_ar:"صلب", melting_ar:"350 °م", boiling_ar:"550 °م", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵", uses_ar:"أبحاث علمية بحتة"},
-  {Z:118,sym:"Og", name:"Oganesson",     name_ar:"أوغانيسون",     mass:"294",     type:"Noble Gas", type_ar:"غاز نبيل", state_ar:"غاز", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶", uses_ar:"أبحاث علمية بحتة"},
-];
-
-
-/* خريطة سريعة للبحث بالرمز */
-const MAP = Object.fromEntries(ELEMENTS.map(e => [e.sym, e]));
-/* مصفوفات التخطيط حسب الصفوف (18 عمود) */
-const PERIOD_ROWS = [
-  ["H", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "He"],
-  ["Li","Be","","","","","","","","","","","B","C","N","O","F","Ne"],
-  ["Na","Mg","","","","","","","","","","","Al","Si","P","S","Cl","Ar"],
-  ["K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr"],
-  ["Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I","Xe"],
-  ["Cs","Ba","La","Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg","Tl","Pb","Bi","Po","At","Rn"],
-  ["Fr","Ra","Ac","Rf","Db","Sg","Bh","Hs","Mt","Ds","Rg","Cn","Nh","Fl","Mc","Lv","Ts","Og"],
-];
-/* صفوف F-block */
-const LANTHANIDES = ["La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu"];
-const ACTINIDES    = ["Ac","Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No","Lr"];
-
-
-
-
-/* بناء خلية عنصر */
-function createElementCell(sym){
-  if(!sym){
-    const sp = document.createElement("div");
-    sp.className = "spacer";
-    return sp;
-  }
-
-  const data = MAP[sym];
-  const el = document.createElement("div");
-  el.className = "element";
-
-  // ✅ الخصائص المطلوبة لربط الألوان
-  el.dataset.symbol = data.sym;
-  el.dataset.type = data.type;
-  el.dataset.typeAr = data.type_ar;
-  el.dataset.group = formatGroup(data.type); // ← الزقة السحرية
-
-  // ✅ محتوى العنصر
-  el.innerHTML = `
-    <div class="element-content">
-        <div class="atomic-number">${data.Z}</div>
-        <div class="symbol-large">${data.sym}</div>
-        <div class="arabic-name">${data.name_ar}</div>
-    </div>
-  `;
-
-  // ✅ تفعيل البطاقة عند الضغط
-  el.addEventListener("click", () => selectElement(data, el));
-
-  return el;
-}
-
-/* تحويل النوع الإنجليزي إلى اسم مجموعة متوافق مع CSS */
-function formatGroup(type) {
-  return type.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z\-]/g, "");
-}
-
-
-
-
-
-/* تعبئة الجدول الرئيسي */
-function buildMainTable(){
-  const root = document.getElementById("main-table");
-  root.style.direction = "ltr"; // ✅ تعديل الاتجاه لحل مشكلة الانعكاس
-  PERIOD_ROWS.forEach(row => {
-    const full = [...row];
-    while(full.length < 18) full.push("");
-    full.forEach(sym => root.appendChild(createElementCell(sym)));
-  });
-}
-
-/* تعبئة f-block */
-function buildFBlock(){
-  const lan = document.getElementById("lanth-table");
-  const act = document.getElementById("act-table");
-
-  lan.style.direction = "ltr"; // ✅ تعديل الاتجاه
-  act.style.direction = "ltr"; // ✅ تعديل الاتجاه
-
-  const leadSpacers = 3;
-
-  for(let i=0;i<leadSpacers;i++) lan.appendChild(createElementCell(""));
-  LANTHANIDES.forEach(sym => lan.appendChild(createElementCell(sym)));
-  while(lan.children.length < 18) lan.appendChild(createElementCell(""));
-
-  for(let i=0;i<leadSpacers;i++) act.appendChild(createElementCell(""));
-  ACTINIDES.forEach(sym => act.appendChild(createElementCell(sym)));
-  while(act.children.length < 18) act.appendChild(createElementCell(""));
-}
-
-/* تحديث التفاصيل */
-let lastActive = null;
-function selectElement(data, el){
-  if(lastActive){ lastActive.classList.remove("active"); }
-  el.classList.add("active"); lastActive = el;
-
-  document.getElementById("d-symbol").textContent = data.sym;
-  document.getElementById("d-number").textContent = data.Z;
-  document.getElementById("d-mass").textContent = data.mass;
-  document.getElementById("d-name").textContent = data.name_ar;
-  document.getElementById("d-type").textContent = data.type_ar;
-  
-  // **هذه هي التعديلات الجديدة لتعبئة كل الحقول**
-  document.getElementById("d-state").textContent = data.state_ar;
-  document.getElementById("d-mp").textContent = data.melting_ar;
-  document.getElementById("d-bp").textContent = data.boiling_ar;
-  document.getElementById("d-density").textContent = data.density_ar;
-  document.getElementById("d-color").textContent = data.color_ar;
-  document.getElementById("d-electrons").textContent = data.electron_config_ar;
-  document.getElementById("d-uses").textContent = data.uses_ar;
-
-  const equationInput = document.getElementById('equation-input');
-  insertHtmlAtCursor(equationInput, data.sym);
-}
- 
-/* تشغيل */
-buildMainTable();
-buildFBlock();
-
-const firstCell = document.querySelector('.element[data-symbol="H"]');
-if (firstCell) firstCell.click();
-
-const balanceBtn = document.getElementById("balance-btn");
-const equationInput = document.getElementById("equation-input");
-const resultArea = document.getElementById("balanced-equation");
-
-if (balanceBtn) {
-  balanceBtn.addEventListener('click', () => {
-    const equationText = equationInput.innerText;
-    const result = balanceEquation(equationText);
-    resultArea.textContent = result;
-    if (result.startsWith("صيغة")) alert(result);
-  });
-}
-
-/* تأثير اللمس على الموبايل */
-document.querySelectorAll('.element').forEach(el => {
-  el.addEventListener('touchstart', () => {
-    document.querySelectorAll('.element.active')
-      .forEach(activeEl => activeEl.classList.remove('active'));
-    el.classList.add('active');
-  });
-});
-
-
 
 
 /* ============================================================
-   1. وظيفة السحب (Draggable) - نسخة محسنة بدون أخطاء
+   1. مصنع الخلايا وبناء الجدول الدوري (Logic من كودك الأصلي)
    ============================================================ */
-   
-   
-   /* -------- كود السيطرة الشاملة على البطاقة -------- */
 
-function makeDraggable(el) {
-  let isDragging = false;
-  let offsetX = 0, offsetY = 0;
-
-  // رأس البطاقة هو المكان المخصص للسحب فقط (عشان المستخدم يعرف يدوس على الزراير جوه)
-  const header = el.querySelector('.card-header') || el;
-  header.style.cursor = "move";
-
-  header.addEventListener("mousedown", startDrag);
-  header.addEventListener("touchstart", startDrag, { passive: false });
-
-  function startDrag(e) {
-    if (e.target.closest('button, input')) return; // منع السحب عند الضغط على أزرار
-    
-    isDragging = true;
-    const rect = el.getBoundingClientRect();
-    const clientX = e.clientX || e.touches[0].clientX;
-    const clientY = e.clientY || e.touches[0].clientY;
-
-    offsetX = clientX - rect.left;
-    offsetY = clientY - rect.top;
-
-    el.style.transition = "none"; 
-    el.style.zIndex = "9999"; // رفع البطاقة فوق أي عنصر آخر أثناء السحب
-
-    document.addEventListener("mousemove", drag);
-    document.addEventListener("mouseup", stopDrag);
-    document.addEventListener("touchmove", drag, { passive: false });
-    document.addEventListener("touchend", stopDrag);
-  }
-
-  function drag(e) {
-    if (!isDragging) return;
-    const clientX = e.clientX || e.touches[0].clientX;
-    const clientY = e.clientY || e.touches[0].clientY;
-
-    let x = clientX - offsetX;
-    let y = clientY - offsetY;
-
-    // الحفاظ على البطاقة داخل حدود المتصفح
-    x = Math.max(0, Math.min(x, window.innerWidth - el.offsetWidth));
-    y = Math.max(0, Math.min(y, window.innerHeight - el.offsetHeight));
-
-    el.style.left = `${x}px`;
-    el.style.top = `${y}px`;
-  }
-
-  function stopDrag() {
-    isDragging = false;
-    el.style.transition = "border-color 0.4s, box-shadow 0.4s, transform 0.2s";
-    document.removeEventListener("mousemove", drag);
-    document.removeEventListener("mouseup", stopDrag);
-    document.removeEventListener("touchmove", drag);
-    document.removeEventListener("touchend", stopDrag);
-  }
+function getGroupClass(type_ar) {
+    if (!type_ar) return "transition";
+    if (type_ar.includes("لانتانيد")) return "lanthanide"; 
+    if (type_ar.includes("أكتينيد")) return "actinide";    
+    if (type_ar.includes("غاز خامل") || type_ar.includes("نبيل")) return "noble";      
+    if (type_ar.includes("هالوجين") || type_ar.includes("شبه فلز") || type_ar.includes("لا فلز")) return "yellow-group"; 
+    return "transition"; 
 }
 
-/* -------- تلوين البطاقة وتحديث محتواها بشكل مكثف -------- */
+function createElementCell(sym) {
+    var div = document.createElement("div");
+    if (!sym) {
+        div.className = "element empty";
+        div.style.visibility = "hidden";
+        return div;
+    }
 
-/* تحديث دالة اختيار العنصر لملء الصفين */
+    // القراءة من MAP (الموجودة في database.js)
+    var data = (typeof MAP !== 'undefined') ? MAP[sym] : null;
+    if (!data) return div;
+
+    var gClass = getGroupClass(data.type_ar);
+    div.className = "element " + gClass;
+    div.dataset.symbol = sym;
+    
+    div.style.borderColor = "var(--color-" + gClass + ")";
+    div.style.color = "var(--color-" + gClass + ")";
+
+    div.innerHTML = 
+        '<div class="element-content">' +
+            '<div class="atomic-number">' + data.Z + '</div>' +
+            '<div class="symbol-large">' + data.sym + '</div>' +
+            '<div class="arabic-name">' + data.name_ar + '</div>' +
+        '</div>';
+    
+    div.onclick = function() { selectElement(data, div); };
+    return div;
+}
+
+function buildCompleteSystem() {
+    var main = document.getElementById("main-table");
+    var lan = document.getElementById("lanth-table");
+    var act = document.getElementById("act-table");
+
+    if (main && typeof PERIOD_ROWS !== 'undefined') {
+        main.innerHTML = "";
+        main.style.display = "grid";
+        main.style.gridTemplateColumns = "repeat(18, 1fr)";
+        main.style.direction = "ltr"; 
+        
+        // استخدام flat يدوي لضمان العمل على المتصفحات القديمة
+        var flatRows = [].concat.apply([], PERIOD_ROWS);
+        flatRows.forEach(function(sym) { main.appendChild(createElementCell(sym)); });
+    }
+
+    // بناء سلاسل اللانثانيدات والأكتينيدات
+    if (lan && typeof LANTHANIDES !== 'undefined') {
+        lan.innerHTML = "";
+        for(var i=0; i<2; i++) lan.appendChild(createElementCell("")); 
+        LANTHANIDES.forEach(function(sym) { lan.appendChild(createElementCell(sym)); });
+    }
+
+    if (act && typeof ACTINIDES !== 'undefined') {
+        act.innerHTML = "";
+        for(var i=0; i<2; i++) act.appendChild(createElementCell(""));
+        ACTINIDES.forEach(function(sym) { act.appendChild(createElementCell(sym)); });
+    }
+
+    // اختيار الهيدروجين تلقائياً بعد التحميل
+    setTimeout(function() {
+        var hCell = document.querySelector('.element[data-symbol="H"]');
+        if (hCell) hCell.click();
+    }, 100);
+}
+
 function selectElement(data, el) {
-    // 1. تحديث الكلاس النشط في الجدول
     if (window.lastActive) window.lastActive.classList.remove("active");
     el.classList.add("active");
     window.lastActive = el;
 
-    // 2. تلوين البطاقة وتحديث الهالة (Glow)
-    const neonColor = getComputedStyle(el).getPropertyValue('--neon').trim();
-    const detailsCard = document.querySelector(".details-card");
+    var neonColor = getComputedStyle(el).borderColor;
+    var detailsCard = document.querySelector(".details-card");
+    
     if (detailsCard) {
         detailsCard.style.borderColor = neonColor;
-        detailsCard.style.boxShadow = `0 0 30px ${neonColor}, inset 0 0 15px ${neonColor}33`;
+        detailsCard.style.boxShadow = "0 0 25px " + neonColor;
     }
 
-    // 3. توزيع البيانات على القالب الجديد (تأكد من وجود هذه الـ IDs في الـ HTML)
-    const updates = {
-        'd-symbol': data.sym,
-        'd-number': data.Z,
-        'd-mass': data.mass,
-        'd-name': data.name_ar,
-        'd-type': data.type_ar,
-        'd-state': data.state_ar,
-        'd-mp': data.melting_ar,
-        'd-bp': data.boiling_ar,
-        'd-density': data.density_ar,
-        'd-color': data.color_ar,
-        'd-electrons': data.electron_config_ar,
-        'd-uses': data.uses_ar
+    var fields = {
+        'd-symbol': data.sym, 'd-number': data.Z, 'd-mass': data.mass,
+        'd-name': data.name_ar, 'd-type': data.type_ar, 'd-state': data.state_ar,
+        'd-mp': data.melting_ar, 'd-bp': data.boiling_ar, 'd-density': data.density_ar,
+        'd-electrons': data.electron_config_ar, 'd-uses': data.uses_ar
     };
 
-    for (const [id, value] of Object.entries(updates)) {
-        const field = document.getElementById(id);
-        if (field) field.textContent = value || "غير معروف";
+    for (var id in fields) {
+        var dom = document.getElementById(id);
+        if (dom) dom.textContent = (fields[id] && fields[id] !== "undefined") ? fields[id] : "—";
+    }
+}
+
+/* ============================================================
+   2. منطق المعمل الكيميائي (الربط مع CHEMISTRY_DATABASE)
+   ============================================================ */
+
+var GASES = ["H", "O", "N", "Cl", "Br"];
+
+function getMolecularFormula(sym) {
+    return GASES.indexOf(sym) !== -1 ? sym + "2" : sym;
+}
+
+function processReaction() { runLogic('react'); }
+function processHeat() { runLogic('heat'); }
+function processRedox() { runLogic('redox'); }
+
+function runLogic(mode) {
+    var s1 = document.getElementById('slot-1').value;
+    var s2 = document.getElementById('slot-2').value;
+    var report = document.getElementById('lab-report');
+
+    if (!s1 && mode !== 'heat') return;
+
+    var res = null;
+    var r1 = getMolecularFormula(s1);
+    var r2 = getMolecularFormula(s2);
+    var query = [r1, r2].sort().filter(function(x) { return x; }).join('+');
+
+    // التأكد من وجود قاعدة البيانات قبل البحث
+    if (typeof CHEMISTRY_DATABASE !== 'undefined') {
+        if (mode === 'react') res = CHEMISTRY_DATABASE.specialReactions[query];
+        if (mode === 'heat') res = CHEMISTRY_DATABASE.heatLibrary[s1] || CHEMISTRY_DATABASE.heatLibrary[s2];
+        if (mode === 'redox') res = CHEMISTRY_DATABASE.redoxLibrary[query] || CHEMISTRY_DATABASE.redoxLibrary[[r2, r1].sort().join('+')];
+    }
+
+    renderLabResult(res, mode, report);
+}
+
+
+
+
+// 1. وظيفة عرض نتائج المعمل (التفاعلات)
+
+
+function renderLabResult(res, type, container) {
+    if (res) {
+        // تحديد لون السمة بناءً على نوع العملية
+        var themeColor = (type === 'heat') ? "#e67e22" : (type === 'redox' ? "#9b59b6" : "#27ae60");
+        
+        // نظام الألوان البصري (كشف الحالة)
+        var bgColor = "#ffffff"; // افتراضي أبيض
+        var textColor = "#333";
+
+        if (res.note.includes("بني محمر")) bgColor = "#fdebd0"; 
+        if (res.note.includes("أزرق")) bgColor = "#ebf5fb";
+        if (res.note.includes("أخضر")) bgColor = "#e9f7ef";
+        if (res.note.includes("أصفر")) bgColor = "#fef9e7";
+        if (res.note.includes("أسود")) { bgColor = "#2c3e50"; textColor = "#fff"; }
+
+        container.innerHTML = 
+            '<div class="res-box ' + type + '" style="padding:25px; background:' + bgColor + '; color:' + textColor + '; border-radius:15px; text-align:right; border-right: 10px solid ' + themeColor + '; box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: all 0.5s ease;">' +
+                '<div class="badge" style="background:' + themeColor + '; color:white; padding:5px 15px; border-radius:20px; display:inline-block; font-weight:bold; margin-bottom:15px;">✨ نتيجة المختبر</div>' +
+                '<h2 style="font-size:2.5rem; margin:10px 0; font-family: Consolas, monospace; direction: ltr; text-align: center; letter-spacing: 2px;">' + res.full + ' &rarr; ' + res.result + '</h2>' +
+                '<div style="height:2px; background:rgba(0,0,0,0.05); margin:15px 0;"></div>' +
+                '<p style="font-size:1.3rem; line-height:1.6;"><strong>📝 الملاحظة المخبرية:</strong> ' + res.note + '</p>' +
+            '</div>';
+            
+        // إضافة تأثير اهتزاز خفيف عند ظهور النتيجة
+        container.style.animation = "none";
+        setTimeout(() => { container.style.animation = "shake 0.5s ease"; }, 10);
+    } else {
+        container.innerHTML = '<div class="res-box error" style="background:#fff3f3; color:#c0392b; padding:20px; border-radius:12px; border:2px dashed #c0392b; text-align:right; font-weight:bold;">⚠️ لم يتم تسجيل هذا التفاعل في قاعدة بياناتنا بعد. ابحث عن تفاعل آخر!</div>';
     }
 }
 
 
 
-const chemistryEngine = {
-    heat: {
-        "HgO": { full: "2HgO", result: "2Hg + O2 ↑", note: "انحلال أكسيد الزئبق الأحمر لزئبق فضي وأكسجين." },
-        "Cu(OH)2": { full: "Cu(OH)2", result: "CuO + H2O ↑", note: "انحلال هيدروكسيد النحاس الأزرق لأكسيد أسود وبخار ماء." },
-        "CuCO3": { full: "CuCO3", result: "CuO + CO2 ↑", note: "انحلال كربونات النحاس الخضراء لأكسيد أسود وثاني أكسيد كربون." },
-        "CuSO4": { full: "CuSO4", result: "CuO + SO3 ↑", note: "انحلال كبريتات النحاس الزرقاء لأكسيد أسود وثالث أكسيد كبريت." },
-        "NaNO3": { full: "2NaNO3", result: "2NaNO2 + O2 ↑", note: "نترات صوديوم بيضاء لنيتريت صوديوم أبيض مصفر." },
-        "NH4CNO": { full: "NH4CNO", result: "NH2CONH2", note: "تجربة فولر: تحضير اليوريا (عضوية) من مادة غير عضوية." },
-        "FeSO4": { full: "2FeSO4", result: "Fe2O3 + SO2 ↑ + SO3 ↑", note: "انحلال كبريتات الحديد II لأكسيد حديد III وأكاسيد كبريت." }
-    },
-    react: {
-        "H2+O2": { full: "2H2 + O2", result: "2H2O", note: "تكوين الماء (يشتعل بفرقعة)." },
-        "Na+H2O": { full: "2Na + 2H2O", result: "2NaOH + H2 ↑", note: "تفاعل الصوديوم العنيف مع الماء." },
-        "NaOH+HCl": { full: "NaOH + HCl", result: "NaCl + H2O", note: "تفاعل تعادل (حمض + قلوي = ملح + ماء)." },
-        "AgNO3+NaCl": { full: "AgNO3 + NaCl", result: "NaNO3 + AgCl ↓", note: "تكون راسب أبيض من كلوريد الفضة لا يذوب في الماء." },
-        "Fe+S": { full: "Fe + S", result: "FeS", note: "اتحاد الحديد مع الكبريت بالتسخين لإنتاج كبريتيد الحديد II." },
-        "Fe+Cl2": { full: "2Fe + 3Cl2", result: "2FeCl3", note: "تفاعل الحديد مع الكلور لإنتاج كلوريد الحديد III." },
-        "NH3+HCl": { full: "NH3 + HCl", result: "NH4Cl", note: "تكون سحب بيضاء كثيفة من كلوريد الأمونيوم." },
-        "Na2CO3+HCl": { full: "Na2CO3 + 2HCl", result: "2NaCl + H2O + CO2 ↑", note: "تصاعد CO2 الذي يعكر ماء الجير." }
+// 2. محرك حساب الكتلة المولية مع التصحيح التلقائي للحروف
+function showMolarResult() {
+    let input = document.getElementById('formula-input').value.trim();
+    const resultDiv = document.getElementById('molar-result');
+    
+    if (!input) {
+        resultDiv.textContent = "⚠️ يرجى كتابة صيغة صحيحة.";
+        return;
     }
-};
 
-function superClean(input) {
-    if (!input) return "";
-    let clean = input.trim().toLowerCase().replace(/\s+/g, '');
-    const dictionary = {
-        "mg": "Mg", "cuso4": "CuSO4", "hcl": "HCl", "na": "Na", "h2o": "H2O",
-        "zn": "Zn", "fe": "Fe", "cu": "Cu", "h2": "H2", "o2": "O2", "cl2": "Cl2",
-        "hgo": "HgO", "cuco3": "CuCO3", "nano3": "NaNO3", "naoh": "NaOH",
-        "nh4cno": "NH4CNO", "n2": "N2", "nh3": "NH3", "c": "C", "s": "S",
-        "agno3": "AgNO3", "nacl": "NaCl", "na2co3": "Na2CO3", "agcl": "AgCl"
-    };
-    return dictionary[clean] || (input.charAt(0).toUpperCase() + input.slice(1).toLowerCase());
+    // تصحيح الحروف تلقائياً (مثلاً h2so4 تصبح H2SO4)
+    // بيمسك أي حرف صغير مش في مكانه ويحوله لـ Capital لو هو بداية عنصر
+    let correctedFormula = input.replace(/([a-z])([a-z]*)/gi, function(match) {
+        return match.charAt(0).toUpperCase() + match.slice(1).toLowerCase();
+    });
+
+    // استدعاء دالة الحساب المنطقية
+    const mass = calculateMolarMass(correctedFormula);
+    
+    if (mass > 0) {
+        resultDiv.innerHTML = 
+            '<div style="background: rgba(0, 255, 136, 0.1); padding: 10px; border-radius: 5px; border-right: 4px solid #00ff88;">' +
+                'الكتلة المولية لـ (<strong>' + correctedFormula + '</strong>) هي: ' +
+                '<span style="font-size: 1.8rem; color: #00ff88; margin-right: 10px;">' + mass + '</span> جم/مول' +
+            '</div>';
+    } else {
+        resultDiv.innerHTML = '<span style="color: #ff4444;">⚠️ خطأ في الصيغة! تأكد من كتابة رموز العناصر بشكل صحيح.</span>';
+    }
 }
 
-function processReaction() {
-    let s1 = superClean(document.getElementById('slot-1').value);
-    let s2 = superClean(document.getElementById('slot-2').value);
-    const report = document.getElementById('lab-report');
-    if (!s1 || !s2) { report.innerHTML = "<p>⚠️ برجاء إدخال المادتين.</p>"; return; }
+// 3. المنطق الرياضي لتفكيك الصيغة وجمع الكتل
 
-    const query = [s1, s2].sort().join('+');
-    let res = chemistryEngine.react[query];
 
-    // منطق الإزاحة التلقائي (إعدادي)
-    if (!res) {
-        const activeMetals = ["Na", "K", "Mg", "Al", "Zn", "Fe"];
-        if (activeMetals.includes(s1) && s2 === "CuSO4") {
-            res = { full: `${s1} + CuSO4`, result: `${s1}SO4 + Cu ↓`, note: "إزاحة: الفلز يحل محل النحاس (راسب أحمر)." };
-        } else if (activeMetals.includes(s1) && s2 === "HCl") {
-            res = { full: `${s1} + 2HCl`, result: `${s1}Cl2 + H2 ↑`, note: "إزاحة: الفلز يحل محل هيدروجين الحمض." };
+function calculateMolarMass(formula) {
+    // 1. تصحيح ذكي: تحويل أي حرف صغير يتبع رقم إلى كبير (مثل h2 -> H2 أو o4 -> O4)
+    let fixedFormula = formula.replace(/(\d)([a-z])/g, (m, p1, p2) => p1 + p2.toUpperCase());
+    // 2. تصحيح الحرف الأول لو كتبه صغير
+    fixedFormula = fixedFormula.charAt(0).toUpperCase() + fixedFormula.slice(1);
+
+    const regex = /([A-Z][a-z]*)(\d*)/g;
+    let totalMass = 0, match, foundAny = false;
+
+    while ((match = regex.exec(fixedFormula)) !== null) {
+        let symbol = match[1];
+        let count = parseInt(match[2]) || 1;
+        
+        if (typeof MAP !== 'undefined' && MAP[symbol]) {
+            totalMass += parseFloat(MAP[symbol].mass) * count;
+            foundAny = true;
         }
     }
-    renderResult(res, "react", report, s1, s2);
+    return foundAny ? totalMass.toFixed(3) : 0;
 }
 
-function processHeat() {
-    let s1 = superClean(document.getElementById('slot-1').value);
-    renderResult(chemistryEngine.heat[s1], "heat", document.getElementById('lab-report'), s1);
+
+
+// 2. إعدادات التشغيل عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    buildCompleteSystem(); // بناء الجدول الدوري
+
+    var card = document.querySelector(".details-card");
+    if (card) makeDraggable(card); // تفعيل سحب البطاقة
+
+    // ملء القوائم بالعناصر والمركبات
+    var slots = [document.getElementById("slot-1"), document.getElementById("slot-2")];
+    slots.forEach(function(slot) {
+        if (!slot) return;
+        slot.innerHTML = '<option value="">-- اختر مادة --</option>';
+        
+        // إضافة العناصر
+        if (typeof ELEMENTS !== 'undefined') {
+            ELEMENTS.forEach(function(el) {
+                var option = document.createElement("option");
+                option.value = el.sym;
+                option.text = el.sym + " - " + el.name_ar;
+                slot.appendChild(option);
+            });
+        }
+
+        // إضافة المركبات من مكتبة الكيمياء
+        if (typeof CHEMISTRY_DATABASE !== 'undefined') {
+            var sep = document.createElement("option");
+            sep.disabled = true;
+            sep.text = "---------- مركبات ----------";
+            slot.appendChild(sep);
+
+            Object.keys(CHEMISTRY_DATABASE.heatLibrary).forEach(function(c) {
+                var option = document.createElement("option");
+                option.value = c;
+                option.text = "🧪 " + c;
+                slot.appendChild(option);
+            });
+        }
+    });
+
+    // ربط الأزرار
+	
+    document.getElementById("react-btn").onclick = processReaction;
+    document.getElementById("heat-btn").onclick = processHeat;
+    document.getElementById("clear-btn").onclick = clearLab;
+
+
+    // تفعيل التحديث التلقائي (السطرين اللذين سألت عنهما)
+    document.getElementById('slot-1').onchange = processReaction;
+    document.getElementById('slot-2').onchange = processReaction;
+});
+
+
+function clearLab() {
+	
+    document.getElementById('slot-1').selectedIndex = 0;
+    document.getElementById('slot-2').selectedIndex = 0;
+    document.getElementById('lab-report').innerHTML = "المعمل جاهز.. اختر المواد وابدأ التفاعل";
 }
 
-function renderResult(res, type, container, s1, s2 = "") {
-    if (res) {
-        let gasTip = res.result.includes("H2") ? " (يشتعل بفرقعة)" : 
-                     res.result.includes("CO2") ? " (يعكر ماء الجير)" : 
-                     res.result.includes("O2") ? " (يزيد الاشتعال)" : "";
-        container.innerHTML = `
-            <div class="res-box ${type}">
-                <div class="badge">${type === 'heat' ? 'انحلال حراري 🔥' : 'تفاعل كيميائي ⚗️'}</div>
-                <h3>${res.full} → ${res.result}</h3>
-                <p class="note">💡 <strong>ملحوظة:</strong> ${res.note} ${gasTip}</p>
-            </div>`;
-        document.getElementById('slot-1').value = s1;
-        if (s2) document.getElementById('slot-2').value = s2;
+/* ============================================================
+   3. نظام السحب والتشغيل النهائي (Initialization)
+   ============================================================ */
+
+
+// 3. ملء قوائم المعمل (عناصر + مسح شامل لكل المنهج والعضوية)
+    var slots = [document.getElementById("slot-1"), document.getElementById("slot-2")];
+    slots.forEach(function(slot) {
+        if (!slot) return;
+        slot.innerHTML = '<option value="">-- اختر مادة --</option>';
+        
+        // أ. إضافة العناصر الأساسية (من مصفوفة ELEMENTS)
+        if (typeof ELEMENTS !== 'undefined') {
+            ELEMENTS.forEach(function(el) {
+                var option = document.createElement("option");
+                option.value = el.sym;
+                option.text = el.sym + " - " + el.name_ar;
+                slot.appendChild(option);
+            });
+        }
+
+        // ب. مسح عبقري لكل الأقسام (عضوية، حديد، أحماض)
+        if (typeof CHEMISTRY_DATABASE !== 'undefined') {
+            var sep = document.createElement("option");
+            sep.disabled = true;
+            sep.text = "---------- مركبات ومواد كيميائية ----------";
+            slot.appendChild(sep);
+
+            var allFound = {}; // لمنع التكرار
+
+            // وظيفة بتلف على كل قسم وتطلع المواد اللي جواه
+            function scanSection(lib) {
+                Object.keys(lib).forEach(function(fullKey) {
+                    // تفكيك المفتاح لو فيه (+) زي CH4+O2
+                    var parts = fullKey.split('+');
+                    parts.forEach(function(item) {
+                        // أي حاجة مش عنصر حرف واحد أو اتنين (زي H أو Fe) 
+                        // أو مواد مشهورة ضفتها يدوي زي CH4 و HCl
+                        allFound[item] = true;
+                    });
+                });
+            }
+
+            // تشغيل المسح على كل اللي أنت بعته
+            scanSection(CHEMISTRY_DATABASE.specialReactions);
+            scanSection(CHEMISTRY_DATABASE.heatLibrary);
+            scanSection(CHEMISTRY_DATABASE.redoxLibrary);
+
+            // ترتيب المواد أبجدياً وإضافتها للقائمة
+            Object.keys(allFound).sort().forEach(function(comp) {
+                // نمنع إضافة العناصر اللي اتضافت فوق عشان ميبقاش فيه تكرار
+                var isElement = false;
+                if(typeof ELEMENTS !== 'undefined') {
+                    isElement = ELEMENTS.some(function(e){ return e.sym === comp; });
+                }
+                
+                if (!isElement) {
+                    var option = document.createElement("option");
+                    option.value = comp;
+                    option.text = "🧪 " + comp;
+                    slot.appendChild(option);
+                }
+            });
+        }
+    });
+
+
+
+
+function makeDraggable(el) {
+    var isDragging = false, offsetX, offsetY;
+    var header = el.querySelector('.card-header') || el;
+
+    header.onmousedown = function(e) {
+        if (e.target.closest('button, input')) return;
+        isDragging = true;
+        offsetX = e.clientX - el.getBoundingClientRect().left;
+        offsetY = e.clientY - el.getBoundingClientRect().top;
+        el.style.zIndex = "1000";
+    };
+
+    document.onmousemove = function(e) {
+        if (!isDragging) return;
+        el.style.position = "fixed";
+        el.style.left = (e.clientX - offsetX) + "px";
+        el.style.top = (e.clientY - offsetY) + "px";
+        el.style.margin = "0";
+    };
+
+    document.onmouseup = function() { isDragging = false; };
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. بناء الجدول الدوري
+    buildCompleteSystem();
+
+    // 2. تفعيل السحب للبطاقة
+    var card = document.querySelector(".details-card");
+    if (card) makeDraggable(card);
+
+
+
+
+
+
+// 4. ربط أزرار المعمل وتفعيل التحديث التلقائي
+    var btnReact = document.getElementById("react-btn");
+    var btnHeat = document.getElementById("heat-btn");
+    var btnClear = document.getElementById("clear-btn");
+
+    if (btnReact) btnReact.onclick = processReaction;
+    if (btnHeat) btnHeat.onclick = processHeat;
+    if (btnClear) btnClear.onclick = clearLab;
+
+    // --- السطرين اللي سألت عنهم هنا ---
+    var s1 = document.getElementById('slot-1');
+    var s2 = document.getElementById('slot-2');
+    
+    if (s1) s1.onchange = processReaction;
+    if (s2) s2.onchange = processReaction;
+    // ----------------------------------
+});
+
+
+
+// مصفوفة بكل المركبات التي تريدها أن تظهر في الرف
+
+var QUICK_COMPOUNDS = [
+    // --- كيمياء عضوية ---
+    "CH4", "C2H4", "C2H2", "C2H5OH", "CH3COOH", 
+    // --- مركبات الحديد ---
+    "Fe2O3", "Fe3O4", "FeO", "FeSO4", "FeCl3", "Fe(OH)3", "FeC2O4", 
+    // --- أحماض وأملاح وأكاسيد ---
+    "CuO", "NaOH", "HCl", "H2SO4", "AgNO3", "BaCl2", "Na2CO3", "KI", "Pb(NO3)2", "KMnO4"
+];
+
+// المتغير الذي سيحدد أي خانة سيتم ملؤها (افتراضياً الخانة الأولى)
+var activeSlotId = 'slot-1';
+
+
+
+/* ============================================================
+   محرك الرف الذكي (سحب تلقائي + حساب فوري + تجربة تفاعل)
+   ============================================================ */
+
+function initializeQuickShelf() {
+    var shelf = document.getElementById("quick-shelf");
+    if (!shelf) return;
+
+    // 1. تجميع عبقري لكل المركبات والعناصر من قاعدة البيانات والجدول الدوري
+    var allItems = new Set();
+    
+    // إضافة القائمة اليدوية إذا وجدت
+    if (typeof QUICK_COMPOUNDS !== 'undefined') {
+        QUICK_COMPOUNDS.forEach(c => allItems.add(c));
+    }
+
+    // سحب كل المكونات من مكتبات التفاعلات (عضوية، حرارية، أكسدة)
+    if (typeof CHEMISTRY_DATABASE !== 'undefined') {
+        var libs = [
+            CHEMISTRY_DATABASE.specialReactions,
+            CHEMISTRY_DATABASE.heatLibrary,
+            CHEMISTRY_DATABASE.redoxLibrary
+        ];
+        
+        libs.forEach(function(lib) {
+            if (lib) {
+                Object.keys(lib).forEach(function(key) {
+                    key.split('+').forEach(function(item) {
+                        if (item.trim().length > 0) allItems.add(item.trim());
+                    });
+                });
+            }
+        });
+    }
+
+    // 2. بناء الرف بصرياً وبرمجياً
+    shelf.innerHTML = "";
+    // ترتيب العناصر أبجدياً لسهولة الوصول
+    Array.from(allItems).sort().forEach(function(comp) {
+        var btn = document.createElement("button");
+        btn.textContent = comp;
+        
+        // التنسيق المتوافق مع واجهتك الداكنة والنيون
+        btn.style.cssText = "padding:8px 14px; margin:5px; cursor:pointer; background:#1a1a1a; color:#00d4ff; border:1px solid #00d4ff; border-radius:6px; font-weight:bold; transition: 0.3s; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;";
+        
+        // تأثيرات الحركية (Hover)
+        btn.onmouseover = function() { 
+            this.style.background = "#00d4ff"; 
+            this.style.color = "#000";
+            this.style.boxShadow = "0 0 10px #00d4ff";
+        };
+        btn.onmouseout = function() { 
+            this.style.background = "#1a1a1a"; 
+            this.style.color = "#00d4ff";
+            this.style.boxShadow = "none";
+        };
+
+        // --- منطق التحدي: تنفيذ كل شيء بضغطة واحدة ---
+        btn.onclick = function() {
+            // أ. تحديث خانات التفاعل
+            var targetSlot = document.getElementById(activeSlotId);
+            if (targetSlot) {
+                // التأكد من وجود المادة في القائمة المنسدلة أولاً لتجنب الأخطاء
+                var exists = Array.from(targetSlot.options).some(opt => opt.value === comp);
+                if (!exists) {
+                    var newOpt = document.createElement("option");
+                    newOpt.value = comp; newOpt.text = "🧪 " + comp;
+                    targetSlot.add(newOpt);
+                }
+                targetSlot.value = comp;
+                
+                // تشغيل محرك التفاعلات فورا
+                processReaction(); 
+                
+                // التبديل التلقائي للخنة التالية لتسهيل خلط مادتين
+                activeSlotId = (activeSlotId === 'slot-1') ? 'slot-2' : 'slot-1';
+            }
+
+            // ب. تحديث وحساب الكتلة المولية فوراً
+            var molarInput = document.getElementById('formula-input');
+            if (molarInput) {
+                molarInput.value = comp;
+                // استدعاء دالة الحساب التي قمنا بتطويرها (الموجودة في ملف script.js)
+                if (typeof showMolarResult === 'function') {
+                    showMolarResult();
+                }
+            }
+        };
+        shelf.appendChild(btn);
+    });
+}
+
+// تشغيل الرف فور جاهزية الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    // التأكد من وجود متغير activeSlotId عالمياً
+    if (typeof activeSlotId === 'undefined') window.activeSlotId = 'slot-1';
+    initializeQuickShelf();
+});
+
+
+
+/* ============================================================
+   1. محرك حساب الكتلة المولية الذكي (يدعم الأقواس والحروف الصغيرة)
+   ============================================================ */
+function calculateMolarMass(formula) {
+    if (!formula) return 0;
+
+    // أ. معالجة الأقواس: (NO3)2 تتحول برمجياً لـ N2O6 لسهولة الحساب
+    let processed = formula.replace(/\(([^)]+)\)(\d+)/g, (match, content, multiplier) => {
+        return content.replace(/([A-Z][a-z]*)(\d*)/g, (m, sym, num) => {
+            let count = (parseInt(num) || 1) * parseInt(multiplier);
+            return sym + count;
+        });
+    });
+
+    // ب. تصحيح ذكي للحروف: تحويل h2 لـ H2 و o4 لـ O4 أوتوماتيكياً
+    processed = processed.replace(/(\d)([a-z])/g, (m, p1, p2) => p1 + p2.toUpperCase());
+    if (processed[0]) processed = processed[0].toUpperCase() + processed.slice(1);
+
+    const regex = /([A-Z][a-z]*)(\d*)/g;
+    let totalMass = 0, found = false;
+    let match;
+
+    while ((match = regex.exec(processed)) !== null) {
+        let symbol = match[1];
+        let count = parseInt(match[2]) || 1;
+        
+        // البحث في قاعدة بيانات العناصر (MAP)
+        if (typeof MAP !== 'undefined' && MAP[symbol]) {
+            totalMass += parseFloat(MAP[symbol].mass) * count;
+            found = true;
+        }
+    }
+    return found ? totalMass.toFixed(3) : 0;
+}
+
+/* ============================================================
+   2. وظيفة عرض نتيجة الكتلة في الواجهة
+   ============================================================ */
+   
+   function showMolarResult() {
+    let input = document.getElementById('formula-input').value.trim();
+    const resultDiv = document.getElementById('molar-result');
+    
+    if (!input) {
+        resultDiv.innerHTML = "⚠️ يرجى كتابة صيغة صحيحة.";
+        return;
+    }
+
+    const mass = calculateMolarMass(input);
+    
+    if (mass > 0) {
+		
+		// التعديل داخل دالة showMolarResult في الجزء الخاص بالنتيجة
+resultDiv.innerHTML = 
+    '<div style="background: rgba(0, 212, 255, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(0, 212, 255, 0.3); color: #fff;">' +
+        '<div style="margin-bottom: 10px;">' +
+            'الكتلة المولية لـ (<strong>' + input.toUpperCase() + '</strong>) هي: ' +
+            '<span style="font-size: 1.8rem; color: #00d4ff; font-weight: bold; margin-left: 10px; text-shadow: 0 0 10px rgba(0,212,255,0.5);">' + mass + '</span> جم/مول' +
+        '</div>' +
+        // التنبيه "الألطف" اللي طلبت تعديله
+        '<div style="font-size: 0.85rem; color: #888; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 8px; margin-top: 8px;">' +
+            '✨ <em>ملاحظة: هذه القيمة تأكيدية لغرض الدقة العلمية؛ قد تلاحظ فروقاً بسيطة جداً عن الكتب المدرسية نتيجة استخدام كتل ذرية بكسور دقيقة.</em>' +
+        '</div>' +
+    '</div>';
+		
     } else {
-        container.innerHTML = `<div class="res-box error">⚠️ تفاعل غير مسجل. جرب (AgNO3 + NaCl) أو (Mg + CuSO4).</div>`;
+        resultDiv.innerHTML = '<span style="color: #ff4444;">⚠️ خطأ: تأكد من كتابة الصيغة بشكل صحيح (مثال: H2O أو Pb(NO3)2).</span>';
     }
 }
 
-function clearLab() {
-    document.getElementById('slot-1').value = "";
-    document.getElementById('slot-2').value = "";
-    document.getElementById('lab-report').innerHTML = "<p>المعمل جاهز...</p>";
+
+
+
+
+// دالة مشاركة النتيجة
+function shareResult(res) {
+    var text = "🧪 *معمل الكيمياء الذكي* 🧪\n\n" +
+               "لقد قمت بإجراء تفاعل:\n" +
+               "✅ *" + res.full + " → " + res.result + "*\n\n" +
+               "📝 *الملاحظة:* " + res.note + "\n\n" +
+               "🚀 جرب معملك الخاص الآن مجاناً:";
+    
+    var url = window.location.href;
+    var whatsappUrl = "https://wa.me/?text=" + encodeURIComponent(text + "\n" + url);
+    window.open(whatsappUrl, '_blank');
 }
+
+// تحديث بسيط لدالة العرض عشان تظهر زرار المشاركة
+var originalRender = renderLabResult;
+renderLabResult = function(res, type, container) {
+    originalRender(res, type, container); // تشغيل العرض الأصلي
+    
+    var shareDiv = document.getElementById("share-container");
+    if (res && shareDiv) {
+        shareDiv.style.display = "block";
+        document.getElementById("share-btn").onclick = function() { shareResult(res); };
+    } else if (shareDiv) {
+        shareDiv.style.display = "none";
+    }
+};
