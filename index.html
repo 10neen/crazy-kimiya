@@ -62,16 +62,25 @@
                 </div>
             </div>
         </section>
-		
-		
+
+
+
 		<div class="lab-workspace">
     <h3 class="lab-header">🧪 معمل الكيمياء الذكي</h3>
 
-    <div class="input-section">
-        <input type="text" id="slot-1" class="chem-field" placeholder="المادة الأولى">
-        <span class="operator">+</span>
-        <input type="text" id="slot-2" class="chem-field" placeholder="المادة الثانية">
-    </div>
+
+<div class="input-section">
+    <select id="slot-1" class="chem-field">
+        <option value="">-- اختر المادة 1 --</option>
+    </select>
+
+    <span class="operator">+</span>
+
+    <select id="slot-2" class="chem-field">
+        <option value="">-- اختر المادة 2 --</option>
+    </select>
+</div>
+
 
     <div class="controls-section">
         <button class="btn-lab react" onclick="processReaction()">تفاعل ⚗️</button>
@@ -86,6 +95,32 @@
     </div>
 </div>
 		
+		<div id="share-container" style="text-align: center; margin-top: 15px; display: none;">
+    <button id="share-btn" style="background: #25d366; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+        📢 شارك النتيجة مع زملائك على واتساب
+    </button>
+</div>
+		
+		
+		
+		<div class="molar-calculator" style="margin-top: 20px; padding: 15px; background: var(--card-bg); border-radius: 10px; border: 1px solid var(--neon-blue);">
+    <h4 style="color: var(--neon-blue);">⚖️ حساب الكتلة المولية:</h4>
+    <input type="text" id="formula-input" placeholder="اكتب الصيغة (مثلاً H2SO4)" class="chem-field" style="width: 70%;">
+    <button class="btn-lab react" onclick="showMolarResult()">احسب</button>
+    <div id="molar-result" style="margin-top: 10px; font-weight: bold; color: #00ff88;"></div>
+</div>
+		
+		
+		
+		<div class="compounds-shelf" style="margin-top:20px; padding:15px; background:rgba(255,255,255,0.05); border-radius:10px;">
+    <h4 style="color:#00d4ff; margin-bottom:10px;">🧪 رف المركبات السريع:</h4>
+    <div id="quick-shelf" style="display:flex; flex-wrap:wrap; gap:10px;">
+        </div>
+</div>
+		
+		
+		
+		
 		
 		
     </main>
@@ -94,6 +129,13 @@
         <p>برمجيات العدوي وفريق الذكاء الاصطناعي ✨</p>
     </footer>
 
-    <script src="script.js"></script>
+	
+	<script src="database.js"></script>
+
+<script src="script.js"></script>
+
+<script src="sw.js"></script>
+	
+
 </body>
 </html>
