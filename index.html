@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8" />
     <title>استمتع بالكيمياء مع الجدول الدوري الحديث</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes" />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="assets/كيميا_المرح.png" type="image/png" />
 	
 	<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0d1117">
-<link rel="apple-touch-icon" href="assets/كيميا_المرح.png">
+    <meta name="theme-color" content="#0d1117">
+    <link rel="apple-touch-icon" href="assets/كيميا_المرح.png">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	
-	
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- إضافة خطوط عربية جميلة -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -22,6 +23,7 @@
     </header>
 
     <main>
+        <!-- ========== قسم الجدول الدوري ========== -->
         <section class="table-wrapper">
             <div class="table-container">
                 <div id="main-table" class="periodic-table" aria-label="الجدول الدوري"></div>
@@ -29,9 +31,9 @@
             
             <div class="series">
                 <div class="series-row">
-                    <h3>اللانتانيدات</h3>
+                    <h3>اللانثانيدات</h3>
                     <div class="table-container compact">
-                        <div id="lanth-table" class="periodic-table f-block" aria-label="اللانتانيدات"></div>
+                        <div id="lanth-table" class="periodic-table f-block" aria-label="اللانثانيدات"></div>
                     </div>
                 </div>
                 <div class="series-row">
@@ -43,281 +45,119 @@
             </div>
         </section>
 
+        <!-- ========== بطاقة تفاصيل العنصر ========== -->
         <section class="details-wrapper">
             <div id="details" class="details-card">
-                <div class="details-header">
+                <div class="card-header">
                     <h2 id="d-name">اختر عنصراً</h2>
+                    <span id="d-level" class="level-badge"></span>
                 </div>
                 <div class="details-content">
-                    <p>الرمز: <span id="d-symbol">–</span></p>
-                    <p>العدد الذري: <span id="d-number">–</span></p>
-                    <p>الكتلة: <span id="d-mass">–</span></p>
-                    <p>النوع: <span id="d-type">–</span></p>
-                    <p>الحالة: <span id="d-state">–</span></p>
-                    <p>الانصهار: <span id="d-mp">–</span></p>
-                    <p>الغليان: <span id="d-bp">–</span></p>
-                    <p>الكثافة: <span id="d-density">–</span></p>
-                    <p>التوزيع: <span id="d-electrons">–</span></p>
-                    <p class="full-row">الاستخدامات الشائعة: <span id="d-uses">–</span></p>
+                    <div class="details-grid">
+                        <p>الرمز: <span id="d-symbol">–</span></p>
+                        <p>العدد الذري: <span id="d-number">–</span></p>
+                        <p>الكتلة: <span id="d-mass">–</span></p>
+                        <p>النوع: <span id="d-type">–</span></p>
+                        <p>الحالة: <span id="d-state">–</span></p>
+                        <p>الانصهار: <span id="d-mp">–</span></p>
+                        <p>الغليان: <span id="d-bp">–</span></p>
+                        <p>الكثافة: <span id="d-density">–</span></p>
+                        <p class="full-row">التوزيع: <span id="d-electrons">–</span></p>
+                        <p class="full-row">الاستخدامات: <span id="d-uses">–</span></p>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- ========== معمل الكيمياء الذكي ========== -->
+        <div class="lab-workspace">
+            <h3 class="lab-header">🧪 معمل الكيمياء الذكي</h3>
 
+            <div class="input-section">
+                <select id="slot-1" class="chem-field">
+                    <option value="">-- اختر المادة 1 --</option>
+                </select>
 
-		<div class="lab-workspace">
-    <h3 class="lab-header">🧪 معمل الكيمياء الذكي</h3>
+                <span class="operator">+</span>
 
+                <select id="slot-2" class="chem-field">
+                    <option value="">-- اختر المادة 2 --</option>
+                </select>
+            </div>
 
-<div class="input-section">
-    <select id="slot-1" class="chem-field">
-        <option value="">-- اختر المادة 1 --</option>
-    </select>
+            <div class="controls-section">
+                <button class="btn-lab react" onclick="processReaction()">تفاعل ⚗️</button>
+                <button class="btn-lab heat" onclick="processHeat()">تسخين 🔥</button>
+                <button class="btn-lab redox" onclick="processRedox()">أكسدة/اختزال ⚡</button>
+                <button class="btn-lab clear" onclick="clearLab()">مسح 🧹</button>
+            </div>
 
-    <span class="operator">+</span>
-
-    <select id="slot-2" class="chem-field">
-        <option value="">-- اختر المادة 2 --</option>
-    </select>
-</div>
-
-
-    <div class="controls-section">
-        <button class="btn-lab react" onclick="processReaction()">تفاعل ⚗️</button>
-        <button class="btn-lab heat" onclick="processHeat()">تسخين 🔥</button>
-        <button class="btn-lab oxidation" onclick="processRedox('ox')">أكسدة ⚡</button>
-        <button class="btn-lab reduction" onclick="processRedox('red')">اختزال 📉</button>
-        <button class="btn-lab clear" onclick="clearLab()">مسح 🧹</button>
-    </div>
-
-    <div id="lab-report" class="result-display">
-        <p>جاهز لإجراء التجربة...</p>
-    </div>
-</div>
-		
-		<div id="share-container" style="text-align: center; margin-top: 15px; display: none;">
-    <button id="share-btn" style="background: #25d366; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-        📢 شارك النتيجة مع زملائك على واتساب
-    </button>
-</div>
-		
-		
-		
-		<div class="molar-calculator" style="margin-top: 20px; padding: 15px; background: var(--card-bg); border-radius: 10px; border: 1px solid var(--neon-blue);">
-    <h4 style="color: var(--neon-blue);">⚖️ حساب الكتلة المولية:</h4>
-    <input type="text" id="formula-input" placeholder="اكتب الصيغة (مثلاً H2SO4)" class="chem-field" style="width: 70%;">
-    <button class="btn-lab react" onclick="showMolarResult()">احسب</button>
-    <div id="molar-result" style="margin-top: 10px; font-weight: bold; color: #00ff88;"></div>
-</div>
-		
-		
-		<div style="margin: 10px 0;">
-    <input type="text" id="shelf-search-input" 
-           placeholder="🔍 ابحث في الرف فقط..." 
-           oninput="filterShelfOnly(this)" 
-           style="width: 100%; padding: 10px; border-radius: 20px; border: 1px solid #00d4ff; background: rgba(0,0,0,0.3); color: white;">
-</div>
-
-
-<div id="quick-shelf" style="display:flex; flex-wrap:wrap; gap:10px; justify-content: center;">
-    
-	
-	
-	<div style="width:100%; border-bottom: 1px solid #444; margin: 10px 0; color: #00d4ff; font-weight: bold;">🧪 أهم المركبات والكواشف:</div>
-
-
-
-<div style="width:100%; border-bottom: 1px solid #444; margin: 10px 0; color: #00d4ff; font-weight: bold;">🧪 أهم المركبات والكواشف:</div>
-
-<button class="shelf-btn" onclick="fillInput('HCl')">HCl</button>
-<button class="shelf-btn" onclick="fillInput('H2SO4')">H2SO4</button>
-<button class="shelf-btn" onclick="fillInput('HNO3')">HNO3</button>
-<button class="shelf-btn" onclick="fillInput('NaOH')">NaOH</button>
-<button class="shelf-btn" onclick="fillInput('NH3')">NH3 (نشادر)</button>
-
-<button class="shelf-btn" onclick="fillInput('AgNO3')">AgNO3</button>
-<button class="shelf-btn" onclick="fillInput('BaCl2')">BaCl2</button>
-<button class="shelf-btn" onclick="fillInput('KMnO4')">KMnO4</button>
-<button class="shelf-btn" onclick="fillInput('K2Cr2O7')">K2Cr2O7</button>
-<button class="shelf-btn" onclick="fillInput('KI')">KI</button>
-
-<button class="shelf-btn" onclick="fillInput('Na2CO3')">Na2CO3</button>
-<button class="shelf-btn" onclick="fillInput('NaHCO3')">NaHCO3</button>
-<button class="shelf-btn" onclick="fillInput('CaCO3')">CaCO3</button>
-
-<button class="shelf-btn" onclick="fillInput('FeO')">FeO</button>
-<button class="shelf-btn" onclick="fillInput('Fe2O3')">Fe2O3</button>
-<button class="shelf-btn" onclick="fillInput('Fe3O4')">Fe3O4</button>
-<button class="shelf-btn" onclick="fillInput('FeSO4')">FeSO4</button>
-<button class="shelf-btn" onclick="fillInput('FeCl2')">FeCl2</button>
-<button class="shelf-btn" onclick="fillInput('FeCl3')">FeCl3</button>
-<button class="shelf-btn" onclick="fillInput('Fe(OH)3')">Fe(OH)3</button>
-<button class="shelf-btn" onclick="fillInput('FeC2O4')">FeC2O4 (أوكسالات)</button>
-
-<button class="shelf-btn" onclick="fillInput('CuO')">CuO</button>
-<button class="shelf-btn" onclick="fillInput('CuSO4')">CuSO4</button>
-<button class="shelf-btn" onclick="fillInput('Cu(OH)2')">Cu(OH)2</button>
-<button class="shelf-btn" onclick="fillInput('Pb(NO3)2')">Pb(NO3)2</button>
-
-<button class="shelf-btn" onclick="fillInput('CH4')">CH4 (ميثان)</button>
-<button class="shelf-btn" onclick="fillInput('C2H4')">C2H4 (إيثيلين)</button>
-<button class="shelf-btn" onclick="fillInput('C2H2')">C2H2 (أسيتيلين)</button>
-<button class="shelf-btn" onclick="fillInput('C2H5OH')">C2H5OH (كحول)</button>
-<button class="shelf-btn" onclick="fillInput('CH3COOH')">CH3COOH (خل)</button>
-	
-
-    <div style="width:100%; border-bottom: 1px solid #444; margin: 10px 0; color: #ffcc00; font-weight: bold;">الجدول الدوري (118 عنصر):</div>
-    
-    <button class="shelf-btn element" onclick="fillInput('H')">H</button>
-    <button class="shelf-btn element" onclick="fillInput('He')">He</button>
-    <button class="shelf-btn element" onclick="fillInput('Li')">Li</button>
-    <button class="shelf-btn element" onclick="fillInput('Be')">Be</button>
-    <button class="shelf-btn element" onclick="fillInput('B')">B</button>
-    <button class="shelf-btn element" onclick="fillInput('C')">C</button>
-    <button class="shelf-btn element" onclick="fillInput('N')">N</button>
-    <button class="shelf-btn element" onclick="fillInput('O')">O</button>
-    <button class="shelf-btn element" onclick="fillInput('F')">F</button>
-    <button class="shelf-btn element" onclick="fillInput('Ne')">Ne</button>
-    <button class="shelf-btn element" onclick="fillInput('Na')">Na</button>
-    <button class="shelf-btn element" onclick="fillInput('Mg')">Mg</button>
-    <button class="shelf-btn element" onclick="fillInput('Al')">Al</button>
-    <button class="shelf-btn element" onclick="fillInput('Si')">Si</button>
-    <button class="shelf-btn element" onclick="fillInput('P')">P</button>
-    <button class="shelf-btn element" onclick="fillInput('S')">S</button>
-    <button class="shelf-btn element" onclick="fillInput('Cl')">Cl</button>
-    <button class="shelf-btn element" onclick="fillInput('Ar')">Ar</button>
-    <button class="shelf-btn element" onclick="fillInput('K')">K</button>
-    <button class="shelf-btn element" onclick="fillInput('Ca')">Ca</button>
-    <button class="shelf-btn element" onclick="fillInput('Sc')">Sc</button>
-    <button class="shelf-btn element" onclick="fillInput('Ti')">Ti</button>
-    <button class="shelf-btn element" onclick="fillInput('V')">V</button>
-    <button class="shelf-btn element" onclick="fillInput('Cr')">Cr</button>
-    <button class="shelf-btn element" onclick="fillInput('Mn')">Mn</button>
-    <button class="shelf-btn element" onclick="fillInput('Fe')">Fe</button>
-    <button class="shelf-btn element" onclick="fillInput('Co')">Co</button>
-    <button class="shelf-btn element" onclick="fillInput('Ni')">Ni</button>
-    <button class="shelf-btn element" onclick="fillInput('Cu')">Cu</button>
-    <button class="shelf-btn element" onclick="fillInput('Zn')">Zn</button>
-    <button class="shelf-btn element" onclick="fillInput('Ga')">Ga</button>
-    <button class="shelf-btn element" onclick="fillInput('Ge')">Ge</button>
-    <button class="shelf-btn element" onclick="fillInput('As')">As</button>
-    <button class="shelf-btn element" onclick="fillInput('Se')">Se</button>
-    <button class="shelf-btn element" onclick="fillInput('Br')">Br</button>
-    <button class="shelf-btn element" onclick="fillInput('Kr')">Kr</button>
-    <button class="shelf-btn element" onclick="fillInput('Rb')">Rb</button>
-    <button class="shelf-btn element" onclick="fillInput('Sr')">Sr</button>
-    <button class="shelf-btn element" onclick="fillInput('Y')">Y</button>
-    <button class="shelf-btn element" onclick="fillInput('Zr')">Zr</button>
-    <button class="shelf-btn element" onclick="fillInput('Nb')">Nb</button>
-    <button class="shelf-btn element" onclick="fillInput('Mo')">Mo</button>
-    <button class="shelf-btn element" onclick="fillInput('Tc')">Tc</button>
-    <button class="shelf-btn element" onclick="fillInput('Ru')">Ru</button>
-    <button class="shelf-btn element" onclick="fillInput('Rh')">Rh</button>
-    <button class="shelf-btn element" onclick="fillInput('Pd')">Pd</button>
-    <button class="shelf-btn element" onclick="fillInput('Ag')">Ag</button>
-    <button class="shelf-btn element" onclick="fillInput('Cd')">Cd</button>
-    <button class="shelf-btn element" onclick="fillInput('In')">In</button>
-    <button class="shelf-btn element" onclick="fillInput('Sn')">Sn</button>
-    <button class="shelf-btn element" onclick="fillInput('Sb')">Sb</button>
-    <button class="shelf-btn element" onclick="fillInput('Te')">Te</button>
-    <button class="shelf-btn element" onclick="fillInput('I')">I</button>
-    <button class="shelf-btn element" onclick="fillInput('Xe')">Xe</button>
-    <button class="shelf-btn element" onclick="fillInput('Cs')">Cs</button>
-    <button class="shelf-btn element" onclick="fillInput('Ba')">Ba</button>
-    <button class="shelf-btn element" onclick="fillInput('La')">La</button>
-    <button class="shelf-btn element" onclick="fillInput('Ce')">Ce</button>
-    <button class="shelf-btn element" onclick="fillInput('Pr')">Pr</button>
-    <button class="shelf-btn element" onclick="fillInput('Nd')">Nd</button>
-    <button class="shelf-btn element" onclick="fillInput('Pm')">Pm</button>
-    <button class="shelf-btn element" onclick="fillInput('Sm')">Sm</button>
-    <button class="shelf-btn element" onclick="fillInput('Eu')">Eu</button>
-    <button class="shelf-btn element" onclick="fillInput('Gd')">Gd</button>
-    <button class="shelf-btn element" onclick="fillInput('Tb')">Tb</button>
-    <button class="shelf-btn element" onclick="fillInput('Dy')">Dy</button>
-    <button class="shelf-btn element" onclick="fillInput('Ho')">Ho</button>
-    <button class="shelf-btn element" onclick="fillInput('Er')">Er</button>
-    <button class="shelf-btn element" onclick="fillInput('Tm')">Tm</button>
-    <button class="shelf-btn element" onclick="fillInput('Yb')">Yb</button>
-    <button class="shelf-btn element" onclick="fillInput('Lu')">Lu</button>
-    <button class="shelf-btn element" onclick="fillInput('Hf')">Hf</button>
-    <button class="shelf-btn element" onclick="fillInput('Ta')">Ta</button>
-    <button class="shelf-btn element" onclick="fillInput('W')">W</button>
-    <button class="shelf-btn element" onclick="fillInput('Re')">Re</button>
-    <button class="shelf-btn element" onclick="fillInput('Os')">Os</button>
-    <button class="shelf-btn element" onclick="fillInput('Ir')">Ir</button>
-    <button class="shelf-btn element" onclick="fillInput('Pt')">Pt</button>
-    <button class="shelf-btn element" onclick="fillInput('Au')">Au</button>
-    <button class="shelf-btn element" onclick="fillInput('Hg')">Hg</button>
-    <button class="shelf-btn element" onclick="fillInput('Tl')">Tl</button>
-    <button class="shelf-btn element" onclick="fillInput('Pb')">Pb</button>
-    <button class="shelf-btn element" onclick="fillInput('Bi')">Bi</button>
-    <button class="shelf-btn element" onclick="fillInput('Po')">Po</button>
-    <button class="shelf-btn element" onclick="fillInput('At')">At</button>
-    <button class="shelf-btn element" onclick="fillInput('Rn')">Rn</button>
-    <button class="shelf-btn element" onclick="fillInput('Fr')">Fr</button>
-    <button class="shelf-btn element" onclick="fillInput('Ra')">Ra</button>
-    <button class="shelf-btn element" onclick="fillInput('Ac')">Ac</button>
-    <button class="shelf-btn element" onclick="fillInput('Th')">Th</button>
-    <button class="shelf-btn element" onclick="fillInput('Pa')">Pa</button>
-    <button class="shelf-btn element" onclick="fillInput('U')">U</button>
-    <button class="shelf-btn element" onclick="fillInput('Np')">Np</button>
-    <button class="shelf-btn element" onclick="fillInput('Pu')">Pu</button>
-    <button class="shelf-btn element" onclick="fillInput('Am')">Am</button>
-    <button class="shelf-btn element" onclick="fillInput('Cm')">Cm</button>
-    <button class="shelf-btn element" onclick="fillInput('Bk')">Bk</button>
-    <button class="shelf-btn element" onclick="fillInput('Cf')">Cf</button>
-    <button class="shelf-btn element" onclick="fillInput('Es')">Es</button>
-    <button class="shelf-btn element" onclick="fillInput('Fm')">Fm</button>
-    <button class="shelf-btn element" onclick="fillInput('Md')">Md</button>
-    <button class="shelf-btn element" onclick="fillInput('No')">No</button>
-    <button class="shelf-btn element" onclick="fillInput('Lr')">Lr</button>
-    <button class="shelf-btn element" onclick="fillInput('Rf')">Rf</button>
-    <button class="shelf-btn element" onclick="fillInput('Db')">Db</button>
-    <button class="shelf-btn element" onclick="fillInput('Sg')">Sg</button>
-    <button class="shelf-btn element" onclick="fillInput('Bh')">Bh</button>
-    <button class="shelf-btn element" onclick="fillInput('Hs')">Hs</button>
-    <button class="shelf-btn element" onclick="fillInput('Mt')">Mt</button>
-    <button class="shelf-btn element" onclick="fillInput('Ds')">Ds</button>
-    <button class="shelf-btn element" onclick="fillInput('Rg')">Rg</button>
-    <button class="shelf-btn element" onclick="fillInput('Cn')">Cn</button>
-    <button class="shelf-btn element" onclick="fillInput('Nh')">Nh</button>
-    <button class="shelf-btn element" onclick="fillInput('Fl')">Fl</button>
-    <button class="shelf-btn element" onclick="fillInput('Mc')">Mc</button>
-    <button class="shelf-btn element" onclick="fillInput('Lv')">Lv</button>
-    <button class="shelf-btn element" onclick="fillInput('Ts')">Ts</button>
-    <button class="shelf-btn element" onclick="fillInput('Og')">Og</button>
-</div>
-
-
-
-
-
-		
-		
-		<div class="compounds-shelf" style="margin-top:20px; padding:15px; background:rgba(255,255,255,0.05); border-radius:10px;">
-    <h4 style="color:#00d4ff; margin-bottom:10px;">🧪 رف المركبات السريع:</h4>
-    <div id="quick-shelf" style="display:flex; flex-wrap:wrap; gap:10px;">
+            <div id="lab-report" class="result-display">
+                <div style="color:#888; border:2px dashed #444; padding:20px; border-radius:10px; text-align:center;">
+                    🧪 المعمل جاهز.. اختر المواد وابدأ التفاعل
+                </div>
+            </div>
         </div>
-</div>
-		
-		
-		
-		
-		
-		
+
+        <!-- ========== حاسبة الكتلة المولية ========== -->
+        <div class="molar-calculator">
+            <h4 style="color: var(--neon-blue); margin-bottom: 15px;">⚖️ حاسبة الكتلة المولية</h4>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="formula-input" placeholder="اكتب الصيغة (مثال: H2SO4، NH3، CH3COOH)" class="chem-field" style="flex: 1; min-width: 200px;">
+                <button class="btn-lab react" onclick="showMolarResult()" style="white-space: nowrap;">احسب</button>
+                <button class="btn-lab clear" onclick="document.getElementById('formula-input').value=''; document.getElementById('molar-result').innerHTML='';" style="white-space: nowrap;">مسح</button>
+            </div>
+            <div id="molar-result" style="margin-top: 15px; font-weight: bold;"></div>
+        </div>
+
+        <!-- ========== شريط البحث في الرف ========== -->
+        <div style="margin: 20px 0 10px;">
+            <input type="text" id="shelf-search" 
+                   placeholder="🔍 ابحث في الرف السريع (اسم المركب أو العنصر)..." 
+                   onkeyup="filterShelfOnly(this)" 
+                   style="width: 100%; padding: 12px 20px; border-radius: 30px; border: 1px solid var(--neon-blue); background: rgba(0,0,0,0.3); color: white; font-size: 1rem;">
+        </div>
+
+        <!-- ========== الرف السريع ========== -->
+        <div id="quick-shelf" class="quick-shelf">
+            <!-- يتم تعبئته تلقائياً من script.js -->
+        </div>
+
+        <!-- ========== زر المشاركة المخفي ========== -->
+        <div id="share-container" style="text-align: center; margin-top: 20px; display: none;">
+            <button id="share-btn" style="background: #25d366; color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(37,211,102,0.3);">
+                📢 شارك النتيجة مع زملائك على واتساب
+            </button>
+        </div>
+
     </main>
 
     <footer>
         <p>برمجيات العدوي وفريق الذكاء الاصطناعي ✨</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">الجدول الدوري التفاعلي - جميع الحقوق محفوظة © 2026</p>
     </footer>
 
-	
-	<script src="database.js"></script>
-
-<script src="script.js"></script>
-
-<script src="sw.js"></script>
-	
-
+    <!-- تحميل ملفات JavaScript بالترتيب الصحيح -->
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+    <script src="sw.js"></script>
+    
+    <!-- تهيئة إضافية -->
+    <script>
+        // التأكد من تحميل كل الملفات
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🌐 الصفحة جاهزة، انتظار تحميل قاعدة البيانات...');
+            
+            // التحقق من وجود البيانات
+            setTimeout(function() {
+                if (typeof ELEMENTS !== 'undefined') {
+                    console.log('✅ تم تحميل ' + ELEMENTS.length + ' عنصر كيميائي');
+                }
+                if (typeof CHEMISTRY_DATABASE !== 'undefined') {
+                    console.log('✅ تم تحميل قاعدة التفاعلات');
+                }
+            }, 500);
+        });
+    </script>
 </body>
 </html>
