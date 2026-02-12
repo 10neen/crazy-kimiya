@@ -1,4 +1,4 @@
-const cacheName = 'chem-lab-v3';
+const cacheName = 'chem-lab-v4';
 // قائمة الملفات اللي هيتم حفظها للعمل بدون إنترنت
 const assets = [
   './',
@@ -41,4 +41,5 @@ self.addEventListener('activate', e => {
   );
 
 });
+
 
