@@ -1,111 +1,226 @@
-/* 1. الإعدادات العامة والتصميم الأساسي */
+/* ============================================================
+   1. الإعدادات العامة والتصميم الأساسي
+   ============================================================ */
+
 :root {
     --bg-color: #0d1117;
     --card-bg: #161b22;
     --text-color: #c9d1d9;
-    --neon-blue: #00d2ff;
-    /* ألوان المجموعات */
-    --color-alkali: #ff4444;
-    --color-noble: #bc13fe;
+    --text-light: #e6edf3;
+    --neon-blue: #00d4ff;
+    --neon-green: #00ff88;
+    --neon-red: #ff4444;
+    --neon-yellow: #ffee00;
+    --neon-purple: #bc13fe;
+    --neon-pink: #ff00ab;
+    
+    /* ألوان المجموعات الكيميائية */
+    --color-alkali: #ff6b6b;
+    --color-alkaline: #ff9f4b;
+    --color-transition: #00d4ff;
+    --color-post-transition: #69c4c4;
+    --color-metalloid: #10b981;
     --color-nonmetal: #00ff88;
     --color-halogen: #ffee00;
-    --color-lanthanide: #ff00ab;
-    --color-actinide: #9d00ff;
-    --color-transition: #00d2ff;
+    --color-noble: #bc13fe;
+    --color-lanthanide: #ff7b9c;
+    --color-actinide: #9d7bff;
+    
+    /* تحسينات الخط */
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
     line-height: 1.6;
+    direction: rtl;
 }
 
 header {
     text-align: center;
     margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(145deg, #0b0e14, #0f131a);
+    border-radius: 20px;
+    border-bottom: 2px solid var(--neon-blue);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
 }
 
 h1 {
     color: var(--neon-blue);
     text-shadow: 0 0 15px var(--neon-blue);
     margin: 0;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
 }
 
 .subtitle {
-    font-size: 0.9rem;
-    opacity: 0.7;
+    font-size: 1rem;
+    opacity: 0.8;
+    color: var(--text-light);
+    margin-top: 5px;
 }
 
-/* 2. محرك الجريد (أهم جزء لضبط العناصر) */
+/* ============================================================
+   2. الجدول الدوري - المحرك الرئيسي
+   ============================================================ */
+
+.table-wrapper {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid #30363d;
+}
+
 .periodic-table {
     display: grid !important;
-    grid-template-columns: repeat(18, 1fr); /* 18 عمود ثابت */
-    direction: rtl; /* اتجاه عربي */
-    gap: 6px;
-    max-width: 1250px;
+    grid-template-columns: repeat(18, 1fr);
+    direction: ltr; /* الجدول الدوري اتجاهه يسار لليمين */
+    gap: 8px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 10px;
 }
 
-/* 3. تصميم الخلية (المربع) */
+/* ============================================================
+   3. تصميم خلايا العناصر
+   ============================================================ */
+
 .element {
     aspect-ratio: 1 / 1;
     border: 2px solid;
-    border-radius: 6px;
+    border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: var(--transition);
     background: rgba(255, 255, 255, 0.03);
     position: relative;
     overflow: hidden;
+    padding: 5px;
 }
 
 .element:hover {
-    transform: scale(1.1);
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.08);
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 25px currentColor;
 }
 
 .element.active {
     background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 20px currentColor;
+    box-shadow: 0 0 30px currentColor;
+    border-width: 3px;
 }
 
 .element-content {
     text-align: center;
+    width: 100%;
 }
 
 .atomic-number {
     font-size: 0.7rem;
     position: absolute;
-    top: 2px;
-    right: 4px;
+    top: 3px;
+    right: 5px;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .symbol-large {
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 2px;
 }
 
 .arabic-name {
     font-size: 0.65rem;
     margin-top: 2px;
+    opacity: 0.9;
+    font-weight: 600;
 }
 
-/* الخانات الفارغة */
+/* الخلايا الفارغة */
 .element.empty {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* ============================================================
+   4. ألوان المجموعات الكيميائية
+   ============================================================ */
+
+.element.alkali { border-color: var(--color-alkali); color: var(--color-alkali); }
+.element.alkaline { border-color: var(--color-alkaline); color: var(--color-alkaline); }
+.element.transition { border-color: var(--color-transition); color: var(--color-transition); }
+.element.post-transition { border-color: var(--color-post-transition); color: var(--color-post-transition); }
+.element.metalloid { border-color: var(--color-metalloid); color: var(--color-metalloid); }
+.element.nonmetal { border-color: var(--color-nonmetal); color: var(--color-nonmetal); }
+.element.halogen { border-color: var(--color-halogen); color: var(--color-halogen); }
+.element.noble { border-color: var(--color-noble); color: var(--color-noble); }
+.element.lanthanide { border-color: var(--color-lanthanide); color: var(--color-lanthanide); }
+.element.actinide { border-color: var(--color-actinide); color: var(--color-actinide); }
+
+/* ============================================================
+   5. السلسلتان: اللانثانيدات والأكتينيدات
+   ============================================================ */
+
+.series {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #30363d;
+}
+
+.series-row {
+    margin-bottom: 20px;
+}
+
+.series-row h3 {
+    color: var(--neon-blue);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    padding-right: 10px;
+    border-right: 4px solid var(--neon-blue);
+}
+
+#lanth-table, #act-table {
+    display: grid !important;
+    grid-template-columns: repeat(18, 1fr);
+    gap: 8px;
+    margin-top: 5px;
+}
+
+/* أول خليتين فارغتين للمحاذاة */
+#lanth-table .element:first-child,
+#lanth-table .element:nth-child(2),
+#act-table .element:first-child,
+#act-table .element:nth-child(2) {
     visibility: hidden;
 }
 
-/* 4. كارت التفاصيل (Details Card) */
+/* ============================================================
+   6. بطاقة تفاصيل العنصر
+   ============================================================ */
+
 .details-wrapper {
-    margin-top: 40px;
+    margin: 40px 0;
     display: flex;
     justify-content: center;
 }
@@ -113,120 +228,396 @@ h1 {
 .details-card {
     background: var(--card-bg);
     border: 2px solid var(--neon-blue);
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: 20px;
+    padding: 25px;
     width: 100%;
-    max-width: 600px;
-    box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+    max-width: 700px;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+    transition: var(--transition);
+    position: relative;
 }
 
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: move;
+}
+
+.card-header h2 {
+    color: var(--neon-blue);
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.level-badge {
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.level-1 { background: #238636; color: white; }
+.level-2 { background: #da3633; color: white; }
+.level-3 { background: #9b59b6; color: white; }
+.level-4 { background: #e67e22; color: white; }
+.level-5 { background: #c0392b; color: white; }
+
 .details-content {
+    width: 100%;
+}
+
+.details-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.details-grid p {
+    margin: 0;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border-right: 3px solid var(--neon-blue);
+}
+
+.details-grid .full-row {
+    grid-column: span 2;
+    border-right-color: var(--neon-green);
+}
+
+.details-grid span {
+    color: white;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+/* ============================================================
+   7. معمل الكيمياء الذكي
+   ============================================================ */
+
+.lab-workspace {
+    margin: 50px auto;
+    max-width: 900px;
+    background: var(--card-bg);
+    border: 1px solid #30363d;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: var(--box-shadow);
+}
+
+.lab-header {
+    color: var(--neon-blue);
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
 }
 
-.full-row {
-    grid-column: span 2;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 10px;
-}
-
-/* 5. معمل الكيمياء الذكي */
-.lab-workspace {
-    margin: 50px auto;
-    max-width: 800px;
-    background: #1c2128;
-    border: 1px solid #30363d;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
+.input-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 .chem-field {
     background: #0d1117;
     color: white;
     border: 1px solid #444;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    min-width: 200px;
+    transition: var(--transition);
+}
+
+.chem-field:focus {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    outline: none;
+}
+
+.operator {
+    font-size: 1.8rem;
+    color: var(--neon-blue);
+    font-weight: bold;
+}
+
+.controls-section {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 25px 0;
 }
 
 .btn-lab {
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
-    font-weight: bold;
-    margin: 5px;
-    transition: 0.3s;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: var(--transition);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.5px;
 }
 
-.btn-lab.react { background: #238636; color: white; }
-.btn-lab.heat { background: #da3633; color: white; }
-.btn-lab.clear { background: #484f58; color: white; }
+.btn-lab.react { background: #238636; box-shadow: 0 0 15px rgba(35, 134, 54, 0.3); }
+.btn-lab.heat { background: #da3633; box-shadow: 0 0 15px rgba(218, 54, 51, 0.3); }
+.btn-lab.redox { background: #9b59b6; box-shadow: 0 0 15px rgba(155, 89, 182, 0.3); }
+.btn-lab.clear { background: #484f58; }
+
+.btn-lab:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.2);
+}
 
 .result-display {
-    margin-top: 20px;
+    margin-top: 25px;
+    padding: 20px;
+    background: #0d1117;
+    border-radius: 15px;
+    text-align: right;
+    min-height: 150px;
+}
+
+/* ============================================================
+   8. حاسبة الكتلة المولية
+   ============================================================ */
+
+.molar-calculator {
+    margin: 30px auto;
+    max-width: 900px;
+    padding: 25px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    border: 1px solid var(--neon-blue);
+    box-shadow: var(--box-shadow);
+}
+
+#molar-result {
+    margin-top: 15px;
     padding: 15px;
     background: #0d1117;
-    border-right: 4px solid var(--neon-blue);
-    text-align: right;
+    border-radius: 12px;
+    border-right: 4px solid var(--neon-green);
 }
 
-/* 6. استجابة الشاشة (Responsive) */
-@media (max-width: 900px) {
-    .periodic-table {
-        gap: 2px;
-    }
-    .symbol-large { font-size: 0.9rem; }
-    .arabic-name { display: none; }
+/* ============================================================
+   9. الرف السريع والبحث
+   ============================================================ */
+
+.quick-shelf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    margin-top: 20px;
+    border: 1px solid #30363d;
 }
 
-
-/* تنسيق الحاويات السفلية لضمان المحاذاة */
-#lanth-table, #act-table {
-    margin-top: 10px;
-    display: grid;
-    grid-template-columns: repeat(18, 1fr); /* نفس تقسيم الجدول الرئيسي */
+.shelf-btn {
+    background: #1a1a1a;
+    border: 1px solid var(--neon-blue);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
     gap: 5px;
 }
 
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(5px); }
-    50% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-    100% { transform: translateX(0); }
-	
-	
-}
-
-
-.shelf-btn {
-    background: #222;
-    border: 1px solid #00d4ff;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
 .shelf-btn.element {
-    border-color: #ffcc00; /* لون ذهبي للعناصر ليفرقها عن المركبات */
+    border-color: #ffcc00;
+    color: #ffcc00;
 }
 
 .shelf-btn:hover {
-    background: #00d4ff;
+    background: var(--neon-blue);
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--neon-blue);
+}
+
+.shelf-btn.element:hover {
+    background: #ffcc00;
+    border-color: #ffcc00;
     color: #000;
 }
 
+#shelf-search {
+    width: 100%;
+    padding: 15px 25px;
+    border-radius: 50px;
+    border: 1px solid var(--neon-blue);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 1rem;
+    transition: var(--transition);
+    margin-bottom: 10px;
+}
+
+#shelf-search:focus {
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.3);
+    outline: none;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================================
+   10. الفوتر والتذييل
+   ============================================================ */
+
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 25px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    border-top: 1px solid #30363d;
+    color: #8b949e;
+}
+
+/* ============================================================
+   11. الأنيميشن والتأثيرات
+   ============================================================ */
+
 @keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  50% { transform: translate(-1px, 2px) rotate(1deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  100% { transform: translate(1px, -2px) rotate(0deg); }
+    0% { transform: translateX(0); }
+    10% { transform: translateX(-5px); }
+    20% { transform: translateX(5px); }
+    30% { transform: translateX(-3px); }
+    40% { transform: translateX(3px); }
+    50% { transform: translateX(-2px); }
+    60% { transform: translateX(2px); }
+    70% { transform: translateX(-1px); }
+    80% { transform: translateX(1px); }
+    90% { transform: translateX(0); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 5px currentColor; }
+    50% { box-shadow: 0 0 25px currentColor; }
+    100% { box-shadow: 0 0 5px currentColor; }
+}
+
+.element.active {
+    animation: pulse 2s infinite;
+}
+
+/* ============================================================
+   12. استجابة الشاشة (Responsive Design)
+   ============================================================ */
+
+@media (max-width: 1100px) {
+    .periodic-table {
+        gap: 4px;
+    }
+    .symbol-large { font-size: 1rem; }
+    .atomic-number { font-size: 0.6rem; }
+}
+
+@media (max-width: 900px) {
+    .periodic-table {
+        gap: 3px;
+    }
+    .symbol-large { font-size: 0.9rem; }
+    .arabic-name { 
+        font-size: 0.55rem;
+        white-space: nowrap;
+    }
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    .details-grid .full-row {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 700px) {
+    body { padding: 10px; }
+    h1 { font-size: 1.8rem; }
+    .periodic-table { gap: 2px; }
+    .symbol-large { font-size: 0.8rem; }
+    .atomic-number { font-size: 0.5rem; }
+    .arabic-name { display: none; }
+    .element { padding: 2px; }
+    .btn-lab { padding: 10px 18px; font-size: 0.9rem; }
+}
+
+@media (max-width: 500px) {
+    .periodic-table { gap: 1px; }
+    .symbol-large { font-size: 0.7rem; }
+    .element { border-width: 1px; }
+    .input-section { flex-direction: column; }
+    .chem-field { width: 100%; }
+    .operator { transform: rotate(90deg); }
+}
+
+/* ============================================================
+   13. تخصيص شريط التمرير
+   ============================================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-blue);
+}
+
+/* ============================================================
+   14. فائدة: تمييز العناصر المشعة (اختياري)
+   ============================================================ */
+
+.element[data-radioactive="true"]::after {
+    content: "☢";
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    font-size: 0.7rem;
+    color: #ff4444;
+    opacity: 0.7;
 }
