@@ -1,15 +1,17 @@
+// ============================================================
+// الموسوعة التفاعلية للجدول الدوري - قاعدة البيانات الكاملة
+// ============================================================
 
-
-
-
-
+// -----------------------------------------------------------
+// بيانات العناصر الكيميائية الـ 118
+// -----------------------------------------------------------
 var ELEMENTS = [
 
   {
     Z:1, sym:"H", name:"Hydrogen", name_ar:"هيدروجين", mass:"1.008", type:"Nonmetal", type_ar:"لافلز", 
     state_ar:"غاز", melting_ar:"-259.16 °م", boiling_ar:"-252.87 °م", density_ar:"0.0899 غ/لتر", 
     color_ar:"عديم اللون", electron_config_ar:"1s¹", uses_ar:"وقود صواريخ، مكون للماء",
-    valency: 1, activity: 5 // <-- الإضافة البرمجية للمحرك
+    valency: 1, activity: 5
   },
   {
     Z:2, sym:"He", name:"Helium", name_ar:"هيليوم", mass:"4.0026", type:"Noble Gas", type_ar:"غاز نبيل", 
@@ -125,9 +127,6 @@ var ELEMENTS = [
     color_ar:"فضي", electron_config_ar:"[Ar] 4s²", uses_ar:"بناء العظام، الأسمنت، الجبس",
     valency: 2, activity: 7.8
   },
-
-
-
   {
     Z:21, sym:"Sc", name:"Scandium", name_ar:"سكانديوم", mass:"44.956", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"1541 °م", boiling_ar:"2836 °م", density_ar:"2985 كغ/م³", 
@@ -242,8 +241,6 @@ var ELEMENTS = [
     color_ar:"فضي-أبيض", electron_config_ar:"[Kr] 4d¹ 5s²", uses_ar:"أجهزة ليزر، شاشات تلفزيون",
     valency: 3, activity: 5
   },
-
-
   {
     Z:40, sym:"Zr", name:"Zirconium", name_ar:"زركونيوم", mass:"91.224", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"1855 °م", boiling_ar:"4409 °م", density_ar:"6520 كغ/م³", 
@@ -358,9 +355,6 @@ var ELEMENTS = [
     color_ar:"فضي-أبيض", electron_config_ar:"[Xe] 4f¹ 5d¹ 6s²", uses_ar:"محفزات السيارات، مصابيح الغاز",
     valency: 3, activity: 5
   },
-
-
-
   {
     Z:59, sym:"Pr", name:"Praseodymium", name_ar:"براسيوديميوم", mass:"140.908", type:"Lanthanide", type_ar:"لانثانيد", 
     state_ar:"صلب", melting_ar:"935 °م", boiling_ar:"3520 °م", density_ar:"6770 كغ/م³", 
@@ -487,9 +481,6 @@ var ELEMENTS = [
     color_ar:"أصفر ذهبي", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s¹", uses_ar:"مجوهرات، إلكترونيات، احتياطي نقدي",
     valency: 3, activity: 1
   },
-
-
-
   {
     Z:80, sym:"Hg", name:"Mercury", name_ar:"زئبق", mass:"200.592", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"سائل", melting_ar:"-38.83 °م", boiling_ar:"356.73 °م", density_ar:"13534 كغ/م³", 
@@ -518,344 +509,464 @@ var ELEMENTS = [
     Z:84, sym:"Po", name:"Polonium", name_ar:"بولونيوم", mass:"[209]", type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", 
     state_ar:"صلب", melting_ar:"254 °م", boiling_ar:"962 °م", density_ar:"9320 كغ/م³", 
     color_ar:"فضي-أسود", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴", uses_ar:"مصادر حرارة نووية، مضاد للكهرباء الساكنة",
-    valency: 2, radioactive: true
+    valency: 2
   },
   {
     Z:85, sym:"At", name:"Astatine", name_ar:"أستاتين", mass:"[210]", type:"Halogen", type_ar:"هالوجين", 
     state_ar:"صلب", melting_ar:"302 °م", boiling_ar:"337 °م", density_ar:"غير معروفة", 
     color_ar:"أسود", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵", uses_ar:"علاج السرطان (طب نووي)",
-    valency: 1, radioactive: true
+    valency: 1
   },
   {
     Z:86, sym:"Rn", name:"Radon", name_ar:"رادون", mass:"[222]", type:"Noble Gas", type_ar:"غاز نبيل", 
     state_ar:"غاز", melting_ar:"-71 °م", boiling_ar:"-61.7 °م", density_ar:"9.73 غ/لتر", 
     color_ar:"عديم اللون", electron_config_ar:"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶", uses_ar:"علاج السرطان، أبحاث الزلازل",
-    valency: 0, radioactive: true
+    valency: 0
   },
   {
     Z:87, sym:"Fr", name:"Francium", name_ar:"فرانسيوم", mass:"[223]", type:"Alkali Metal", type_ar:"فلز قلوي", 
     state_ar:"صلب", melting_ar:"27 °م", boiling_ar:"677 °م", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 7s¹", uses_ar:"أبحاث علمية نادرة",
-    valency: 1, activity: 10, radioactive: true
+    valency: 1, activity: 10
   },
   {
     Z:88, sym:"Ra", name:"Radium", name_ar:"راديوم", mass:"226", type:"Alkaline Earth Metal", type_ar:"فلز قلوي أرضي", 
     state_ar:"صلب", melting_ar:"700 °م", boiling_ar:"1737 °م", density_ar:"5500 كغ/م³", 
     color_ar:"فضي-أبيض", electron_config_ar:"[Rn] 7s²", uses_ar:"دهانات مضيئة (قديمًا)، علاج السرطان",
-    valency: 2, radioactive: true
+    valency: 2
   },
   {
     Z:89, sym:"Ac", name:"Actinium", name_ar:"أكتينيوم", mass:"227", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"1050 °م", boiling_ar:"3200 °م", density_ar:"10070 كغ/م³", 
     color_ar:"فضي", electron_config_ar:"[Rn] 6d¹ 7s²", uses_ar:"مصادر نيوترونات، تطبيقات طبية",
-    valency: 3, radioactive: true
+    valency: 3
   },
   {
     Z:90, sym:"Th", name:"Thorium", name_ar:"ثوريوم", mass:"232.038", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"1750 °م", boiling_ar:"4788 °م", density_ar:"11724 كغ/م³", 
     color_ar:"فضي-أبيض", electron_config_ar:"[Rn] 6d² 7s²", uses_ar:"مفاعلات نووية، زجاج عالي الجودة",
-    valency: 4, radioactive: true
+    valency: 4
   },
   {
     Z:91, sym:"Pa", name:"Protactinium", name_ar:"بروتاكتينيوم", mass:"231.036", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"1568 °م", boiling_ar:"4027 °م", density_ar:"15370 كغ/م³", 
     color_ar:"فضي-رمادي", electron_config_ar:"[Rn] 5f² 6d¹ 7s²", uses_ar:"أبحاث علمية",
-    valency: 5, radioactive: true
+    valency: 5
   },
   {
     Z:92, sym:"U", name:"Uranium", name_ar:"يورانيوم", mass:"238.029", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"1132.3 °م", boiling_ar:"4131 °م", density_ar:"19050 كغ/م³", 
     color_ar:"فضي-رمادي", electron_config_ar:"[Rn] 5f³ 6d¹ 7s²", uses_ar:"وقود نووي، أسلحة نووية",
-    valency: 6, radioactive: true
+    valency: 6
   },
   {
     Z:93, sym:"Np", name:"Neptunium", name_ar:"نبتونيوم", mass:"237", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"639 °م", boiling_ar:"4174 °م", density_ar:"20450 كغ/م³", 
     color_ar:"فضي", electron_config_ar:"[Rn] 5f⁴ 6d¹ 7s²", uses_ar:"مستشعرات نيوترونات",
-    valency: 5, radioactive: true
+    valency: 5
   },
   {
     Z:94, sym:"Pu", name:"Plutonium", name_ar:"بلوتونيوم", mass:"244", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"639.4 °م", boiling_ar:"3228 °م", density_ar:"19816 كغ/م³", 
     color_ar:"فضي-أبيض", electron_config_ar:"[Rn] 5f⁶ 7s²", uses_ar:"أسلحة نووية، وقود نووي",
-    valency: 4, radioactive: true
+    valency: 4
   },
   {
     Z:95, sym:"Am", name:"Americium", name_ar:"أميريسيوم", mass:"243", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"1176 °م", boiling_ar:"2607 °م", density_ar:"13670 كغ/م³", 
     color_ar:"فضي-أبيض", electron_config_ar:"[Rn] 5f⁷ 7s²", uses_ar:"كاشف دخان، مصادر إشعاع",
-    valency: 3, radioactive: true
+    valency: 3
   },
   {
     Z:96, sym:"Cm", name:"Curium", name_ar:"كوريوم", mass:"247", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"1340 °م", boiling_ar:"3100 °م", density_ar:"13510 كغ/م³", 
     color_ar:"فضي", electron_config_ar:"[Rn] 5f⁷ 6d¹ 7s²", uses_ar:"طاقة للمركبات الفضائية",
-    valency: 3, radioactive: true
+    valency: 3
   },
   {
     Z:97, sym:"Bk", name:"Berkelium", name_ar:"بركليوم", mass:"247", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"986 °م", boiling_ar:"2627 °م", density_ar:"14780 كغ/م³", 
     color_ar:"فضي", electron_config_ar:"[Rn] 5f⁹ 7s²", uses_ar:"أبحاث علمية",
-    valency: 3, radioactive: true
+    valency: 3
   },
   {
     Z:98, sym:"Cf", name:"Californium", name_ar:"كاليفورنيوم", mass:"251", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"900 °م", boiling_ar:"1470 °م", density_ar:"15100 كغ/م³", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁰ 7s²", uses_ar:"مصادر نيوترونات",
-    valency: 3, radioactive: true
+    valency: 3
   },
   {
     Z:99, sym:"Es", name:"Einsteinium", name_ar:"أينشتاينيوم", mass:"252", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"860 °م", boiling_ar:"996 °م", density_ar:"8840 كغ/م³", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹¹ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 3, radioactive: true
+    valency: 3
   },
-
-
-
   {
     Z:100, sym:"Fm", name:"Fermium", name_ar:"فيرميوم", mass:"257", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"1527 °م", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹² 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 3, radioactive: true, stability: "منخفضة"
+    valency: 3
   },
   {
     Z:101, sym:"Md", name:"Mendelevium", name_ar:"مندليفيوم", mass:"258", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"827 °م", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹³ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 3, radioactive: true, stability: "منخفضة"
+    valency: 3
   },
   {
     Z:102, sym:"No", name:"Nobelium", name_ar:"نوبليوم", mass:"259", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"827 °م", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 2, radioactive: true, stability: "منخفضة"
+    valency: 2
   },
   {
     Z:103, sym:"Lr", name:"Lawrencium", name_ar:"لورنسيوم", mass:"266", type:"Actinide", type_ar:"أكتينيد", 
     state_ar:"صلب", melting_ar:"1627 °م", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 3, radioactive: true, stability: "منخفضة"
+    valency: 3
   },
   {
     Z:104, sym:"Rf", name:"Rutherfordium", name_ar:"روذرفورديوم", mass:"267", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d² 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 4, radioactive: true, stability: "غير مستقر"
+    valency: 4
   },
   {
     Z:105, sym:"Db", name:"Dubnium", name_ar:"دوبنيوم", mass:"268", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d³ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 5, radioactive: true, stability: "غير مستقر"
+    valency: 5
   },
   {
     Z:106, sym:"Sg", name:"Seaborgium", name_ar:"سيبورجيوم", mass:"269", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁴ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 6, radioactive: true, stability: "غير مستقر"
+    valency: 6
   },
   {
     Z:107, sym:"Bh", name:"Bohrium", name_ar:"بوريوم", mass:"270", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁵ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 7, radioactive: true, stability: "غير مستقر"
+    valency: 7
   },
   {
     Z:108, sym:"Hs", name:"Hassium", name_ar:"هاسيوم", mass:"269", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁶ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 8, radioactive: true, stability: "غير مستقر"
+    valency: 8
   },
   {
     Z:109, sym:"Mt", name:"Meitnerium", name_ar:"مايتنريوم", mass:"278", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁷ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 3, radioactive: true, stability: "غير مستقر"
+    valency: 3
   },
   {
     Z:110, sym:"Ds", name:"Darmstadtium", name_ar:"دارمشتادتيوم", mass:"281", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁸ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 2, radioactive: true, stability: "غير مستقر"
+    valency: 2
   },
   {
     Z:111, sym:"Rg", name:"Roentgenium", name_ar:"رونتجينيوم", mass:"282", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d⁹ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 3, radioactive: true, stability: "غير مستقر"
+    valency: 3
   },
   {
     Z:112, sym:"Cn", name:"Copernicium", name_ar:"كوبرنيسيوم", mass:"285", type:"Transition Metal", type_ar:"فلز انتقالي", 
     state_ar:"غاز", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s²", uses_ar:"أبحاث علمية بحتة",
-    valency: 2, radioactive: true, stability: "غير مستقر"
+    valency: 2
   },
   {
     Z:113, sym:"Nh", name:"Nihonium", name_ar:"نيهونيوم", mass:"286", type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", 
     state_ar:"صلب", melting_ar:"430 °م", boiling_ar:"1100 °م", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹", uses_ar:"أبحاث علمية بحتة",
-    valency: 3, radioactive: true, stability: "غير مستقر"
+    valency: 3
   },
   {
     Z:114, sym:"Fl", name:"Flerovium", name_ar:"فليروفيوم", mass:"289", type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p²", uses_ar:"أبحاث علمية بحتة",
-    valency: 4, radioactive: true, stability: "غير مستقر"
+    valency: 4
   },
   {
     Z:115, sym:"Mc", name:"Moscovium", name_ar:"موسكوفيوم", mass:"290", type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", 
     state_ar:"صلب", melting_ar:"400 °م", boiling_ar:"1100 °م", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³", uses_ar:"أبحاث علمية بحتة",
-    valency: 3, radioactive: true, stability: "غير مستقر"
+    valency: 3
   },
   {
     Z:116, sym:"Lv", name:"Livermorium", name_ar:"ليفرموريوم", mass:"293", type:"Post-transition Metal", type_ar:"فلز بعد انتقالي", 
     state_ar:"صلب", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴", uses_ar:"أبحاث علمية بحتة",
-    valency: 2, radioactive: true, stability: "غير مستقر"
+    valency: 2
   },
   {
     Z:117, sym:"Ts", name:"Tennessine", name_ar:"تينيسين", mass:"294", type:"Halogen", type_ar:"هالوجين", 
     state_ar:"صلب", melting_ar:"350 °م", boiling_ar:"550 °م", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵", uses_ar:"أبحاث علمية بحتة",
-    valency: 1, radioactive: true, stability: "غير مستقر"
+    valency: 1
   },
   {
     Z:118, sym:"Og", name:"Oganesson", name_ar:"أوغانيسون", mass:"294", type:"Noble Gas", type_ar:"غاز نبيل", 
     state_ar:"غاز", melting_ar:"غير معروف", boiling_ar:"غير معروف", density_ar:"غير معروفة", 
     color_ar:"غير معروف", electron_config_ar:"[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶", uses_ar:"أبحاث علمية بحتة",
-    valency: 0, radioactive: true, stability: "غير مستقر"
+    valency: 0
   }
 ];
 
+// -----------------------------------------------------------
+// نظام المستويات التعليمية
+// -----------------------------------------------------------
+var LEVELS = {
+  1: "ابتدائي",
+  2: "إعدادي", 
+  3: "ثانوي",
+  4: "جامعي",
+  5: "بحثي/متقدم"
+};
 
+// إضافة مستوى لكل عنصر
+ELEMENTS.forEach(el => {
+  if (el.Z <= 20) el.level = 1;
+  else if (el.Z <= 38) el.level = 2;
+  else if (el.Z <= 56) el.level = 2;
+  else if (el.Z <= 71) el.level = 3;
+  else if (el.Z <= 92) el.level = 3;
+  else if (el.Z <= 103) el.level = 4;
+  else el.level = 5;
+});
 
+// -----------------------------------------------------------
+// تصحيح العناصر المشعة
+// -----------------------------------------------------------
+ELEMENTS.forEach(el => {
+  if (el.Z >= 84) {
+    el.radioactive = true;
+    if (!el.activity) el.activity = 0;
+  }
+  if (!el.hasOwnProperty('radioactive')) {
+    el.radioactive = false;
+  }
+});
 
-
-/* 1. خريطة البيانات والهيكل */
-
-// 2. خريطة البيانات وهيكل الجدول (عشان الجدول الدوري يترسم صح)
-var MAP = {}; 
+// -----------------------------------------------------------
+// خريطة البيانات للوصول السريع
+// -----------------------------------------------------------
+var MAP = {};
 ELEMENTS.forEach(function(e) { MAP[e.sym] = e; });
 
+// -----------------------------------------------------------
+// دوال مساعدة للبحث
+// -----------------------------------------------------------
+function getElementByZ(Z) {
+  return ELEMENTS.find(e => e.Z === Z) || null;
+}
+
+function getElementBySymbol(sym) {
+  return MAP[sym] || null;
+}
+
+function getElementByNameAr(name) {
+  return ELEMENTS.find(e => e.name_ar === name) || null;
+}
+
+function getElementsByLevel(level) {
+  return ELEMENTS.filter(e => e.level === level);
+}
 
 
 
-// المصفوفة الأساسية: تلاحظ وجود "Lu" و "Lr" في العمود الثالث لضمان استقامة الجدول
+// -----------------------------------------------------------
+// الجدول الدوري الصحيح - 18 عمود (بدون لانثانيدات ولا أكتينيدات في الصفوف)
+// -----------------------------------------------------------
 
 
-
+// -----------------------------------------------------------
+// الجدول الدوري الصحيح - 18 عمود (بدون لانثانيدات ولا أكتينيدات في الصفوف)
+// -----------------------------------------------------------
 var PERIOD_ROWS = [
-
-
-  ["H", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "He"],
-  ["Li","Be","","","","","","","","","","","B","C","N","O","F","Ne"],
-  ["Na","Mg","","","","","","","","","","","Al","Si","P","S","Cl","Ar"],
-  ["K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr"],
-  ["Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I","Xe"],
-  ["Cs","Ba","Lu","Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg","Tl","Pb","Bi","Po","At","Rn"],
-  ["Fr","Ra","Lr","Rf","Db","Sg","Bh","Hs","Mt","Ds","Rg","Cn","Nh","Fl","Mc","Lv","Ts","Og"]
+  ["H",  "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "He"],
+  ["Li", "Be", "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "B",  "C",  "N",  "O",  "F",  "Ne"],
+  ["Na", "Mg", "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "Al", "Si", "P",  "S",  "Cl", "Ar"],
+  ["K",  "Ca", "Sc", "Ti", "V",  "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "Ga", "Ge", "As", "Se", "Br", "Kr"],
+  ["Rb", "Sr", "Y",  "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In", "Sn", "Sb", "Te", "I",  "Xe"],
+  ["Cs", "Ba", "",   "Hf", "Ta", "W",  "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn"],
+  ["Fr", "Ra", "",   "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og"]
 ];
 
-// السلاسل السفلية تبدأ من العدد الذري 57 و 89
+// -----------------------------------------------------------
+// السلسلة الأولى: اللانثانيدات (العناصر 57-71) - تحت الجدول
+// -----------------------------------------------------------
+var LANTHANIDES = [
+  "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu"
+];
+
+// -----------------------------------------------------------
+// السلسلة الثانية: الأكتينيدات (العناصر 89-103) - تحت الجدول
+// -----------------------------------------------------------
+var ACTINIDES = [
+  "Ac", "Th", "Pa", "U",  "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr"
+];
 
 
 
+
+
+
+// -----------------------------------------------------------
+// دالة للحصول على جميع بيانات الجدول بشكل متكامل
+// -----------------------------------------------------------
+function getPeriodicTableData() {
+  return {
+    rows: PERIOD_ROWS,
+    lanthanides: LANTHANIDES,
+    actinides: ACTINIDES,
+    elements: ELEMENTS
+  };
+}
 
 /* ============================================================
    قاعدة البيانات الكيميائية الكبرى (إعدادي - ثانوي - جامعي)
    ============================================================ */
 
 var CHEMISTRY_DATABASE = {
-	
-	
-    // 1. قسم التفاعلات الخاصة والكواشف (زر تفاعل)
-    specialReactions: {
-        // --- تفاعلات إعدادي والأساسيات ---
-        "H2+O2": { full: "2H2 + O2", result: "2H2O", note: "تكوين الماء (تفاعل انفجاري 💥)." },
-        "HCl+Zn": { full: "Zn + 2HCl", result: "ZnCl2 + H2 ↑", note: "تفاعل إزاحة: الخارصين يحل محل هيدروجين الحمض." },
-        "Mg+O2": { full: "2Mg + O2", result: "2MgO", note: "احتراق المغنيسيوم: يتكون مسحوق أبيض من أكسيد المغنيسيوم." },
-        "C+O2": { full: "C + O2", result: "CO2", note: "احتراق الكربون: يتكون غاز ثاني أكسيد الكربون." },
-        "HCl+NaOH": { full: "NaOH + HCl", result: "NaCl + H2O", note: "تفاعل التعادل بين حمض وقلوي لتكوين ملح وماء." },
-        "H2SO4+Zn": { full: "Zn + H2SO4", result: "ZnSO4 + H2 ↑", note: "تفاعل إزاحة: تصاعد غاز الهيدروجين الذي يشتعل بفرقعة." },
-        "HCl+Na2CO3": { full: "Na2CO3 + 2HCl", result: "2NaCl + H2O + CO2 ↑", note: "تفاعل كشف الكربونات: يحدث فوران وتصاعد غاز يعكر ماء الجير." },
+  
+  // 1. قسم التفاعلات الخاصة والكواشف (زر تفاعل)
+  specialReactions: {
+    "H2+O2": { full: "2H2 + O2", result: "2H2O", note: "تكوين الماء (تفاعل انفجاري 💥).", level: 1 },
+    "HCl+Zn": { full: "Zn + 2HCl", result: "ZnCl2 + H2 ↑", note: "تفاعل إزاحة: الخارصين يحل محل هيدروجين الحمض.", level: 1 },
+    "Mg+O2": { full: "2Mg + O2", result: "2MgO", note: "احتراق المغنيسيوم: يتكون مسحوق أبيض من أكسيد المغنيسيوم.", level: 1 },
+    "C+O2": { full: "C + O2", result: "CO2", note: "احتراق الكربون: يتكون غاز ثاني أكسيد الكربون.", level: 1 },
+    "HCl+NaOH": { full: "NaOH + HCl", result: "NaCl + H2O", note: "تفاعل التعادل بين حمض وقلوي لتكوين ملح وماء.", level: 1 },
+    "H2SO4+Zn": { full: "Zn + H2SO4", result: "ZnSO4 + H2 ↑", note: "تفاعل إزاحة: تصاعد غاز الهيدروجين الذي يشتعل بفرقعة.", level: 1 },
+    "HCl+Na2CO3": { full: "Na2CO3 + 2HCl", result: "2NaCl + H2O + CO2 ↑", note: "تفاعل كشف الكربونات: يحدث فوران وتصاعد غاز يعكر ماء الجير.", level: 1 },
+    "Al+HCl": { full: "2Al + 6HCl", result: "2AlCl3 + 3H2 ↑", note: "تفاعل الألومنيوم مع الحمض: يتأخر قليلاً بسبب طبقة الأكسيد ثم يحدث فوران شديد.", level: 2 },
+    "NH3+HCl": { full: "NH3 + HCl", result: "NH4Cl ↑", note: "⚪ تكوين سحب بيضاء كثيفة من كلوريد الأمونيوم عند تقريب ساق مبللة بالنشادر.", level: 2 },
+    "AgNO3+KI": { full: "AgNO3 + KI", result: "KNO3 + AgI ↓", note: "🟡 تكون راسب أصفر من يوديد الفضة (لا يذوب في محلول النشادر).", level: 2 },
+    "BaCl2+H2SO4": { full: "BaCl2 + H2SO4", result: "BaSO4 ↓ + 2HCl", note: "⚪ تكون راسب أبيض من كبريتات الباريوم (من أهم كشوفات الكبريتات).", level: 2 },
+    "Cu+AgNO3": { full: "Cu + 2AgNO3", result: "Cu(NO3)2 + 2Ag ↓", note: "يحل النحاس محل الفضة: يتكون محلول أزرق وتترسب شعيرات الفضة اللامعة.", level: 2 },
+    "Cl2+KI": { full: "Cl2 + 2KI", result: "2KCl + I2", note: "🟣 الكلور يطرد اليود: يظهر لون اليود البني الذي يزرق ورقة النشا.", level: 2 },
+    "Fe+Cl2": { full: "2Fe + 3Cl2", result: "2FeCl3", note: "يتكون ملح كلوريد حديد III (بني محمر) لأن الكلور عامل مؤكسد قوي.", level: 2 },
+    "H2O+Na": { full: "2Na + 2H2O", result: "2NaOH + H2 ↑", note: "الصوديوم يحل محل هيدروجين الماء بعنف ويشتعل الغاز بفرقعة.", level: 1 },
+    "Fe+CuSO4": { full: "Fe + CuSO4", result: "FeSO4 + Cu ↓", note: "يحل الحديد محل النحاس: يختفي اللون الأزرق ويترسب النحاس الأحمر.", level: 1 },
+    "S+O2": { full: "S + O2", result: "SO2", note: "احتراق الكبريت بلهب أزرق وتصاعد غاز نفاذ الرائحة.", level: 1 },
+    "CH3COOH+NaHCO3": { full: "CH3COOH + NaHCO3", result: "CH3COONa + H2O + CO2 ↑", note: "🌋 تفاعل البركان: فوران سريع وتصاعد غاز CO2.", level: 1 },
+    "AgNO3+NaCl": { full: "NaCl + AgNO3", result: "NaNO3 + AgCl ↓", note: "⚪ تكون راسب أبيض من كلوريد الفضة (يصير بنفسجياً في الضوء).", level: 2 },
+    "BaCl2+Na2SO4": { full: "Na2SO4 + BaCl2", result: "2NaCl + BaSO4 ↓", note: "⚪ تكون راسب أبيض من كبريتات الباريوم (لا يذوب في الأحماض).", level: 2 },
+    "KI+Pb(NO3)2": { full: "Pb(NO3)2 + 2KI", result: "2KNO3 + PbI2 ↓", note: "🟡 تكون راسب أصفر ذهبي من يوديد الرصاص.", level: 2 },
+    "AlCl3+NaOH": { full: "AlCl3 + 3NaOH", result: "Al(OH)3 ↓ + 3NaCl", note: "⚪ تكون راسب أبيض جيلاتيني (يذوب في وفرة من الصودا الكاوية).", level: 2 },
+    "FeCl3+NaOH": { full: "FeCl3 + 3NaOH", result: "Fe(OH)3 ↓ + 3NaCl", note: "🟤 راسب بني محمر جيلاتيني (هيدروكسيد حديد III).", level: 2 },
+    "FeCl2+NaOH": { full: "FeCl2 + 2NaOH", result: "Fe(OH)2 ↓ + 2NaCl", note: "🟢 راسب أبيض مخضر (هيدروكسيد حديد II).", level: 2 },
+    "CuSO4+NaOH": { full: "CuSO4 + 2NaOH", result: "Cu(OH)2 ↓ + Na2SO4", note: "🔵 راسب أزرق من هيدروكسيد النحاس يسود بالتسخين الشديد.", level: 2 },
+    "AgNO3+NaI": { full: "NaI + AgNO3", result: "NaNO3 + AgI ↓", note: "🟡 راسب أصفر من يوديد الفضة (لا يذوب في محلول النشادر).", level: 2 },
+    "AgNO3+Na3PO4": { full: "Na3PO4 + 3AgNO3", result: "3NaNO3 + Ag3PO4 ↓", note: "🟡 راسب أصفر من فوسفات الفضة (يفرق عن اليوديد بأنه يذوب في محلول النشادر).", level: 3 },
+    "AgNO3+NaBr": { full: "NaBr + AgNO3", result: "NaNO3 + AgBr ↓", note: "⚪🟡 راسب أبيض مصفر من بروميد الفضة (يصير داكناً في الضوء ويذوب ببطء في النشادر).", level: 3 },
+    "AgNO3+Na2S": { full: "Na2S + 2AgNO3", result: "2NaNO3 + Ag2S ↓", note: "⚫ راسب أسود من كبريتيد الفضة.", level: 3 },
+    "AgNO3+Na2SO3": { full: "Na2SO3 + 2AgNO3", result: "2NaNO3 + Ag2SO3 ↓", note: "⚪ راسب أبيض من كبريتيت الفضة يسود بالتسخين.", level: 3 },
+    "CaCl2+Na2CO3": { full: "CaCl2 + Na2CO3", result: "CaCO3 ↓ + 2NaCl", note: "⚪ كشف المجموعة الخامسة: راسب أبيض من كربونات الكالسيوم يذوب في HCl.", level: 2 },
+    "BaCl2+Na3PO4": { full: "2Na3PO4 + 3BaCl2", result: "Ba3(PO4)2 ↓ + 6NaCl", note: "⚪ راسب أبيض من فوسفات الباريوم (يذوب في حمض HCl المخفف).", level: 3 },
+    "FeSO4+H2SO4+NaNO3": { full: "FeSO4 + H2SO4 + NaNO3", result: "Brown Ring", note: "🟤 تجربة الحلقة البنية: ظهور حلقة بنية عند الحد الفاصل (كشف النترات).", level: 3 },
+    "K2Cr2O7+SO2": { full: "K2Cr2O7 + 3SO2 + H2SO4", result: "Cr2(SO4)3", note: "🟢 اخضرار ورقة ثاني كرومات البوتاسيوم (كشف غاز SO2).", level: 3 },
+    "CuSO4+NH3": { full: "CuSO4 + 4NH3", result: "[Cu(NH3)4]SO4", note: "🔵🔵 يتكون لون أزرق نفاذ (محلول النحاس النشادري) عند إضافة وفرة من النشادر.", level: 2 },
+    "FeCl3+K4[Fe(CN)6]": { full: "4FeCl3 + 3K4[Fe(CN)6]", result: "Fe4[Fe(CN)6]3", note: "🔵 يتكون راسب أزرق بروسيا (Prussian Blue) عند كشف الحديد III.", level: 3 },
+    "Al(OH)3+NaOH": { full: "Al(OH)3 + NaOH", result: "NaAlO2 + 2H2O", note: "✨ يذوب الراسب الأبيض في وفرة من الصودا الكاوية لتكوين ميتا ألومنيات الصوديوم.", level: 2 },
+    "KMnO4+FeSO4": { full: "KMnO4 + FeSO4 + H2SO4", result: "MnSO4", note: "🟣➔⚪ يزول لون البرمنجنات البنفسجي (كشف عن حدوث عملية أكسدة لحديد II).", level: 3 },
+    "NaOH+NH4Cl": { full: "NH4Cl + NaOH", result: "NaCl + H2O + NH3 ↑", note: "👃 تصاعد غاز الأمونيا (النشادر) ذو الرائحة النفاذة.", level: 2 },
+    "Fe+S": { full: "Fe + S", result: "FeS", note: "تكوين كبريتيد الحديد II الأسود.", level: 2 },
+    "Fe3O4+HCl": { full: "Fe3O4 + 8HCl (conc)", result: "FeCl2 + 2FeCl3 + 4H2O", note: "الأكسيد المختلط (المغناطيسي) يعطي خليط من أملاح حديد II و III.", level: 3 },
+    "Fe2O3+H2SO4": { full: "Fe2O3 + 3H2SO4 (conc)", result: "Fe2(SO4)3 + 3H2O", note: "تفاعل الهيماتيت مع الحمض المركز لإنتاج ملح حديد III.", level: 3 },
+    "FeO+HCl": { full: "FeO + 2HCl", result: "FeCl2 + H2O", note: "أكسيد حديد II يتفاعل مع الأحماض المخففة ليعطي أملاح حديد II.", level: 2 },
+    "Fe+H2SO4": { full: "3Fe + 4H2SO4 (conc)", result: "FeSO4 + Fe2(SO4)3 + 4H2O + SO2 ↑", note: "تفاعل الحديد مع الحمض المركز: ينتج خليط أملاح وغاز SO2 نفاذ الرائحة.", level: 3 },
+    "CH4+O2": { full: "CH4 + 2O2", result: "CO2 + 2H2O", note: "احتراق الميثان: ينتج طاقة هائلة وبخار ماء.", level: 2 },
+    "C2H4+H2": { full: "C2H4 + H2", result: "C2H6", note: "هدرجة الإيثيلين: تحويل الزيوت النباتية غير المشبعة إلى سمن صناعي.", level: 3 },
+    "C2H4+Br2": { full: "C2H4 + Br2", result: "C2H4Br2", note: "🔴 يزول لون البروم الأحمر (كشف عدم التشبع للرابطة المزدوجة).", level: 3 },
+    "CH3COOH+C2H5OH": { full: "CH3COOH + C2H5OH", result: "CH3COOC2H5 + H2O", note: "🍓 تفاعل قسطرة: تكوين إستر إيثوات الإيثيل ذو رائحة ذكية.", level: 3 },
+    "C2H2+O2": { full: "2C2H2 + 5O2", result: "4CO2 + 2H2O", note: "لهب الأوكسي أسيتيلين: تصل درجة حرارته لـ 3000°C ويستخدم في لحام المعادن.", level: 3 },
+    "C6H5OH+FeCl3": { full: "C6H5OH + FeCl3", result: "Violet Color", note: "🟣 كشف الفينول: يتكون لون بنفسجي مميز عند إضافة كلوريد حديد III.", level: 3 },
+    "C2H2+H2O": { full: "C2H2 + H2O", result: "CH3CHO", note: "هيدرة حفزية للأسيتيلين: ينتج الأسيتالدهيد الذي يمكن أكسدته لحمض خليك.", level: 4 },
+    "C6H6+Cl2": { full: "C6H6 + 3Cl2", result: "C6H6Cl6", note: "تفاعل البنزين مع الكلور (UV): يتكون الجاماكسان (مبيد حشري).", level: 4 }
+  },
 
-// --- تكملة تفاعلات إعدادي والأساسيات (إضافات هامة) ---
-        "Al+HCl": { full: "2Al + 6HCl", result: "2AlCl3 + 3H2 ↑", note: "تفاعل الألومنيوم مع الحمض: يتأخر قليلاً بسبب طبقة الأكسيد ثم يحدث فوران شديد." },
-        "NH3+HCl": { full: "NH3 + HCl", result: "NH4Cl ↑", note: "⚪ تكوين سحب بيضاء كثيفة من كلوريد الأمونيوم عند تقريب ساق مبللة بالنشادر." },
-        "AgNO3+KI": { full: "AgNO3 + KI", result: "KNO3 + AgI ↓", note: "🟡 تكون راسب أصفر من يوديد الفضة (لا يذوب في محلول النشادر)." },
-        "BaCl2+H2SO4": { full: "BaCl2 + H2SO4", result: "BaSO4 ↓ + 2HCl", note: "⚪ تكون راسب أبيض من كبريتات الباريوم (من أهم كشوفات الكبريتات)." },
-        "Cu+AgNO3": { full: "Cu + 2AgNO3", result: "Cu(NO3)2 + 2Ag ↓", note: "يحل النحاس محل الفضة: يتكون محلول أزرق وتترسب شعيرات الفضة اللامعة." },
-        "Cl2+KI": { full: "Cl2 + 2KI", result: "2KCl + I2", note: "🟣 الكلور يطرد اليود: يظهر لون اليود البني الذي يزرق ورقة النشا." },
-        
-        // --- تفاعلات بيكربونات وخل (لابتدائي) ---
-        "CH3COOH+NaHCO3": { full: "CH3COOH + NaHCO3", result: "CH3COONa + H2O + CO2 ↑", note: "🌋 تفاعل البركان: فوران سريع وتصاعد غاز CO2." },
+  // 2. قسم الانحلال الحراري (زر تسخين)
+  heatLibrary: {
+    "HgO": { full: "2HgO", result: "2Hg + O2 ↑", note: "🔴➔⚪ انحلال أكسيد الزئبق الأحمر لفضى وتصاعد O2.", level: 2 },
+    "Cu(OH)2": { full: "Cu(OH)2", result: "CuO + H2O", note: "🔵➔⚫ انحلال هيدروكسيد النحاس الأزرق لأسود.", level: 1 },
+    "CuCO3": { full: "CuCO3", result: "CuO + CO2 ↑", note: "🟢➔⚫ انحلال كربونات النحاس الخضراء لأسود.", level: 1 },
+    "Pb(NO3)2": { full: "2Pb(NO3)2", result: "2PbO + 4NO2 + O2", note: "تصاعد غاز NO2 بني محمر وأكسجين.", level: 2 },
+    "Fe(OH)3": { full: "2Fe(OH)3", result: "Fe2O3 + 3H2O", note: "عند > 200°C ينتج أكسيد حديد III أحمر.", level: 2 },
+    "FeSO4": { full: "2FeSO4", result: "Fe2O3 + SO2 + SO3", note: "تسخين الكبريتات يعطي أكسيد حديد III وأكاسيد كبريت.", level: 3 },
+    "FeC2O4": { full: "FeC2O4", result: "FeO + CO + CO2", note: "بمعزل عن الهواء ينتج أكسيد حديد II (أسود).", level: 4 },
+    "CaCO3": { full: "CaCO3", result: "CaO + CO2 ↑", note: "تحويل الحجر الجيري إلى جير حي (صناعة الأسمنت).", level: 2 },
+    "KMnO4": { full: "2KMnO4", result: "K2MnO4 + MnO2 + O2 ↑", note: "انحلال البرمنجنات لتحضير الأكسجين معملياً.", level: 2 },
+    "NaHCO3": { full: "2NaHCO3", result: "Na2CO3 + H2O + CO2 ↑", note: "انحلال بيكربونات الصوديوم بالحرارة.", level: 1 }
+  },
 
-
-
-
-// --- كشوفات الشقوق والكاتيونات (ثانوية عامة وجامعة) ---
-        "AgNO3+NaCl": { full: "NaCl + AgNO3", result: "NaNO3 + AgCl ↓", note: "⚪ تكون راسب أبيض من كلوريد الفضة (يصير بنفسجياً في الضوء)." },
-        "BaCl2+Na2SO4": { full: "Na2SO4 + BaCl2", result: "2NaCl + BaSO4 ↓", note: "⚪ تكون راسب أبيض من كبريتات الباريوم (لا يذوب في الأحماض)." },
-        "KI+Pb(NO3)2": { full: "Pb(NO3)2 + 2KI", result: "2KNO3 + PbI2 ↓", note: "🟡 تكون راسب أصفر ذهبي من يوديد الرصاص." },
-        "AlCl3+NaOH": { full: "AlCl3 + 3NaOH", result: "Al(OH)3 ↓ + 3NaCl", note: "⚪ تكون راسب أبيض جيلاتيني (يذوب في وفرة من الصودا الكاوية)." },
-        "FeCl3+NaOH": { full: "FeCl3 + 3NaOH", result: "Fe(OH)3 ↓ + 3NaCl", note: "🟤 راسب بني محمر جيلاتيني (هيدروكسيد حديد III)." },
-        "FeCl2+NaOH": { full: "FeCl2 + 2NaOH", result: "Fe(OH)2 ↓ + 2NaCl", note: "🟢 راسب أبيض مخضر (هيدروكسيد حديد II)." },
-        "CuSO4+NaOH": { full: "CuSO4 + 2NaOH", result: "Cu(OH)2 ↓ + Na2SO4", note: "🔵 راسب أزرق من هيدروكسيد النحاس يسود بالتسخين الشديد." },
-        "AgNO3+NaI": { full: "NaI + AgNO3", result: "NaNO3 + AgI ↓", note: "🟡 راسب أصفر من يوديد الفضة (لا يذوب في محلول النشادر)." },
-
-        // --- تكملة كشوفات الشقوق (ثانوية عامة) ---
-        "AgNO3+Na3PO4": { full: "Na3PO4 + 3AgNO3", result: "3NaNO3 + Ag3PO4 ↓", note: "🟡 راسب أصفر من فوسفات الفضة (يفرق عن اليوديد بأنه يذوب في محلول النشادر)." },
-        "AgNO3+NaBr": { full: "NaBr + AgNO3", result: "NaNO3 + AgBr ↓", note: "⚪🟡 راسب أبيض مصفر من بروميد الفضة (يصير داكناً في الضوء ويذوب ببطء في النشادر)." },
-        "AgNO3+Na2S": { full: "Na2S + 2AgNO3", result: "2NaNO3 + Ag2S ↓", note: "⚫ راسب أسود من كبريتيد الفضة." },
-        "AgNO3+Na2SO3": { full: "Na2SO3 + 2AgNO3", result: "2NaNO3 + Ag2SO3 ↓", note: "⚪ راسب أبيض من كبريتيت الفضة يسود بالتسخين." },
-        "CaCl2+Na2CO3": { full: "CaCl2 + Na2CO3", result: "CaCO3 ↓ + 2NaCl", note: "⚪ كشف المجموعة الخامسة: راسب أبيض من كربونات الكالسيوم يذوب في HCl وحمض الكربونيك." },
-        "BaCl2+Na3PO4": { full: "2Na3PO4 + 3BaCl2", result: "Ba3(PO4)2 ↓ + 6NaCl", note: "⚪ راسب أبيض من فوسفات الباريوم (يذوب في حمض HCl المخفف)." },
-        "FeSO4+H2SO4+NaNO3": { full: "FeSO4 + H2SO4 + NaNO3", result: "Brown Ring", note: "🟤 تجربة الحلقة البنية: ظهور حلقة بنية عند الحد الفاصل تزول بالرج أو التسخين (كشف النترات)." },
-        "K2Cr2O7+SO2": { full: "K2Cr2O7 + 3SO2 + H2SO4", result: "Cr2(SO4)3", note: "🟢 يتغير لون ورقة ثاني كرومات البوتاسيوم من البرتقالي إلى الأخضر (كشف غاز SO2)." },
-
-
-
-
-
-// --- كيمياء الحديد (المعدن والأكاسيد) ---
-        "Fe+Cl2": { full: "2Fe + 3Cl2", result: "2FeCl3", note: "تكوين ملح حديد III لأن الكلور عامل مؤكسد قوي." },
-        "Fe+S": { full: "Fe + S", result: "FeS", note: "تكوين كبريتيد الحديد II الأسود." },
-        "Fe3O4+HCl": { full: "Fe3O4 + 8HCl (conc)", result: "FeCl2 + 2FeCl3 + 4H2O", note: "الأكسيد المختلط يعطي خليط من أملاح حديد II و III." },
-        "Fe2O3+H2SO4": { full: "Fe2O3 + 3H2SO4 (conc)", result: "Fe2(SO4)3 + 3H2O", note: "تفاعل الهيماتيت مع الحمض المركز لإنتاج ملح حديد III." },
-
-        // --- الكيمياء العضوية ---
-        "CH4+O2": { full: "CH4 + 2O2", result: "CO2 + 2H2O", note: "احتراق الميثان: ينتج طاقة وبخار ماء." },
-        "C2H4+H2": { full: "C2H4 + H2", result: "C2H6", note: "هدرجة الإيثيلين: تحويل الزيوت لسمن صناعي." },
-        "C2H4+Br2": { full: "C2H4 + Br2", result: "C2H4Br2", note: "🔴 يزول لون البروم الأحمر (كشف الرابطة المزدوجة)." },
-        "CH3COOH+C2H5OH": { full: "CH3COOH + C2H5OH", result: "CH3COOC2H5 + H2O", note: "🍓 استرة: تكوين إستر برائحة الفواكه." },
-        "C2H2+O2": { full: "2C2H2 + 5O2", result: "4CO2 + 2H2O", note: "لهب الأوكسي أسيتيلين (3000°C) للحام المعادن." }
-    },
-
-    // 2. قسم الانحلال الحراري (زر تسخين)
-    heatLibrary: { 
-        "HgO": { full: "2HgO", result: "2Hg + O2 ↑", note: "🔴➔⚪ انحلال أكسيد الزئبق الأحمر لفضى وتصاعد O2." },
-        "Cu(OH)2": { full: "Cu(OH)2", result: "CuO + H2O", note: "🔵➔⚫ انحلال هيدروكسيد النحاس الأزرق لأسود." },
-        "CuCO3": { full: "CuCO3", result: "CuO + CO2 ↑", note: "🟢➔⚫ انحلال كربونات النحاس الخضراء لأسود." },
-        "Pb(NO3)2": { full: "2Pb(NO3)2", result: "2PbO + 4NO2 + O2", note: "تصاعد غاز NO2 بني محمر وأكسجين." },
-        "Fe(OH)3": { full: "2Fe(OH)3", result: "Fe2O3 + 3H2O", note: "عند > 200°C ينتج أكسيد حديد III أحمر." },
-        "FeSO4": { full: "2FeSO4", result: "Fe2O3 + SO2 + SO3", note: "تسخين الكبريتات يعطي أكسيد حديد III وأكاسيد كبريت." },
-        "FeC2O4": { full: "FeC2O4", result: "FeO + CO + CO2", note: "بمعزل عن الهواء ينتج أكسيد حديد II (أسود)." },
-        "CaCO3": { full: "CaCO3", result: "CaO + CO2 ↑", note: "تحويل الحجر الجيري إلى جير حي (صناعة الأسمنت)." },
-        "KMnO4": { full: "2KMnO4", result: "K2MnO4 + MnO2 + O2 ↑", note: "انحلال البرمنجنات لتحضير الأكسجين معملياً." },
-        "NaHCO3": { full: "2NaHCO3", result: "Na2CO3 + H2O + CO2 ↑", note: "انحلال بيكربونات الصوديوم بالحرارة." }
-    },
-
-    // 3. قسم الأكسدة والاختزال (زر أكسدة/اختزال)
-    redoxLibrary: { 
-        "CuO+H2": { full: "CuO + H2", result: "Cu + H2O", note: "اختزال أكسيد النحاس الأسود إلى نحاس أحمر." },
-        "Fe2O3+CO": { full: "Fe2O3 + 3CO", result: "2Fe + 3CO2", note: "اختزال الهيماتيت في الفرن العالي عند > 700°C." },
-        "Fe2O3+H2": { full: "Fe2O3 + 3H2", result: "2Fe + 3H2O", note: "اختزال الهيماتيت بالهيدروجين لإنتاج الحديد." },
-        "CO2+Mg": { full: "2Mg + CO2", result: "2MgO + C", note: "يستمر المغنيسيوم في الاحتراق ويترسب الكربون الأسود." },
-        "C2H5OH+KMnO4": { full: "C2H5OH + [O]", result: "CH3COOH", note: "أكسدة الإيثانول لحمض خليك (يزول لون البرمنجنات البنفسجي)." },
-        "Fe+O2": { full: "3Fe + 2O2", result: "Fe3O4", note: "أكسدة الحديد المسخن للاحمرار ليعطي أكسيد مغناطيسي." },
-        "FeO+O2": { full: "4FeO + O2", result: "2Fe2O3", note: "أكسدة أكسيد حديد II إلى أكسيد حديد III الأكثر استقراراً." }
-    }
+  // 3. قسم الأكسدة والاختزال (زر أكسدة/اختزال)
+  redoxLibrary: {
+    "CuO+H2": { full: "CuO + H2", result: "Cu + H2O", note: "اختزال أكسيد النحاس الأسود إلى نحاس أحمر.", level: 2 },
+    "Fe2O3+CO": { full: "Fe2O3 + 3CO", result: "2Fe + 3CO2", note: "اختزال الهيماتيت في الفرن العالي عند > 700°C.", level: 3 },
+    "Fe2O3+H2": { full: "Fe2O3 + 3H2", result: "2Fe + 3H2O", note: "اختزال الهيماتيت بالهيدروجين لإنتاج الحديد.", level: 3 },
+    "CO2+Mg": { full: "2Mg + CO2", result: "2MgO + C", note: "يستمر المغنيسيوم في الاحتراق ويترسب الكربون الأسود.", level: 2 },
+    "C2H5OH+KMnO4": { full: "C2H5OH + [O]", result: "CH3COOH", note: "أكسدة الإيثانول لحمض خليك (يزول لون البرمنجنات البنفسجي).", level: 3 },
+    "Fe+O2": { full: "3Fe + 2O2", result: "Fe3O4", note: "أكسدة الحديد المسخن للاحمرار ليعطي أكسيد مغناطيسي.", level: 2 },
+    "FeO+O2": { full: "4FeO + O2", result: "2Fe2O3", note: "أكسدة أكسيد حديد II إلى أكسيد حديد III الأكثر استقراراً.", level: 3 }
+  }
 };
 
+// -----------------------------------------------------------
+// دوال مساعدة للتفاعلات الكيميائية
+// -----------------------------------------------------------
+
+// البحث عن تفاعل بين مادتين
+function findReaction(reactant1, reactant2) {
+  const keys = [
+    `${reactant1}+${reactant2}`,
+    `${reactant2}+${reactant1}`
+  ];
+  
+  for (let key of keys) {
+    if (CHEMISTRY_DATABASE.specialReactions[key]) {
+      return CHEMISTRY_DATABASE.specialReactions[key];
+    }
+  }
+  return null;
+}
+
+// الحصول على تفاعلات حسب المستوى
+function getReactionsByLevel(level) {
+  let result = [];
+  for (let key in CHEMISTRY_DATABASE.specialReactions) {
+    if (CHEMISTRY_DATABASE.specialReactions[key].level === level) {
+      result.push({
+        key: key,
+        ...CHEMISTRY_DATABASE.specialReactions[key]
+      });
+    }
+  }
+  return result;
+}
+
+// -----------------------------------------------------------
+// تصدير البيانات للاستخدام في الملفات الأخرى
+// -----------------------------------------------------------
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    ELEMENTS,
+    MAP,
+    PERIOD_ROWS,
+    LANTHANIDES,
+    ACTINIDES,
+    CHEMISTRY_DATABASE,
+    LEVELS,
+    getElementByZ,
+    getElementBySymbol,
+    getElementByNameAr,
+    getElementsByLevel,
+    getPeriodicTableData,
+    findReaction,
+    getReactionsByLevel
+  };
+}
