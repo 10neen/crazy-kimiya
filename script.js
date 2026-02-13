@@ -137,6 +137,110 @@ function selectElement(data, el) {
 }
 
 /* ============================================================
+   1.5 تحديثات 2026 - البحث في الجدول والإدخال اليدوي
+   ============================================================ */
+
+// تعبئة قائمة الاقتراحات (datalist) للإدخال اليدوي
+function populateDatalist() {
+    const datalist = document.getElementById('elements-list');
+    if (!datalist) return;
+    
+    datalist.innerHTML = '';
+    
+    // إضافة العناصر الكيميائية
+    if (typeof ELEMENTS !== 'undefined') {
+        ELEMENTS.forEach(el => {
+            const option = document.createElement('option');
+            option.value = el.sym;
+            option.label = `${el.sym} - ${el.name_ar}`;
+            datalist.appendChild(option);
+        });
+    }
+    
+    // إضافة المركبات الشائعة
+    const commonCompounds = [
+        'H2O', 'CO2', 'NH3', 'CH4', 'C2H4', 'C2H2', 'C2H5OH', 'CH3COOH',
+        'HCl', 'H2SO4', 'HNO3', 'NaOH', 'KOH', 'NaCl', 'KCl',
+        'AgNO3', 'BaCl2', 'KMnO4', 'K2Cr2O7', 'KI',
+        'Na2CO3', 'NaHCO3', 'CaCO3', 'NH4Cl',
+        'FeO', 'Fe2O3', 'Fe3O4', 'FeSO4', 'FeCl2', 'FeCl3',
+        'CuO', 'CuSO4', 'Cu(OH)2', 'Pb(NO3)2'
+    ];
+    
+    commonCompounds.forEach(comp => {
+        const option = document.createElement('option');
+        option.value = comp;
+        option.label = comp;
+        datalist.appendChild(option);
+    });
+    
+    console.log(`✅ تم تعبئة ${datalist.children.length} خيار في قائمة الاقتراحات`);
+}
+
+// تفعيل البحث في الجدول الدوري (فلترة العناصر)
+function setupElementSearch() {
+    const searchInput = document.getElementById('element-search');
+    if (!searchInput) return;
+    
+    searchInput.addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase().trim();
+        const elements = document.querySelectorAll('.element:not(.empty)');
+        
+        if (query === '') {
+            // إظهار كل العناصر
+            elements.forEach(el => {
+                el.style.opacity = '1';
+                el.style.pointerEvents = 'auto';
+                el.style.display = 'flex';
+            });
+            return;
+        }
+        
+        // فلترة العناصر
+        elements.forEach(el => {
+            const symbol = el.dataset.symbol?.toLowerCase() || '';
+            const nameEl = el.querySelector('.arabic-name');
+            const name = nameEl?.textContent?.toLowerCase() || '';
+            
+            if (symbol.includes(query) || name.includes(query)) {
+                el.style.opacity = '1';
+                el.style.pointerEvents = 'auto';
+                el.style.display = 'flex';
+            } else {
+                el.style.opacity = '0.2';
+                el.style.pointerEvents = 'none';
+            }
+        });
+    });
+}
+
+// ربط حقول الإدخال اليدوي بالتفاعلات
+function setupManualInputs() {
+    const slot1 = document.getElementById('slot-1');
+    const slot2 = document.getElementById('slot-2');
+    
+    if (slot1) {
+        slot1.addEventListener('change', function() {
+            if (this.value.trim()) processReaction();
+        });
+        
+        slot1.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') processReaction();
+        });
+    }
+    
+    if (slot2) {
+        slot2.addEventListener('change', function() {
+            if (this.value.trim()) processReaction();
+        });
+        
+        slot2.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') processReaction();
+        });
+    }
+}
+
+/* ============================================================
    2. منطق المعمل الكيميائي ومحرك النتائج
    ============================================================ */
 
@@ -173,30 +277,38 @@ function runLogic(mode) {
 
     var res = null;
     if (typeof CHEMISTRY_DATABASE !== 'undefined') {
-        // البحث في الأقسام الثلاثة حسب النمط (Mode)
-        if (mode === 'react') res = CHEMISTRY_DATABASE.specialReactions[query];
-        if (mode === 'heat') {
-            res = CHEMISTRY_DATABASE.heatLibrary[formula1] || CHEMISTRY_DATABASE.heatLibrary[formula2];
-            // لو مفيش تفاعل حراري، جرب في specialReactions كبديل
-            if (!res) res = CHEMISTRY_DATABASE.specialReactions[query];
+        // البحث في كل أقسام قاعدة البيانات
+        if (mode === 'react') {
+            res = CHEMISTRY_DATABASE.specialReactions[query] || 
+                  CHEMISTRY_DATABASE.elementReactions?.[query] ||
+                  CHEMISTRY_DATABASE.organicReactions?.[query] ||
+                  CHEMISTRY_DATABASE.ironReactions?.[query] ||
+                  CHEMISTRY_DATABASE.doubleDisplacement?.[query];
         }
-        if (mode === 'redox') res = CHEMISTRY_DATABASE.redoxLibrary[query];
+        if (mode === 'heat') {
+            res = CHEMISTRY_DATABASE.heatLibrary[formula1] || 
+                  CHEMISTRY_DATABASE.heatLibrary[formula2] ||
+                  CHEMISTRY_DATABASE.specialReactions[query];
+        }
+        if (mode === 'redox') {
+            res = CHEMISTRY_DATABASE.redoxLibrary[query];
+        }
     }
 
     renderLabResult(res, mode, report, s1, s2);
 }
 
-/* --- وظيفة عرض نواتج المعمل (محدثة بالصوت والاهتزاز) --- */
+/* --- وظيفة عرض نواتج المعمل --- */
 function renderLabResult(res, type, container, s1, s2) {
     if (!container) return;
     
     if (res) {
-        // 1. تشغيل الصوت فوراً بناءً على الملاحظة
+        // تشغيل الصوت
         if (typeof playLabSound === 'function') {
             playLabSound(res.note);
         }
 
-        // 2. إضافة تأثير اهتزاز للمعمل لو فيه "فرقعة" أو "انفجار"
+        // تأثير اهتزاز للتفاعلات القوية
         if (res.note.includes("فرقعة") || res.note.includes("انفجار") || res.note.includes("بعنف")) {
             const labWindow = document.querySelector('.molar-calculator') || container; 
             labWindow.style.animation = "shake 0.5s ease-in-out";
@@ -208,7 +320,7 @@ function renderLabResult(res, type, container, s1, s2) {
         var bgColor = "#ffffff"; 
         var textColor = "#333";
 
-        // كشف الألوان البصري
+        // ألوان الخلفية حسب الملاحظة
         if (res.note.includes("بني محمر") || res.note.includes("بني")) bgColor = "#fdebd0"; 
         if (res.note.includes("أزرق")) bgColor = "#ebf5fb";
         if (res.note.includes("أخضر")) bgColor = "#e9f7ef";
@@ -216,7 +328,7 @@ function renderLabResult(res, type, container, s1, s2) {
         if (res.note.includes("أسود")) { bgColor = "#2c3e50"; textColor = "#fff"; }
         if (res.note.includes("بنفسجي") || res.note.includes("بنفسج")) bgColor = "#f4ecf7";
 
-        // عرض مستوى التفاعل لو موجود
+        // شارة المستوى
         var levelBadge = '';
         if (res.level) {
             var levelNames = {1: 'ابتدائي', 2: 'إعدادي', 3: 'ثانوي', 4: 'جامعي', 5: 'بحثي'};
@@ -241,7 +353,7 @@ function renderLabResult(res, type, container, s1, s2) {
         setTimeout(function() { container.style.animation = "fadeInUp 0.4s ease forwards"; }, 10);
 
     } else {
-        // تشغيل صوت الخطأ لو التفاعل مش موجود
+        // تفاعل غير موجود
         if (typeof playLabSound === 'function') playLabSound("خطأ");
         
         var suggestion = '';
@@ -269,24 +381,30 @@ function showMolarResult() {
         return match.charAt(0).toUpperCase() + match.slice(1).toLowerCase();
     });
 
-    // استدعاء دالة الحساب
+    // تنظيف الصيغة
+    corrected = corrected.replace(/\s+/g, '');
+
+    // حساب الكتلة
     const mass = (typeof calculateMolarMass === 'function') ? calculateMolarMass(corrected) : 0;
     
     if (mass > 0) {
         resultDiv.innerHTML = 
             '<div style="background: rgba(0, 212, 255, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(0, 212, 255, 0.3); color: #fff;">' +
-                '<div style="display:flex; align-items:center; gap:10px;">' +
+                '<div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">' +
                     '<span style="background:#00d4ff; color:#000; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold;">🧪</span>' +
                     '<div style="flex:1;">' +
                         '<span style="color:#888;">الكتلة المولية لـ </span>' +
-                        '<strong style="color:#00d4ff; font-size:1.3rem;">' + corrected + '</strong>' +
+                        '<strong style="color:#00d4ff; font-size:1.3rem; direction:ltr; display:inline-block;">' + corrected + '</strong>' +
                     '</div>' +
-                    '<span style="font-size: 1.8rem; color: #00d4ff; font-weight: bold; text-shadow: 0 0 10px rgba(0,212,255,0.5);">' + mass + '</span>' +
+                    '<span style="font-size: 1.8rem; color: #00d4ff; font-weight: bold; text-shadow: 0 0 10px rgba(0,212,255,0.5); direction:ltr;">' + mass + '</span>' +
                     '<span style="color:#888;">جم/مول</span>' +
+                '</div>' +
+                '<div style="margin-top:10px; font-size:0.85rem; color:#aaa; border-top:1px dashed #444; padding-top:8px;">' +
+                    '✅ تم الحساب باستخدام أحدث الكتل الذرية' +
                 '</div>' +
             '</div>';
     } else {
-        resultDiv.innerHTML = '<span style="color: #ff4444;">⚠️ صيغة غير مكتملة أو رمز غير معروف</span>';
+        resultDiv.innerHTML = '<span style="color: #ff4444;">⚠️ صيغة غير مكتملة أو رمز غير معروف. مثال: H2SO4, CH3COOH, NH3</span>';
     }
 }
 
@@ -300,18 +418,39 @@ function showMolarResult() {
 function calculateMolarMass(formula) {
     if (!formula) return 0;
 
-    // 1. معالجة الأقواس: (NO3)2 تتحول لـ N2O6
-    let processed = formula.replace(/\(([^)]+)\)(\d+)/g, (match, content, multiplier) => {
-        return content.replace(/([A-Z][a-z]*)(\d*)/g, (m, sym, num) => {
-            let count = (parseInt(num) || 1) * parseInt(multiplier);
-            return sym + count;
+    // 1. معالجة الأقواس: (OH)2 → O2H2, (NH4)2SO4 → N2H8SO4
+    let processed = formula;
+    
+    while (processed.includes('(')) {
+        processed = processed.replace(/\(([^()]+)\)(\d*)/g, (match, content, multiplier) => {
+            const num = parseInt(multiplier) || 1;
+            return content.replace(/([A-Z][a-z]*)(\d*)/g, (m, sym, count) => {
+                let cnt = (parseInt(count) || 1) * num;
+                return sym + (cnt > 1 ? cnt : '');
+            });
         });
+    }
+
+    // 2. تصحيح الحروف: H2o → H2O
+    processed = processed.replace(/([A-Z][a-z]*)([a-z])/g, (m, sym, lower) => {
+        return sym + lower.toUpperCase();
     });
+    
+    // 3. التعامل مع المركبات العضوية المكتوبة بطريقة خاطئة
+    if (processed.includes('CH3COOH')) processed = processed.replace('CH3COOH', 'C2H4O2');
+    if (processed.includes('CH3COO')) processed = processed.replace('CH3COO', 'C2H3O2');
+    if (processed.includes('CH3')) processed = processed.replace('CH3', 'C1H3');
+    if (processed.includes('CH2')) processed = processed.replace('CH2', 'C1H2');
+    if (processed.includes('CH')) processed = processed.replace('CH', 'C1H1');
+    if (processed.includes('OH')) processed = processed.replace('OH', 'O1H1');
+    if (processed.includes('NH2')) processed = processed.replace('NH2', 'N1H2');
+    if (processed.includes('NH4')) processed = processed.replace('NH4', 'N1H4');
+    if (processed.includes('SO4')) processed = processed.replace('SO4', 'S1O4');
+    if (processed.includes('NO3')) processed = processed.replace('NO3', 'N1O3');
+    if (processed.includes('PO4')) processed = processed.replace('PO4', 'P1O4');
+    if (processed.includes('CO3')) processed = processed.replace('CO3', 'C1O3');
 
-    // 2. تصحيح ذكي للحروف
-    processed = processed.replace(/(\d)([a-z])/g, (m, p1, p2) => p1 + p2.toUpperCase());
-    if (processed[0]) processed = processed[0].toUpperCase() + processed.slice(1);
-
+    // 4. حساب الكتلة
     const regex = /([A-Z][a-z]*)(\d*)/g;
     let totalMass = 0, found = false;
     let match;
@@ -329,23 +468,27 @@ function calculateMolarMass(formula) {
 }
 
 /**
- * دالة مسح قاعدة البيانات: تستخرج كل المركبات الفريدة لإضافتها للقوائم
+ * دالة مسح قاعدة البيانات: تستخرج كل المركبات الفريدة
  */
 function getUniqueCompounds() {
     var allFound = {};
     if (typeof CHEMISTRY_DATABASE !== 'undefined') {
-        var libs = [
+        var sections = [
             CHEMISTRY_DATABASE.specialReactions,
             CHEMISTRY_DATABASE.heatLibrary,
-            CHEMISTRY_DATABASE.redoxLibrary
+            CHEMISTRY_DATABASE.redoxLibrary,
+            CHEMISTRY_DATABASE.elementReactions,
+            CHEMISTRY_DATABASE.organicReactions,
+            CHEMISTRY_DATABASE.ironReactions,
+            CHEMISTRY_DATABASE.doubleDisplacement
         ];
 
-        libs.forEach(function(lib) {
+        sections.forEach(function(lib) {
             if (lib) {
                 Object.keys(lib).forEach(function(fullKey) {
                     fullKey.split('+').forEach(function(item) {
                         var trimmed = item.trim();
-                        if (trimmed) allFound[trimmed] = true;
+                        if (trimmed && !trimmed.includes(' ')) allFound[trimmed] = true;
                     });
                 });
             }
@@ -364,21 +507,19 @@ function clearLab() {
     var molarInput = document.getElementById('formula-input');
     var molarResult = document.getElementById('molar-result');
     
-    if (s1) s1.selectedIndex = 0;
-    if (s2) s2.selectedIndex = 0;
+    if (s1) s1.value = '';
+    if (s2) s2.value = '';
     if (report) report.innerHTML = '<div style="color:#888; border:2px dashed #444; padding:20px; border-radius:10px; text-align:center;">🧪 المعمل جاهز.. اختر المواد وابدأ التفاعل</div>';
     if (molarInput) molarInput.value = '';
     if (molarResult) molarResult.innerHTML = '';
     
-    // إعادة تفعيل الخانة الأولى
     window.activeSlotId = 'slot-1';
 }
 
 /* ============================================================
-   4. محرك الرف الذكي ونظام السحب (UI Interaction)
+   4. محرك الرف الذكي
    ============================================================ */
 
-// مصفوفة المركبات الأكثر استخداماً
 var QUICK_COMPOUNDS = [
     "H2O", "CO2", "NH3", "CH4", "C2H4", "C2H2", "C2H5OH", "CH3COOH", 
     "Fe2O3", "Fe3O4", "FeO", "FeSO4", "FeCl3", "Fe(OH)3", "FeC2O4", 
@@ -386,27 +527,24 @@ var QUICK_COMPOUNDS = [
     "Na2CO3", "NaHCO3", "KI", "KMnO4", "Pb(NO3)2", "CaCO3", "NH4Cl"
 ];
 
-// المتغير المسؤول عن تحديد أي خانة سيتم تعبئتها (Toggle)
 var activeSlotId = 'slot-1';
 
-/**
- * بناء الرف بصرياً وبرمجياً
- */
 function initializeQuickShelf() {
     var shelf = document.getElementById("quick-shelf");
     if (!shelf) return;
 
     var allItems = new Set();
-    
-    // 1. إضافة القائمة اليدوية
     QUICK_COMPOUNDS.forEach(c => allItems.add(c));
 
-    // 2. سحب أي مركب مضاف حديثاً في قاعدة البيانات
     if (typeof CHEMISTRY_DATABASE !== 'undefined') {
         var libs = [
             CHEMISTRY_DATABASE.specialReactions, 
             CHEMISTRY_DATABASE.heatLibrary, 
-            CHEMISTRY_DATABASE.redoxLibrary
+            CHEMISTRY_DATABASE.redoxLibrary,
+            CHEMISTRY_DATABASE.elementReactions,
+            CHEMISTRY_DATABASE.organicReactions,
+            CHEMISTRY_DATABASE.ironReactions,
+            CHEMISTRY_DATABASE.doubleDisplacement
         ];
         libs.forEach(lib => {
             if (lib) {
@@ -419,7 +557,7 @@ function initializeQuickShelf() {
         });
     }
 
-    shelf.innerHTML = ""; // تنظيف الرف قبل البناء
+    shelf.innerHTML = "";
     
     Array.from(allItems).sort().forEach(function(comp) {
         var btn = document.createElement("button");
@@ -447,97 +585,43 @@ function initializeQuickShelf() {
     });
 }
 
-/**
- * دالة ملء الخانات عند الضغط على أزرار الرف
- */
 function fillInput(val) {
-    // 1. تحديث خانة الكتلة المولية وحسابها
     const molarInput = document.getElementById('formula-input');
     if (molarInput) {
         molarInput.value = val;
         if (typeof showMolarResult === 'function') showMolarResult();
     }
 
-    // 2. تحديث خانات التفاعل (Slot 1 & 2) بالتبادل
     if (typeof activeSlotId === 'undefined') window.activeSlotId = 'slot-1';
     const targetSlot = document.getElementById(activeSlotId);
     
     if (targetSlot) {
-        // التأكد من وجود الخيار في القائمة
-        let found = false;
-        for (let i = 0; i < targetSlot.options.length; i++) {
-            if (targetSlot.options[i].value === val) {
-                targetSlot.selectedIndex = i;
-                found = true;
-                break;
-            }
-        }
-        
-        // لو الخيار مش موجود، نضيفه مؤقتاً
-        if (!found) {
-            let newOpt = document.createElement("option");
-            newOpt.value = val;
-            newOpt.text = "🧪 " + val;
-            targetSlot.add(newOpt);
-            targetSlot.value = val;
-        }
-        
-        // تشغيل محرك التفاعلات تلقائياً
+        targetSlot.value = val;
         if (typeof processReaction === 'function') processReaction();
-        
-        // تبديل الخانة للمرة القادمة
         window.activeSlotId = (window.activeSlotId === 'slot-1') ? 'slot-2' : 'slot-1';
-        
-        // تحديث واجهة المستخدم لإظهار الخانة النشطة
         updateActiveSlotHighlight();
     }
 }
 
-/**
- * تحديث إظهار الخانة النشطة
- */
 function updateActiveSlotHighlight() {
     var slot1 = document.getElementById('slot-1');
     var slot2 = document.getElementById('slot-2');
-    
     if (slot1) slot1.style.borderColor = window.activeSlotId === 'slot-1' ? '#00d4ff' : '#333';
     if (slot2) slot2.style.borderColor = window.activeSlotId === 'slot-2' ? '#00d4ff' : '#333';
 }
 
 /**
- * وظيفة السحب (Draggable) للبطاقات
+ * وظيفة السحب (ملغاة حالياً - البطاقة ثابتة)
  */
 function makeDraggable(el) {
-    var isDragging = false, offsetX, offsetY;
-    var header = el.querySelector('.card-header') || el;
-
-    header.style.cursor = "move";
-    header.onmousedown = function(e) {
-        if (e.target.closest('button, input, select')) return;
-        isDragging = true;
-        offsetX = e.clientX - el.getBoundingClientRect().left;
-        offsetY = e.clientY - el.getBoundingClientRect().top;
-        el.style.zIndex = "1000";
-    };
-
-    document.onmousemove = function(e) {
-        if (!isDragging) return;
-        el.style.position = "fixed";
-        el.style.left = (e.clientX - offsetX) + "px";
-        el.style.top = (e.clientY - offsetY) + "px";
-        el.style.margin = "0";
-    };
-
-    document.onmouseup = function() { isDragging = false; };
+    // معطل: البطاقة ثابتة
+    return;
 }
 
 /* ============================================================
    5. محرك البحث الذكي والصوت والمشاركة
    ============================================================ */
 
-/**
- * فلترة الرف حسب البحث
- */
 function filterShelfOnly(searchInput) {
     let query = searchInput.value.toLowerCase().trim();
     let buttons = document.querySelectorAll('#quick-shelf button');
@@ -550,13 +634,11 @@ function filterShelfOnly(searchInput) {
         return;
     }
 
-    // فلترة أزرار الرف
     buttons.forEach(btn => {
         let btnText = btn.innerText.toLowerCase();
         btn.style.display = btnText.includes(query) ? "inline-block" : "none";
     });
 
-    // الحساب التلقائي أثناء الكتابة
     if (typeof calculateMolarMass === 'function') {
         const mass = calculateMolarMass(query);
         if (mass > 0) {
@@ -568,11 +650,7 @@ function filterShelfOnly(searchInput) {
     }
 }
 
-/**
- * تشغيل المؤثرات الصوتية
- */
 function playLabSound(note) {
-    // نتحقق أولاً من وجود مجلد sounds
     let audio = new Audio();
     
     if (note.includes("غاز") || note.includes("فوران") || note.includes("CO2")) {
@@ -592,9 +670,6 @@ function playLabSound(note) {
     });
 }
 
-/**
- * مشاركة النتيجة
- */
 function shareResult(resJSON) {
     try {
         var res = JSON.parse(decodeURIComponent(resJSON));
@@ -622,86 +697,52 @@ document.addEventListener('DOMContentLoaded', function() {
     // 1. بناء الجدول الدوري
     if (typeof buildCompleteSystem === 'function') buildCompleteSystem();
 
-    // 2. تفعيل سحب البطاقة
+    // 2. تفعيل الميزات الجديدة
+    setTimeout(() => {
+        populateDatalist();
+        setupElementSearch();
+        setupManualInputs();
+        console.log("✅ تم تفعيل التحديثات الجديدة");
+    }, 500);
+
+    // 3. تفعيل سحب البطاقة (معطل)
     var card = document.querySelector(".details-card");
     if (card && typeof makeDraggable === 'function') makeDraggable(card);
 
-    // 3. ملء قوائم المعمل (Slots) بالعناصر والمركبات
-    var slots = [document.getElementById("slot-1"), document.getElementById("slot-2")];
-    var compounds = getUniqueCompounds();
-
-    slots.forEach(function(slot, index) {
-        if (!slot) return;
-        slot.innerHTML = '<option value="">-- اختر مادة --</option>';
-        
-        // إضافة العناصر من ELEMENTS
-        if (typeof ELEMENTS !== 'undefined') {
-            ELEMENTS.forEach(function(el) {
-                // عرض العناصر حسب المستوى (للتبسيط، نعرض كل العناصر)
-                var opt = document.createElement("option");
-                opt.value = el.sym;
-                opt.text = "⚛️ " + el.sym + " - " + el.name_ar;
-                slot.appendChild(opt);
-            });
-        }
-
-        // إضافة فاصل بصري
-        var sep = document.createElement("option");
-        sep.disabled = true;
-        sep.textContent = "────────── مركبات ──────────";
-        slot.appendChild(sep);
-
-        // إضافة المركبات
-        compounds.forEach(function(comp) {
-            var isElement = ELEMENTS && ELEMENTS.some(e => e.sym === comp);
-            if (!isElement) {
-                var opt = document.createElement("option");
-                opt.value = comp;
-                opt.text = "🧪 " + comp;
-                slot.appendChild(opt);
-            }
-        });
-
-        // تفعيل التحديث التلقائي عند تغيير الاختيار
-        slot.onchange = function() {
-            if (typeof processReaction === 'function') processReaction();
-        };
-    });
-
-    // 4. ربط أزرار التحكم
-    var btnReact = document.getElementById("react-btn");
-    var btnHeat = document.getElementById("heat-btn");
-    var btnRedox = document.getElementById("redox-btn");
-    var btnClear = document.getElementById("clear-btn");
-    var molarBtn = document.getElementById("molar-btn");
+    // 4. بناء الرف السريع
+    if (typeof initializeQuickShelf === 'function') initializeQuickShelf();
+    
+    // 5. تفعيل البحث في الرف
+    var searchInput = document.getElementById('shelf-search');
+    if (searchInput) {
+        searchInput.onkeyup = function() { filterShelfOnly(this); };
+    }
+    
+    // 6. تفعيل الإضاءة على الخانة النشطة
+    updateActiveSlotHighlight();
+    
+    // 7. ربط أزرار التحكم
+    var btnReact = document.getElementById("react-btn") || document.querySelector('.btn-lab.react');
+    var btnHeat = document.getElementById("heat-btn") || document.querySelector('.btn-lab.heat');
+    var btnRedox = document.getElementById("redox-btn") || document.querySelector('.btn-lab.redox');
+    var btnClear = document.getElementById("clear-btn") || document.querySelector('.btn-lab.clear');
 
     if (btnReact) btnReact.onclick = processReaction;
     if (btnHeat) btnHeat.onclick = processHeat;
     if (btnRedox) btnRedox.onclick = processRedox;
     if (btnClear) btnClear.onclick = clearLab;
     
-    // 5. ربط حقل الكتلة المولية
+    // 8. ربط حقل الكتلة المولية
     var formulaInput = document.getElementById('formula-input');
     if (formulaInput) {
-        formulaInput.onkeyup = function(e) {
+        formulaInput.onkeyup = function() {
             if (typeof showMolarResult === 'function') showMolarResult();
         };
     }
     
+    var molarBtn = document.getElementById("molar-btn") || document.querySelector('.btn-lab.react');
     if (molarBtn) molarBtn.onclick = showMolarResult;
 
-    // 6. بناء الرف السريع
-    if (typeof initializeQuickShelf === 'function') initializeQuickShelf();
-    
-    // 7. تفعيل البحث
-    var searchInput = document.getElementById('shelf-search');
-    if (searchInput) {
-        searchInput.onkeyup = function() { filterShelfOnly(this); };
-    }
-    
-    // 8. تفعيل الإضاءة على الخانة النشطة
-    updateActiveSlotHighlight();
-    
     // 9. عرض رسالة ترحيب
     var report = document.getElementById('lab-report');
     if (report && report.innerHTML.trim() === '') {
