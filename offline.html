@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لا يوجد اتصال - كيمياء المرح</title>
+    <title>⚡ لا يوجد اتصال - كيمياء المرح</title>
     <style>
-        /* ===== نفس ألوان المشروع الأساسي ===== */
+        /* ===== نفس ألوان المشروع الأساسي (نسخة مخففة) ===== */
         :root {
             --bg-color: #0d1117;
             --card-bg: #161b22;
             --text-color: #c9d1d9;
-            --neon-blue: #00d4ff;
-            --neon-green: #00ff88;
-            --neon-purple: #bc13fe;
+            --text-light: #e6edf3;
+            --neon-blue: #00b4ff;      /* مخفف */
+            --neon-green: #00cc88;      /* مخفف */
+            --neon-purple: #aa88ff;     /* مخفف */
+            --neon-red: #ff6666;         /* مخفف */
         }
 
         * {
@@ -32,15 +34,16 @@
             margin: 0;
             padding: 20px;
             text-align: center;
+            direction: rtl;
         }
 
         .offline-container {
-            max-width: 600px;
+            max-width: 650px;
             padding: 40px 30px;
             background: var(--card-bg);
             border-radius: 30px;
             border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0, 180, 255, 0.15);
             animation: fadeIn 0.6s ease;
         }
 
@@ -55,18 +58,18 @@
             color: var(--neon-blue);
             font-size: 2.2rem;
             margin-bottom: 15px;
-            text-shadow: 0 0 15px var(--neon-blue);
+            text-shadow: 0 0 12px var(--neon-blue);
         }
 
         p {
             font-size: 1.2rem;
             line-height: 1.8;
             margin-bottom: 25px;
-            color: #e6edf3;
+            color: var(--text-light);
         }
 
         .offline-details {
-            background: rgba(0, 212, 255, 0.05);
+            background: rgba(0, 180, 255, 0.03);
             border-right: 5px solid var(--neon-blue);
             padding: 20px;
             border-radius: 15px;
@@ -88,15 +91,25 @@
         }
 
         .offline-details li {
-            padding: 8px 0;
+            padding: 10px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .offline-details li:last-child {
             border-bottom: none;
+        }
+
+        .badge-offline {
+            display: inline-block;
+            background: rgba(255, 68, 68, 0.15);
+            color: var(--neon-red);
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-right: 10px;
         }
 
         .btn-group {
@@ -124,12 +137,12 @@
         .btn-primary {
             background: var(--neon-blue);
             color: #000;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 30px var(--neon-blue);
+            box-shadow: 0 0 25px var(--neon-blue);
         }
 
         .btn-secondary {
@@ -141,16 +154,18 @@
         .btn-secondary:hover {
             background: var(--neon-blue);
             color: #000;
+            transform: translateY(-2px);
         }
 
         .status-badge {
             display: inline-block;
-            padding: 5px 15px;
-            background: rgba(255, 68, 68, 0.2);
-            color: #ff6b6b;
+            padding: 6px 18px;
+            background: rgba(255, 68, 68, 0.1);
+            color: var(--neon-red);
             border-radius: 50px;
             font-size: 0.9rem;
             margin-top: 20px;
+            border: 1px solid rgba(255, 68, 68, 0.3);
         }
 
         @keyframes fadeIn {
@@ -172,42 +187,91 @@
         .element-bubbles {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             margin: 25px 0;
+            flex-wrap: wrap;
         }
 
         .bubble {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.02);
+            transition: var(--transition);
+        }
+
+        .bubble:hover {
+            transform: scale(1.1);
         }
 
         .bubble-h { border: 2px solid var(--neon-blue); color: var(--neon-blue); }
         .bubble-he { border: 2px solid var(--neon-purple); color: var(--neon-purple); }
         .bubble-o { border: 2px solid var(--neon-green); color: var(--neon-green); }
+        .bubble-na { border: 2px solid #ff8a8a; color: #ff8a8a; }
+        .bubble-cl { border: 2px solid #eedd88; color: #eedd88; }
+        .bubble-c { border: 2px solid #88dd88; color: #88dd88; }
+        .bubble-fe { border: 2px solid #88ccff; color: #88ccff; }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.02);
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: 1px solid #30363d;
+            font-size: 0.9rem;
+        }
+
+        .stat-number {
+            color: var(--neon-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="offline-container">
         <!-- أيقونة معمل كيمياء -->
-        <div class="icon">🧪🔬</div>
+        <div class="icon">🧪⚡</div>
 
         <h1>لا يوجد اتصال بالإنترنت</h1>
         
         <p>عفواً، يبدو أنك غير متصل بالشبكة. <br>لكن لا تقلق! معمل الكيمياء لسه شغال.</p>
 
-        <!-- العناصر الكيميائية بتظهر -->
+        <!-- إحصائيات سريعة -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">118</span> عنصر
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">250+</span> تفاعل
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">7</span> أقسام
+            </div>
+        </div>
+
+        <!-- العناصر الكيميائية (متنوعة) -->
         <div class="element-bubbles">
             <div class="bubble bubble-h">H</div>
             <div class="bubble bubble-he">He</div>
             <div class="bubble bubble-o">O</div>
-            <div class="bubble bubble-h">Na</div>
-            <div class="bubble bubble-he">Cl</div>
+            <div class="bubble bubble-na">Na</div>
+            <div class="bubble bubble-cl">Cl</div>
+            <div class="bubble bubble-c">C</div>
+            <div class="bubble bubble-fe">Fe</div>
         </div>
 
         <!-- التفاصيل: إيه الشغال أوفلاين -->
@@ -217,11 +281,12 @@
                 لسه تقدر تشتغل أوفلاين:
             </h3>
             <ul>
-                <li>✅ <strong>الجدول الدوري كامل</strong> - 118 عنصر</li>
+                <li>✅ <strong>الجدول الدوري كامل</strong> <span class="badge-offline">118 عنصر</span></li>
                 <li>✅ <strong>بيانات العناصر</strong> - العدد، الكتلة، الاستخدامات</li>
-                <li>✅ <strong>حاسبة الكتلة المولية</strong> - اشتغل عادي</li>
-                <li>✅ <strong>التفاعلات المحفوظة</strong> - اللي جربتها قبل كده</li>
-                <li>🔄 <strong>التفاعلات الجديدة</strong> - محتاجة نت عشان تبحث</li>
+                <li>✅ <strong>أكثر من 250 تفاعل</strong> - إعدادي، ثانوي، عضوي، حديد</li>
+                <li>✅ <strong>حاسبة الكتلة المولية</strong> - شغالة 100%</li>
+                <li>✅ <strong>التفاعلات المحفوظة</strong> - كل التفاعلات الأساسية</li>
+                <li>🔄 <strong>التفاعلات الجديدة</strong> - محتاجة نت عشان التحديثات</li>
             </ul>
         </div>
 
@@ -245,22 +310,24 @@
         <!-- رسالة برمجيات العدوي -->
         <div class="footer">
             ✨ برمجيات العدوي - كيمياء المرح ✨<br>
-            التطبيق شغال أوفلاين جزئياً، تواصل مع النت عشان التجارب الجديدة
+            الإصدار 3.0 - أكثر من 250 تفاعل كيميائي
         </div>
     </div>
 
     <script>
-        // محاولة إعادة الاتصال تلقائياً
+        // التحقق من وجود اتصال
         if (navigator.onLine) {
             window.location.href = 'index.html';
         }
 
+        // عند عودة الاتصال
         window.addEventListener('online', function() {
             window.location.href = 'index.html';
         });
 
         // رسالة للمطور
-        console.log('🧪 صفحة عدم الاتصال - كيمياء المرح');
+        console.log('🧪 صفحة عدم الاتصال - كيمياء المرح v3.0');
+        console.log('✅ متوفر أوفلاين: 118 عنصر + 250+ تفاعل');
     </script>
 </body>
 </html>
