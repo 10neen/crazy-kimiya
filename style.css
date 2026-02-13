@@ -7,24 +7,24 @@
     --card-bg: #161b22;
     --text-color: #c9d1d9;
     --text-light: #e6edf3;
-    --neon-blue: #00d4ff;
-    --neon-green: #00ff88;
-    --neon-red: #ff4444;
-    --neon-yellow: #ffee00;
-    --neon-purple: #bc13fe;
-    --neon-pink: #ff00ab;
+    --neon-blue: #00b4ff;      /* مخفف من #00d4ff */
+    --neon-green: #00cc88;      /* مخفف من #00ff88 */
+    --neon-red: #ff6666;         /* مخفف من #ff4444 */
+    --neon-yellow: #eedd66;      /* مخفف من #ffee00 */
+    --neon-purple: #aa88ff;      /* مخفف من #bc13fe */
+    --neon-pink: #ff88aa;        /* مخفف من #ff00ab */
     
-    /* ألوان المجموعات الكيميائية */
-    --color-alkali: #ff6b6b;
-    --color-alkaline: #ff9f4b;
-    --color-transition: #00d4ff;
-    --color-post-transition: #69c4c4;
-    --color-metalloid: #10b981;
-    --color-nonmetal: #00ff88;
-    --color-halogen: #ffee00;
-    --color-noble: #bc13fe;
-    --color-lanthanide: #ff7b9c;
-    --color-actinide: #9d7bff;
+    /* ألوان المجموعات الكيميائية - مخففة */
+    --color-alkali: #ff8a8a;
+    --color-alkaline: #ffb57c;
+    --color-transition: #88ccff;
+    --color-post-transition: #88c4c4;
+    --color-metalloid: #44cc99;
+    --color-nonmetal: #88dd88;
+    --color-halogen: #eedd88;
+    --color-noble: #cc99ff;
+    --color-lanthanide: #ff9bb0;
+    --color-actinide: #b69bff;
     
     /* تحسينات الخط */
     --border-radius: 8px;
@@ -55,7 +55,7 @@ header {
     background: linear-gradient(145deg, #0b0e14, #0f131a);
     border-radius: 20px;
     border-bottom: 2px solid var(--neon-blue);
-    box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+    box-shadow: 0 0 30px rgba(0, 180, 255, 0.1); /* تم التعديل */
 }
 
 h1 {
@@ -87,11 +87,44 @@ h1 {
     border: 1px solid #30363d;
 }
 
+/* شريط البحث */
+.search-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--neon-blue);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.search-input:focus {
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
+    outline: none;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.search-hint {
+    color: #888;
+    font-size: 0.9rem;
+}
+
 .periodic-table {
     display: grid !important;
     grid-template-columns: repeat(18, 1fr);
-    direction: ltr; /* الجدول الدوري اتجاهه يسار لليمين */
-    gap: 8px;
+    direction: ltr;
+    gap: 6px; /* تم التعديل من 8px لـ 6px */
     max-width: 1400px;
     margin: 0 auto;
     padding: 10px;
@@ -103,7 +136,7 @@ h1 {
 
 .element {
     aspect-ratio: 1 / 1;
-    border: 2px solid;
+    border: 1.5px solid; /* تم التعديل من 2px لـ 1.5px */
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
@@ -111,23 +144,23 @@ h1 {
     justify-content: center;
     cursor: pointer;
     transition: var(--transition);
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02); /* تم التعديل */
     position: relative;
     overflow: hidden;
     padding: 5px;
 }
 
 .element:hover {
-    transform: scale(1.08);
+    transform: scale(1.05); /* تم التعديل من 1.08 لـ 1.05 */
     z-index: 100;
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0 25px currentColor;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 20px currentColor; /* تم التعديل */
 }
 
 .element.active {
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 30px currentColor;
-    border-width: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 25px currentColor; /* تم التعديل */
+    border-width: 2px;
 }
 
 .element-content {
@@ -140,7 +173,7 @@ h1 {
     position: absolute;
     top: 3px;
     right: 5px;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .symbol-large {
@@ -153,7 +186,7 @@ h1 {
 .arabic-name {
     font-size: 0.65rem;
     margin-top: 2px;
-    opacity: 0.9;
+    opacity: 0.8;
     font-weight: 600;
 }
 
@@ -203,7 +236,7 @@ h1 {
 #lanth-table, #act-table {
     display: grid !important;
     grid-template-columns: repeat(18, 1fr);
-    gap: 8px;
+    gap: 6px;
     margin-top: 5px;
 }
 
@@ -232,7 +265,7 @@ h1 {
     padding: 25px;
     width: 100%;
     max-width: 700px;
-    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+    box-shadow: 0 0 25px rgba(0, 180, 255, 0.15);
     transition: var(--transition);
     position: relative;
 }
@@ -274,13 +307,13 @@ h1 {
 .details-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 12px;
 }
 
 .details-grid p {
     margin: 0;
     padding: 8px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
     border-radius: 8px;
     border-right: 3px solid var(--neon-blue);
 }
@@ -297,11 +330,88 @@ h1 {
 }
 
 /* ============================================================
-   7. معمل الكيمياء الذكي
+   7. الرف السريع والبحث
+   ============================================================ */
+
+.shelf-wrapper {
+    margin: 30px 0;
+}
+
+.shelf-header {
+    color: var(--neon-blue);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.quick-shelf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    border: 1px solid #30363d;
+}
+
+.shelf-btn {
+    background: #1a1a1a;
+    border: 1px solid var(--neon-blue);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.shelf-btn.element {
+    border-color: #ffcc00;
+    color: #ffcc00;
+}
+
+.shelf-btn:hover {
+    background: var(--neon-blue);
+    color: #000;
+    transform: scale(1.03);
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+.shelf-btn.element:hover {
+    background: #ffcc00;
+    border-color: #ffcc00;
+    color: #000;
+}
+
+#shelf-search {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--neon-blue);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 1rem;
+    transition: var(--transition);
+    margin-bottom: 15px;
+}
+
+#shelf-search:focus {
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.2);
+    outline: none;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   8. معمل الكيمياء الذكي
    ============================================================ */
 
 .lab-workspace {
-    margin: 50px auto;
+    margin: 40px auto;
     max-width: 900px;
     background: var(--card-bg);
     border: 1px solid #30363d;
@@ -330,20 +440,25 @@ h1 {
     margin-bottom: 20px;
 }
 
+.input-wrapper {
+    flex: 1;
+    min-width: 200px;
+}
+
 .chem-field {
+    width: 100%;
     background: #0d1117;
     color: white;
     border: 1px solid #444;
     padding: 12px 20px;
     border-radius: 10px;
     font-size: 1rem;
-    min-width: 200px;
     transition: var(--transition);
 }
 
 .chem-field:focus {
     border-color: var(--neon-blue);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 0 12px rgba(0, 180, 255, 0.2);
     outline: none;
 }
 
@@ -356,18 +471,18 @@ h1 {
 .controls-section {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
     flex-wrap: wrap;
     margin: 25px 0;
 }
 
 .btn-lab {
-    padding: 12px 25px;
+    padding: 10px 22px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: var(--transition);
     color: white;
     display: flex;
@@ -376,14 +491,15 @@ h1 {
     letter-spacing: 0.5px;
 }
 
-.btn-lab.react { background: #238636; box-shadow: 0 0 15px rgba(35, 134, 54, 0.3); }
-.btn-lab.heat { background: #da3633; box-shadow: 0 0 15px rgba(218, 54, 51, 0.3); }
-.btn-lab.redox { background: #9b59b6; box-shadow: 0 0 15px rgba(155, 89, 182, 0.3); }
+.btn-lab.react { background: #238636; box-shadow: 0 0 12px rgba(35, 134, 54, 0.2); }
+.btn-lab.heat { background: #da3633; box-shadow: 0 0 12px rgba(218, 54, 51, 0.2); }
+.btn-lab.redox { background: #9b59b6; box-shadow: 0 0 12px rgba(155, 89, 182, 0.2); }
 .btn-lab.clear { background: #484f58; }
 
 .btn-lab:hover {
     transform: translateY(-2px);
-    filter: brightness(1.2);
+    filter: brightness(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .result-display {
@@ -392,11 +508,19 @@ h1 {
     background: #0d1117;
     border-radius: 15px;
     text-align: right;
-    min-height: 150px;
+    min-height: 120px;
+}
+
+.placeholder-message {
+    color: #888;
+    border: 2px dashed #444;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
 }
 
 /* ============================================================
-   8. حاسبة الكتلة المولية
+   9. حاسبة الكتلة المولية
    ============================================================ */
 
 .molar-calculator {
@@ -409,7 +533,23 @@ h1 {
     box-shadow: var(--box-shadow);
 }
 
-#molar-result {
+.molar-calculator h4 {
+    color: var(--neon-blue);
+    margin-bottom: 15px;
+}
+
+.molar-input-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.molar-input-group .chem-field {
+    flex: 1;
+    min-width: 200px;
+}
+
+.molar-result {
     margin-top: 15px;
     padding: 15px;
     background: #0d1117;
@@ -418,74 +558,34 @@ h1 {
 }
 
 /* ============================================================
-   9. الرف السريع والبحث
+   10. زر المشاركة
    ============================================================ */
 
-.quick-shelf {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-    padding: 20px;
-    background: var(--card-bg);
-    border-radius: 20px;
+.share-container {
+    text-align: center;
     margin-top: 20px;
-    border: 1px solid #30363d;
+    display: none;
 }
 
-.shelf-btn {
-    background: #1a1a1a;
-    border: 1px solid var(--neon-blue);
+.share-btn {
+    background: #25d366;
     color: white;
-    padding: 8px 18px;
+    border: none;
+    padding: 12px 30px;
     border-radius: 50px;
+    font-weight: bold;
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
     transition: var(--transition);
-    font-size: 0.9rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
 }
 
-.shelf-btn.element {
-    border-color: #ffcc00;
-    color: #ffcc00;
-}
-
-.shelf-btn:hover {
-    background: var(--neon-blue);
-    color: #000;
-    transform: scale(1.05);
-    box-shadow: 0 0 20px var(--neon-blue);
-}
-
-.shelf-btn.element:hover {
-    background: #ffcc00;
-    border-color: #ffcc00;
-    color: #000;
-}
-
-#shelf-search {
-    width: 100%;
-    padding: 15px 25px;
-    border-radius: 50px;
-    border: 1px solid var(--neon-blue);
-    background: rgba(0, 0, 0, 0.3);
-    color: white;
-    font-size: 1rem;
-    transition: var(--transition);
-    margin-bottom: 10px;
-}
-
-#shelf-search:focus {
-    box-shadow: 0 0 25px rgba(0, 212, 255, 0.3);
-    outline: none;
-    background: rgba(0, 0, 0, 0.5);
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
 }
 
 /* ============================================================
-   10. الفوتر والتذييل
+   11. الفوتر والتذييل
    ============================================================ */
 
 footer {
@@ -498,28 +598,30 @@ footer {
     color: #8b949e;
 }
 
+.copyright {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
 /* ============================================================
-   11. الأنيميشن والتأثيرات
+   12. الأنيميشن والتأثيرات
    ============================================================ */
 
 @keyframes shake {
     0% { transform: translateX(0); }
-    10% { transform: translateX(-5px); }
-    20% { transform: translateX(5px); }
-    30% { transform: translateX(-3px); }
-    40% { transform: translateX(3px); }
-    50% { transform: translateX(-2px); }
-    60% { transform: translateX(2px); }
-    70% { transform: translateX(-1px); }
-    80% { transform: translateX(1px); }
-    90% { transform: translateX(0); }
+    10% { transform: translateX(-4px); }
+    20% { transform: translateX(4px); }
+    30% { transform: translateX(-2px); }
+    40% { transform: translateX(2px); }
+    50% { transform: translateX(0); }
     100% { transform: translateX(0); }
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
     to {
         opacity: 1;
@@ -529,7 +631,7 @@ footer {
 
 @keyframes pulse {
     0% { box-shadow: 0 0 5px currentColor; }
-    50% { box-shadow: 0 0 25px currentColor; }
+    50% { box-shadow: 0 0 20px currentColor; }
     100% { box-shadow: 0 0 5px currentColor; }
 }
 
@@ -538,7 +640,7 @@ footer {
 }
 
 /* ============================================================
-   12. استجابة الشاشة (Responsive Design)
+   13. استجابة الشاشة (Responsive Design)
    ============================================================ */
 
 @media (max-width: 1100px) {
@@ -574,7 +676,8 @@ footer {
     .atomic-number { font-size: 0.5rem; }
     .arabic-name { display: none; }
     .element { padding: 2px; }
-    .btn-lab { padding: 10px 18px; font-size: 0.9rem; }
+    .btn-lab { padding: 8px 16px; font-size: 0.85rem; }
+    .search-hint { display: none; }
 }
 
 @media (max-width: 500px) {
@@ -583,16 +686,24 @@ footer {
     .element { border-width: 1px; }
     .input-section { flex-direction: column; }
     .chem-field { width: 100%; }
-    .operator { transform: rotate(90deg); }
+    .operator { transform: rotate(90deg); margin: 5px 0; }
+    .molar-input-group { flex-direction: column; }
+    .molar-input-group .btn-lab { width: 100%; }
+}
+
+@media (max-width: 350px) {
+    .symbol-large { font-size: 0.6rem; }
+    .atomic-number { font-size: 0.4rem; }
+    .element { padding: 1px; }
 }
 
 /* ============================================================
-   13. تخصيص شريط التمرير
+   14. تخصيص شريط التمرير
    ============================================================ */
 
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -601,7 +712,7 @@ footer {
 
 ::-webkit-scrollbar-thumb {
     background: #30363d;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -609,7 +720,7 @@ footer {
 }
 
 /* ============================================================
-   14. فائدة: تمييز العناصر المشعة (اختياري)
+   15. تمييز العناصر المشعة
    ============================================================ */
 
 .element[data-radioactive="true"]::after {
@@ -617,7 +728,7 @@ footer {
     position: absolute;
     bottom: 2px;
     left: 2px;
-    font-size: 0.7rem;
-    color: #ff4444;
-    opacity: 0.7;
+    font-size: 0.6rem;
+    color: #ff6666;
+    opacity: 0.6;
 }
