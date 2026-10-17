@@ -1,333 +1,460 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ لا يوجد اتصال - كيمياء المرح</title>
-    <style>
-        /* ===== نفس ألوان المشروع الأساسي (نسخة مخففة) ===== */
-        :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-color: #c9d1d9;
-            --text-light: #e6edf3;
-            --neon-blue: #00b4ff;      /* مخفف */
-            --neon-green: #00cc88;      /* مخفف */
-            --neon-purple: #aa88ff;     /* مخفف */
-            --neon-red: #ff6666;         /* مخفف */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="صفحة عدم الاتصال بالإنترنت - كيمياء المرح">
+  <title>⚡ لا يوجد اتصال - كيمياء المرح</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --text-color: #c9d1d9;
+      --text-light: #e6edf3;
+      --neon-blue: #00b4ff;
+      --neon-green: #00cc88;
+      --neon-purple: #aa88ff;
+      --neon-red: #ff6666;
+      --transition: 0.25s ease;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-            direction: rtl;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .offline-container {
-            max-width: 650px;
-            padding: 40px 30px;
-            background: var(--card-bg);
-            border-radius: 30px;
-            border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 40px rgba(0, 180, 255, 0.15);
-            animation: fadeIn 0.6s ease;
-        }
+    body {
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
+      text-align: center;
+    }
 
-        .icon {
-            font-size: 6rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
+    .offline-container {
+      width: 100%;
+      max-width: 650px;
+      padding: clamp(24px, 5vw, 40px)
+               clamp(18px, 4vw, 30px);
+      background: var(--card-bg);
+      border: 2px solid var(--neon-blue);
+      border-radius: 30px;
+      box-shadow: 0 0 40px rgba(0, 180, 255, 0.15);
+      animation: fadeIn 0.6s ease;
+    }
 
-        h1 {
-            color: var(--neon-blue);
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 12px var(--neon-blue);
-        }
+    .icon {
+      display: inline-block;
+      margin-bottom: 20px;
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      animation: float 3s ease-in-out infinite;
+    }
 
-        p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 25px;
-            color: var(--text-light);
-        }
+    h1 {
+      margin-bottom: 15px;
+      color: var(--neon-blue);
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      text-shadow: 0 0 12px rgba(0, 180, 255, 0.55);
+    }
 
-        .offline-details {
-            background: rgba(0, 180, 255, 0.03);
-            border-right: 5px solid var(--neon-blue);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 25px 0;
-            text-align: right;
-        }
+    p {
+      margin-bottom: 22px;
+      color: var(--text-light);
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      line-height: 1.8;
+    }
 
-        .offline-details h3 {
-            color: var(--neon-green);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .stats,
+    .element-bubbles,
+    .btn-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-        .offline-details ul {
-            list-style: none;
-            padding: 0;
-        }
+    .stats {
+      margin: 20px 0;
+    }
 
-        .offline-details li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .stat-item {
+      padding: 10px 15px;
+      border: 1px solid #30363d;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 0.9rem;
+    }
 
-        .offline-details li:last-child {
-            border-bottom: none;
-        }
+    .stat-number {
+      margin-left: 5px;
+      color: var(--neon-green);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
 
-        .badge-offline {
-            display: inline-block;
-            background: rgba(255, 68, 68, 0.15);
-            color: var(--neon-red);
-            padding: 3px 10px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            margin-right: 10px;
-        }
+    .element-bubbles {
+      margin: 25px 0;
+      gap: 10px;
+    }
 
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
+    .bubble {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: transform var(--transition);
+    }
 
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .bubble:hover {
+      transform: scale(1.08);
+    }
 
-        .btn-primary {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
-        }
+    .bubble-h {
+      border: 2px solid var(--neon-blue);
+      color: var(--neon-blue);
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px var(--neon-blue);
-        }
+    .bubble-he {
+      border: 2px solid var(--neon-purple);
+      color: var(--neon-purple);
+    }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--neon-blue);
-            border: 2px solid var(--neon-blue);
-        }
+    .bubble-o {
+      border: 2px solid var(--neon-green);
+      color: var(--neon-green);
+    }
 
-        .btn-secondary:hover {
-            background: var(--neon-blue);
-            color: #000;
-            transform: translateY(-2px);
-        }
+    .bubble-na {
+      border: 2px solid #ff8a8a;
+      color: #ff8a8a;
+    }
 
-        .status-badge {
-            display: inline-block;
-            padding: 6px 18px;
-            background: rgba(255, 68, 68, 0.1);
-            color: var(--neon-red);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            margin-top: 20px;
-            border: 1px solid rgba(255, 68, 68, 0.3);
-        }
+    .bubble-cl {
+      border: 2px solid #eedd88;
+      color: #eedd88;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .bubble-c {
+      border: 2px solid #88dd88;
+      color: #88dd88;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
+    .bubble-fe {
+      border: 2px solid #88ccff;
+      color: #88ccff;
+    }
 
-        .footer {
-            margin-top: 30px;
-            font-size: 0.9rem;
-            color: #8b949e;
-        }
+    .offline-details {
+      margin: 25px 0;
+      padding: 20px;
+      border-right: 5px solid var(--neon-blue);
+      border-radius: 15px;
+      background: rgba(0, 180, 255, 0.03);
+      text-align: right;
+    }
 
-        .element-bubbles {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 25px 0;
-            flex-wrap: wrap;
-        }
+    .offline-details h2 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      color: var(--neon-green);
+      font-size: 1.15rem;
+    }
 
-        .bubble {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.02);
-            transition: var(--transition);
-        }
+    .offline-details ul {
+      list-style: none;
+    }
 
-        .bubble:hover {
-            transform: scale(1.1);
-        }
+    .offline-details li {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      line-height: 1.7;
+    }
 
-        .bubble-h { border: 2px solid var(--neon-blue); color: var(--neon-blue); }
-        .bubble-he { border: 2px solid var(--neon-purple); color: var(--neon-purple); }
-        .bubble-o { border: 2px solid var(--neon-green); color: var(--neon-green); }
-        .bubble-na { border: 2px solid #ff8a8a; color: #ff8a8a; }
-        .bubble-cl { border: 2px solid #eedd88; color: #eedd88; }
-        .bubble-c { border: 2px solid #88dd88; color: #88dd88; }
-        .bubble-fe { border: 2px solid #88ccff; color: #88ccff; }
+    .offline-details li:last-child {
+      border-bottom: none;
+    }
 
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
+    .badge-offline {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 50px;
+      background: rgba(255, 68, 68, 0.15);
+      color: var(--neon-red);
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
 
-        .stat-item {
-            background: rgba(255,255,255,0.02);
-            padding: 10px 15px;
-            border-radius: 50px;
-            border: 1px solid #30363d;
-            font-size: 0.9rem;
-        }
+    .btn-group {
+      margin-top: 28px;
+    }
 
-        .stat-number {
-            color: var(--neon-green);
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-left: 5px;
-        }
-    </style>
+    .btn {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 24px;
+      border: 2px solid transparent;
+      border-radius: 50px;
+      font: inherit;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition:
+        transform var(--transition),
+        background var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      background: var(--neon-blue);
+      color: #000;
+      box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(0, 180, 255, 0.55);
+    }
+
+    .btn-secondary {
+      border-color: var(--neon-blue);
+      background: transparent;
+      color: var(--neon-blue);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: var(--neon-blue);
+      color: #000;
+    }
+
+    .status-badge {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 6px 18px;
+      border: 1px solid rgba(255, 68, 68, 0.3);
+      border-radius: 50px;
+      background: rgba(255, 68, 68, 0.1);
+      color: var(--neon-red);
+      font-size: 0.9rem;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: #8b949e;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+
+      .offline-container {
+        border-radius: 22px;
+      }
+
+      .offline-details {
+        padding: 15px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="offline-container">
-        <!-- أيقونة معمل كيمياء -->
-        <div class="icon">🧪⚡</div>
+  <main class="offline-container">
+    <div class="icon" aria-hidden="true">🧪⚡</div>
 
-        <h1>لا يوجد اتصال بالإنترنت</h1>
-        
-        <p>عفواً، يبدو أنك غير متصل بالشبكة. <br>لكن لا تقلق! معمل الكيمياء لسه شغال.</p>
+    <h1>لا يوجد اتصال بالإنترنت</h1>
 
-        <!-- إحصائيات سريعة -->
-        <div class="stats">
-            <div class="stat-item">
-                <span class="stat-number">118</span> عنصر
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">250+</span> تفاعل
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">7</span> أقسام
-            </div>
-        </div>
+    <p>
+      عفواً، يبدو أنك غير متصل بالشبكة.<br>
+      تقدر تفتح المعمل إذا كانت ملفاته محفوظة على جهازك.
+    </p>
 
-        <!-- العناصر الكيميائية (متنوعة) -->
-        <div class="element-bubbles">
-            <div class="bubble bubble-h">H</div>
-            <div class="bubble bubble-he">He</div>
-            <div class="bubble bubble-o">O</div>
-            <div class="bubble bubble-na">Na</div>
-            <div class="bubble bubble-cl">Cl</div>
-            <div class="bubble bubble-c">C</div>
-            <div class="bubble bubble-fe">Fe</div>
-        </div>
+    <div class="stats" aria-label="معلومات عن المشروع">
+      <div class="stat-item">
+        <span class="stat-number">118</span> عنصر
+      </div>
 
-        <!-- التفاصيل: إيه الشغال أوفلاين -->
-        <div class="offline-details">
-            <h3>
-                <span>⚗️</span> 
-                لسه تقدر تشتغل أوفلاين:
-            </h3>
-            <ul>
-                <li>✅ <strong>الجدول الدوري كامل</strong> <span class="badge-offline">118 عنصر</span></li>
-                <li>✅ <strong>بيانات العناصر</strong> - العدد، الكتلة، الاستخدامات</li>
-                <li>✅ <strong>أكثر من 250 تفاعل</strong> - إعدادي، ثانوي، عضوي، حديد</li>
-                <li>✅ <strong>حاسبة الكتلة المولية</strong> - شغالة 100%</li>
-                <li>✅ <strong>التفاعلات المحفوظة</strong> - كل التفاعلات الأساسية</li>
-                <li>🔄 <strong>التفاعلات الجديدة</strong> - محتاجة نت عشان التحديثات</li>
-            </ul>
-        </div>
+      <div class="stat-item">
+        <span class="stat-number">250+</span> تفاعل
+      </div>
 
-        <!-- مجموعة الأزرار -->
-        <div class="btn-group">
-            <a href="index.html" class="btn btn-primary">
-                <span>🧪</span> 
-                افتح المعمل
-            </a>
-            <button onclick="window.location.reload()" class="btn btn-secondary">
-                <span>🔄</span> 
-                حاول مرة تانية
-            </button>
-        </div>
-
-        <!-- حالة الاتصال -->
-        <div class="status-badge">
-            ⚠️ وضع عدم الاتصال نشط
-        </div>
-
-        <!-- رسالة برمجيات العدوي -->
-        <div class="footer">
-            ✨ برمجيات العدوي - كيمياء المرح ✨<br>
-            الإصدار 3.0 - أكثر من 250 تفاعل كيميائي
-        </div>
+      <div class="stat-item">
+        <span class="stat-number">7</span> أقسام
+      </div>
     </div>
 
-    <script>
-        // التحقق من وجود اتصال
+    <div class="element-bubbles" aria-label="أمثلة لعناصر كيميائية">
+      <div class="bubble bubble-h">H</div>
+      <div class="bubble bubble-he">He</div>
+      <div class="bubble bubble-o">O</div>
+      <div class="bubble bubble-na">Na</div>
+      <div class="bubble bubble-cl">Cl</div>
+      <div class="bubble bubble-c">C</div>
+      <div class="bubble bubble-fe">Fe</div>
+    </div>
+
+    <section class="offline-details">
+      <h2>
+        <span aria-hidden="true">⚗️</span>
+        إيه اللي ممكن يشتغل أوفلاين؟
+      </h2>
+
+      <ul>
+        <li>
+          ✅ <strong>الجدول الدوري وبيانات العناصر</strong>
+          <span class="badge-offline">لو الملفات متخزنة</span>
+        </li>
+
+        <li>
+          ✅ <strong>التفاعلات المحفوظة وحاسبة الكتلة المولية</strong>
+          إذا كانت تعتمد على ملفات محلية مخزنة.
+        </li>
+
+        <li>
+          🔄 <strong>التحديثات والمحتوى الخارجي</strong>
+          قد تحتاج اتصالاً بالإنترنت.
+        </li>
+      </ul>
+    </section>
+
+    <div class="btn-group">
+      <a href="./index.html" class="btn btn-primary">
+        <span aria-hidden="true">🧪</span>
+        افتح المعمل
+      </a>
+
+      <button
+        id="retry-button"
+        type="button"
+        class="btn btn-secondary"
+      >
+        <span aria-hidden="true">🔄</span>
+        حاول مرة تانية
+      </button>
+    </div>
+
+    <div
+      class="status-badge"
+      role="status"
+      aria-live="polite"
+      id="connection-status"
+    >
+      ⚠️ جاري التحقق من الاتصال...
+    </div>
+
+    <div class="footer">
+      ✨ برمجيات العدوي - كيمياء المرح ✨<br>
+      الإصدار 3.0
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const status = document.getElementById('connection-status');
+      const retryButton = document.getElementById('retry-button');
+
+      function updateConnectionStatus() {
         if (navigator.onLine) {
-            window.location.href = 'index.html';
+          status.textContent =
+            '🌐 الاتصال متاح — جرّب فتح المعمل';
+        } else {
+          status.textContent = '⚠️ وضع عدم الاتصال نشط';
         }
+      }
 
-        // عند عودة الاتصال
-        window.addEventListener('online', function() {
-            window.location.href = 'index.html';
-        });
+      retryButton.addEventListener('click', function () {
+        updateConnectionStatus();
 
-        // رسالة للمطور
-        console.log('🧪 صفحة عدم الاتصال - كيمياء المرح v3.0');
-        console.log('✅ متوفر أوفلاين: 118 عنصر + 250+ تفاعل');
-    </script>
+        if (navigator.onLine) {
+          window.location.href = './index.html';
+        } else {
+          window.location.reload();
+        }
+      });
+
+      window.addEventListener('online', function () {
+        status.textContent =
+          '🌐 رجع الاتصال — جاري فتح المعمل...';
+
+        window.location.href = './index.html';
+      });
+
+      window.addEventListener('offline', updateConnectionStatus);
+
+      updateConnectionStatus();
+
+      console.log('🧪 صفحة عدم الاتصال - كيمياء المرح v3.0');
+    })();
+  </script>
 </body>
 </html>
