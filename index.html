@@ -1,20 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>كيمياء المرح - الجدول الدوري التفاعلي</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes" />
+    <meta name="theme-color" content="#0d1117" />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="assets/كيميا_المرح.png" type="image/png" />
-    
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0d1117">
-    <link rel="apple-touch-icon" href="assets/كيميا_المرح.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- خطوط عربية -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/كيميا_المرح.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -23,22 +22,51 @@
     </header>
 
     <main>
-        <!-- ========== 1. الجدول الدوري مع البحث ========== -->
-        <section class="table-wrapper">
-            <!-- شريط البحث في العناصر -->
+        <section class="table-wrapper" aria-label="الجدول الدوري التفاعلي">
             <div class="search-section">
-                <input type="text" id="element-search" 
-                       placeholder="🔍 ابحث عن عنصر بالاسم أو الرمز..." 
-                       class="search-input">
-                <span class="search-hint">🔬 اكتب اسم أو رمز</span>
+                <input
+                    type="text"
+                    id="element-search"
+                    placeholder="🔍 ابحث عن العنصر بالاسم العربي أو الإنجليزي أو الرمز..."
+                    class="search-input"
+                    aria-label="البحث عن عنصر كيميائي"
+                    autocomplete="off"
+                />
+                <span class="search-hint">🔬 الاسم أو الرمز</span>
             </div>
 
-            <!-- الجدول الرئيسي -->
+            <!-- بطاقة التفاصيل: تظهر عند اختيار عنصر -->
+            <section class="details-wrapper" id="details-wrapper" hidden aria-live="polite">
+                <div id="details" class="details-card">
+                    <div class="card-header">
+                        <h2 id="d-name">اختر عنصراً</h2>
+                        <div class="card-actions">
+                            <span id="d-level" class="level-badge"></span>
+                            <button type="button" id="close-details" class="close-details" aria-label="إغلاق تفاصيل العنصر">✕ إغلاق</button>
+                        </div>
+                    </div>
+
+                    <div class="details-content">
+                        <div class="details-grid">
+                            <p>الرمز: <span id="d-symbol">–</span></p>
+                            <p>العدد الذري: <span id="d-number">–</span></p>
+                            <p>الكتلة الذرية/المولية: <span id="d-mass">–</span></p>
+                            <p>النوع: <span id="d-type">–</span></p>
+                            <p>الحالة: <span id="d-state">–</span></p>
+                            <p>الانصهار: <span id="d-mp">–</span></p>
+                            <p>الغليان: <span id="d-bp">–</span></p>
+                            <p>الكثافة: <span id="d-density">–</span></p>
+                            <p class="full-row">التوزيع الإلكتروني: <span id="d-electrons">–</span></p>
+                            <p class="full-row">الاستخدامات: <span id="d-uses">–</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <div class="table-container">
                 <div id="main-table" class="periodic-table" aria-label="الجدول الدوري"></div>
             </div>
-            
-            <!-- اللانثانيدات والأكتينيدات -->
+
             <div class="series">
                 <div class="series-row">
                     <h3>⚛️ اللانثانيدات</h3>
@@ -46,6 +74,7 @@
                         <div id="lanth-table" class="periodic-table f-block" aria-label="اللانثانيدات"></div>
                     </div>
                 </div>
+
                 <div class="series-row">
                     <h3>☢️ الأكتينيدات</h3>
                     <div class="table-container compact">
@@ -55,98 +84,71 @@
             </div>
         </section>
 
-        <!-- ========== 2. بطاقة تفاصيل العنصر ========== -->
-        <section class="details-wrapper">
-            <div id="details" class="details-card">
-                <div class="card-header">
-                    <h2 id="d-name">اختر عنصراً</h2>
-                    <span id="d-level" class="level-badge"></span>
-                </div>
-                <div class="details-content">
-                    <div class="details-grid">
-                        <p>الرمز: <span id="d-symbol">–</span></p>
-                        <p>العدد الذري: <span id="d-number">–</span></p>
-                        <p>الكتلة: <span id="d-mass">–</span></p>
-                        <p>النوع: <span id="d-type">–</span></p>
-                        <p>الحالة: <span id="d-state">–</span></p>
-                        <p>الانصهار: <span id="d-mp">–</span></p>
-                        <p>الغليان: <span id="d-bp">–</span></p>
-                        <p>الكثافة: <span id="d-density">–</span></p>
-                        <p class="full-row">التوزيع الإلكتروني: <span id="d-electrons">–</span></p>
-                        <p class="full-row">الاستخدامات: <span id="d-uses">–</span></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========== 3. الرف السريع للمركبات ========== -->
-        <div class="shelf-wrapper">
-            <h3 class="shelf-header">🧪 الرف السريع (اضغط لإضافة مادة)</h3>
-            <!-- البحث داخل الرف -->
-            <input type="text" id="shelf-search" 
-                   placeholder="🔍 ابحث في الرف السريع..." 
-                   class="search-input">
-            <!-- الرف نفسه -->
-            <div id="quick-shelf" class="quick-shelf"></div>
-        </div>
-
-        <!-- ========== 4. معمل الكيمياء الذكي ========== -->
-        <div class="lab-workspace">
+        <section class="lab-workspace" aria-label="معمل الكيمياء الذكي">
             <h3 class="lab-header">🧪 معمل الكيمياء الذكي</h3>
 
-            <!-- خانات الإدخال الذكية -->
             <div class="input-section">
                 <div class="input-wrapper">
-                    <input type="text" id="slot-1" class="chem-field" 
-                           placeholder="المادة الأولى" 
-                           list="elements-list" autocomplete="off">
+                    <input
+                        type="text"
+                        id="slot-1"
+                        class="chem-field"
+                        placeholder="المادة الأولى"
+                        list="elements-list"
+                        autocomplete="off"
+                    />
                 </div>
 
-                <span class="operator">+</span>
+                <span class="operator" aria-hidden="true">+</span>
 
                 <div class="input-wrapper">
-                    <input type="text" id="slot-2" class="chem-field" 
-                           placeholder="المادة الثانية" 
-                           list="elements-list" autocomplete="off">
+                    <input
+                        type="text"
+                        id="slot-2"
+                        class="chem-field"
+                        placeholder="المادة الثانية"
+                        list="elements-list"
+                        autocomplete="off"
+                    />
                 </div>
             </div>
 
-            <!-- قائمة الاقتراحات (مخفية) -->
             <datalist id="elements-list"></datalist>
 
-            <!-- أزرار التحكم -->
             <div class="controls-section">
-                <button id="react-btn" class="btn-lab react" onclick="processReaction()">تفاعل ⚗️</button>
-                <button id="heat-btn" class="btn-lab heat" onclick="processHeat()">تسخين 🔥</button>
-                <button id="redox-btn" class="btn-lab redox" onclick="processRedox()">أكسدة/اختزال ⚡</button>
-                <button id="clear-btn" class="btn-lab clear" onclick="clearLab()">مسح 🧹</button>
+                <button type="button" id="react-btn" class="btn-lab react" onclick="processReaction()">تفاعل ⚗️</button>
+                <button type="button" id="heat-btn" class="btn-lab heat" onclick="processHeat()">تسخين 🔥</button>
+                <button type="button" id="redox-btn" class="btn-lab redox" onclick="processRedox()">أكسدة/اختزال ⚡</button>
+                <button type="button" id="clear-btn" class="btn-lab clear" onclick="clearLab()">مسح 🧹</button>
             </div>
 
-            <!-- نتيجة التفاعل -->
-            <div id="lab-report" class="result-display">
+            <div id="lab-report" class="result-display" aria-live="polite">
                 <div class="placeholder-message">
                     🧪 المعمل جاهز.. اختر المواد وابدأ التفاعل
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- ========== 5. حاسبة الكتلة المولية ========== -->
-        <div class="molar-calculator">
+        <section class="molar-calculator" aria-label="حاسبة الكتلة المولية">
             <h4>⚖️ حاسبة الكتلة المولية</h4>
-            <div class="molar-input-group">
-                <input type="text" id="formula-input" class="chem-field" 
-                       placeholder="مثال: H2SO4, NH3, CH3COOH">
-                <button id="molar-btn" class="btn-lab react" onclick="showMolarResult()">احسب</button>
-                <button class="btn-lab clear" onclick="clearMolar()">مسح</button>
-            </div>
-            <div id="molar-result" class="molar-result"></div>
-        </div>
 
-        <!-- ========== 6. زر المشاركة (يظهر عند الحاجة) ========== -->
+            <div class="molar-input-group">
+                <input
+                    type="text"
+                    id="formula-input"
+                    class="chem-field"
+                    placeholder="مثال: H2SO4, NH3, CH3COOH"
+                    autocomplete="off"
+                />
+                <button type="button" id="molar-btn" class="btn-lab react" onclick="showMolarResult()">احسب</button>
+                <button type="button" id="clear-molar-btn" class="btn-lab clear" onclick="clearMolar()">مسح</button>
+            </div>
+
+            <div id="molar-result" class="molar-result" aria-live="polite"></div>
+        </section>
+
         <div id="share-container" class="share-container">
-            <button id="share-btn" class="share-btn">
-                📢 شارك النتيجة مع زملائك
-            </button>
+            <button type="button" id="share-btn" class="share-btn">📢 شارك النتيجة مع زملائك</button>
         </div>
     </main>
 
@@ -155,25 +157,40 @@
         <p class="copyright">الجدول الدوري التفاعلي - جميع الحقوق محفوظة © 2026</p>
     </footer>
 
-    <!-- ملفات JavaScript بالترتيب -->
     <script src="database.js"></script>
     <script src="script.js"></script>
-    <script src="sw.js"></script>
-    
+
     <script>
-        // دالة مساعدة لمسح حقل الكتلة
         function clearMolar() {
-            document.getElementById('formula-input').value = '';
-            document.getElementById('molar-result').innerHTML = '';
+            var formulaInput = document.getElementById('formula-input');
+            var result = document.getElementById('molar-result');
+
+            if (formulaInput) {
+                formulaInput.value = '';
+            }
+
+            if (result) {
+                result.innerHTML = '';
+            }
         }
 
-        // تأكيد تحميل الملفات
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            var closeButton = document.getElementById('close-details');
+            var detailsWrapper = document.getElementById('details-wrapper');
+
+            if (closeButton && detailsWrapper) {
+                closeButton.addEventListener('click', function () {
+                    detailsWrapper.hidden = true;
+                });
+            }
+
             console.log('🌐 تم تحميل الصفحة');
-            setTimeout(function() {
+
+            window.setTimeout(function () {
                 if (typeof ELEMENTS !== 'undefined') {
                     console.log('✅ تم تحميل ' + ELEMENTS.length + ' عنصر');
                 }
+
                 if (typeof CHEMISTRY_DATABASE !== 'undefined') {
                     console.log('✅ تم تحميل قاعدة التفاعلات');
                 }
