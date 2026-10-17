@@ -1,3 +1,4 @@
+
 /* ============================================================
    1. الإعدادات العامة والتصميم الأساسي
    ============================================================ */
@@ -7,14 +8,15 @@
     --card-bg: #161b22;
     --text-color: #c9d1d9;
     --text-light: #e6edf3;
-    --neon-blue: #00b4ff;      /* مخفف من #00d4ff */
-    --neon-green: #00cc88;      /* مخفف من #00ff88 */
-    --neon-red: #ff6666;         /* مخفف من #ff4444 */
-    --neon-yellow: #eedd66;      /* مخفف من #ffee00 */
-    --neon-purple: #aa88ff;      /* مخفف من #bc13fe */
-    --neon-pink: #ff88aa;        /* مخفف من #ff00ab */
-    
-    /* ألوان المجموعات الكيميائية - مخففة */
+
+    --neon-blue: #00b4ff;
+    --neon-green: #00cc88;
+    --neon-red: #ff6666;
+    --neon-yellow: #eedd66;
+    --neon-purple: #aa88ff;
+    --neon-pink: #ff88aa;
+
+    /* ألوان المجموعات الكيميائية */
     --color-alkali: #ff8a8a;
     --color-alkaline: #ffb57c;
     --color-transition: #88ccff;
@@ -25,11 +27,10 @@
     --color-noble: #cc99ff;
     --color-lanthanide: #ff9bb0;
     --color-actinide: #b69bff;
-    
-    /* تحسينات الخط */
+
     --border-radius: 8px;
     --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --transition: all 0.3s ease;
+    --transition: all 0.2s ease;
 }
 
 * {
@@ -38,105 +39,160 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 16px;
     line-height: 1.6;
     direction: rtl;
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
-    padding: 20px;
+    margin-bottom: 18px;
+    padding: 18px;
     background: linear-gradient(145deg, #0b0e14, #0f131a);
-    border-radius: 20px;
+    border-radius: 16px;
     border-bottom: 2px solid var(--neon-blue);
-    box-shadow: 0 0 30px rgba(0, 180, 255, 0.1); /* تم التعديل */
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.08);
 }
 
 h1 {
     color: var(--neon-blue);
-    text-shadow: 0 0 15px var(--neon-blue);
+    text-shadow: 0 0 12px rgba(0, 180, 255, 0.4);
     margin: 0;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 800;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem;
     opacity: 0.8;
     color: var(--text-light);
-    margin-top: 5px;
+    margin-top: 4px;
 }
 
 /* ============================================================
-   2. الجدول الدوري - المحرك الرئيسي
+   2. الجدول الدوري وشريط البحث
    ============================================================ */
 
 .table-wrapper {
     background: var(--card-bg);
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 30px;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 22px;
     box-shadow: var(--box-shadow);
     border: 1px solid #30363d;
+    min-width: 0;
 }
 
-/* شريط البحث */
 .search-section {
     display: flex;
     gap: 10px;
     align-items: center;
-    background: var(--card-bg);
-    padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 12px;
 }
 
 .search-input {
     flex: 1;
-    padding: 12px 20px;
-    border-radius: 30px;
+    min-width: 0;
+    padding: 11px 16px;
+    border-radius: 25px;
     border: 1px solid var(--neon-blue);
     background: rgba(0, 0, 0, 0.3);
     color: white;
-    font-size: 1rem;
+    font-family: inherit;
+    font-size: 0.95rem;
     transition: var(--transition);
 }
 
+.search-input::placeholder {
+    color: #8b949e;
+}
+
 .search-input:focus {
-    box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 12px rgba(0, 180, 255, 0.2);
     outline: none;
     background: rgba(0, 0, 0, 0.5);
 }
 
 .search-hint {
     color: #888;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .periodic-table {
     display: grid !important;
-    grid-template-columns: repeat(18, 1fr);
+    grid-template-columns: repeat(18, minmax(0, 1fr));
     direction: ltr;
-    gap: 6px; /* تم التعديل من 8px لـ 6px */
+    gap: 5px;
+    width: 100%;
     max-width: 1400px;
+    min-width: 620px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 8px 2px;
+}
+
+.series {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid #30363d;
+}
+
+.series-row {
+    margin-bottom: 16px;
+}
+
+.series-row h3 {
+    color: var(--neon-blue);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    padding-right: 10px;
+    border-right: 3px solid var(--neon-blue);
+}
+
+#lanth-table,
+#act-table {
+    display: grid !important;
+    grid-template-columns: repeat(18, minmax(0, 1fr));
+    gap: 5px;
+    min-width: 620px;
+    margin-top: 5px;
+}
+
+#lanth-table .element:first-child,
+#lanth-table .element:nth-child(2),
+#act-table .element:first-child,
+#act-table .element:nth-child(2) {
+    visibility: hidden;
 }
 
 /* ============================================================
-   3. تصميم خلايا العناصر
+   3. خلايا العناصر الكيميائية
    ============================================================ */
 
 .element {
     aspect-ratio: 1 / 1;
-    border: 1.5px solid; /* تم التعديل من 2px لـ 1.5px */
+    min-width: 0;
+    border: 1.5px solid;
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
@@ -144,22 +200,21 @@ h1 {
     justify-content: center;
     cursor: pointer;
     transition: var(--transition);
-    background: rgba(255, 255, 255, 0.02); /* تم التعديل */
+    background: rgba(255, 255, 255, 0.02);
     position: relative;
     overflow: hidden;
-    padding: 5px;
+    padding: 3px;
 }
 
 .element:hover {
-    transform: scale(1.05); /* تم التعديل من 1.08 لـ 1.05 */
-    z-index: 100;
+    z-index: 5;
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 20px currentColor; /* تم التعديل */
+    box-shadow: 0 0 10px currentColor;
 }
 
 .element.active {
     background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 25px currentColor; /* تم التعديل */
+    box-shadow: 0 0 12px currentColor;
     border-width: 2px;
 }
 
@@ -169,136 +224,188 @@ h1 {
 }
 
 .atomic-number {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     position: absolute;
-    top: 3px;
-    right: 5px;
-    color: rgba(255, 255, 255, 0.6);
+    top: 2px;
+    right: 3px;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .symbol-large {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 800;
-    line-height: 1;
+    line-height: 1.1;
     margin-bottom: 2px;
 }
 
 .arabic-name {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     margin-top: 2px;
-    opacity: 0.8;
+    opacity: 0.85;
     font-weight: 600;
 }
 
-/* الخلايا الفارغة */
 .element.empty {
     visibility: hidden;
     pointer-events: none;
 }
 
+/* ألوان المجموعات الكيميائية - محفوظة */
+
+.element.alkali {
+    border-color: var(--color-alkali);
+    color: var(--color-alkali);
+}
+
+.element.alkaline {
+    border-color: var(--color-alkaline);
+    color: var(--color-alkaline);
+}
+
+.element.transition {
+    border-color: var(--color-transition);
+    color: var(--color-transition);
+}
+
+.element.post-transition {
+    border-color: var(--color-post-transition);
+    color: var(--color-post-transition);
+}
+
+.element.metalloid {
+    border-color: var(--color-metalloid);
+    color: var(--color-metalloid);
+}
+
+.element.nonmetal {
+    border-color: var(--color-nonmetal);
+    color: var(--color-nonmetal);
+}
+
+.element.halogen {
+    border-color: var(--color-halogen);
+    color: var(--color-halogen);
+}
+
+.element.noble {
+    border-color: var(--color-noble);
+    color: var(--color-noble);
+}
+
+.element.lanthanide {
+    border-color: var(--color-lanthanide);
+    color: var(--color-lanthanide);
+}
+
+.element.actinide {
+    border-color: var(--color-actinide);
+    color: var(--color-actinide);
+}
+
 /* ============================================================
-   4. ألوان المجموعات الكيميائية
+   4. بطاقة تفاصيل العنصر
    ============================================================ */
 
-.element.alkali { border-color: var(--color-alkali); color: var(--color-alkali); }
-.element.alkaline { border-color: var(--color-alkaline); color: var(--color-alkaline); }
-.element.transition { border-color: var(--color-transition); color: var(--color-transition); }
-.element.post-transition { border-color: var(--color-post-transition); color: var(--color-post-transition); }
-.element.metalloid { border-color: var(--color-metalloid); color: var(--color-metalloid); }
-.element.nonmetal { border-color: var(--color-nonmetal); color: var(--color-nonmetal); }
-.element.halogen { border-color: var(--color-halogen); color: var(--color-halogen); }
-.element.noble { border-color: var(--color-noble); color: var(--color-noble); }
-.element.lanthanide { border-color: var(--color-lanthanide); color: var(--color-lanthanide); }
-.element.actinide { border-color: var(--color-actinide); color: var(--color-actinide); }
-
-/* ============================================================
-   5. السلسلتان: اللانثانيدات والأكتينيدات
-   ============================================================ */
-
-.series {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #30363d;
+/* الخاصية hidden تمنع ظهور البطاقة قبل اختيار عنصر */
+.details-wrapper[hidden] {
+    display: none !important;
 }
-
-.series-row {
-    margin-bottom: 20px;
-}
-
-.series-row h3 {
-    color: var(--neon-blue);
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    padding-right: 10px;
-    border-right: 4px solid var(--neon-blue);
-}
-
-#lanth-table, #act-table {
-    display: grid !important;
-    grid-template-columns: repeat(18, 1fr);
-    gap: 6px;
-    margin-top: 5px;
-}
-
-/* أول خليتين فارغتين للمحاذاة */
-#lanth-table .element:first-child,
-#lanth-table .element:nth-child(2),
-#act-table .element:first-child,
-#act-table .element:nth-child(2) {
-    visibility: hidden;
-}
-
-/* ============================================================
-   6. بطاقة تفاصيل العنصر
-   ============================================================ */
 
 .details-wrapper {
-    margin: 40px 0;
+    margin: 12px 0 16px;
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 .details-card {
     background: var(--card-bg);
     border: 2px solid var(--neon-blue);
-    border-radius: 20px;
-    padding: 25px;
+    border-radius: 14px;
+    padding: 18px;
     width: 100%;
     max-width: 700px;
-    box-shadow: 0 0 25px rgba(0, 180, 255, 0.15);
-    transition: var(--transition);
-    position: relative;
+    box-shadow: 0 0 18px rgba(0, 180, 255, 0.12);
+    animation: fadeInUp 0.2s ease;
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    cursor: move;
 }
 
 .card-header h2 {
     color: var(--neon-blue);
-    font-size: 1.8rem;
+    font-size: 1.45rem;
     margin: 0;
 }
 
+.card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.close-details {
+    padding: 6px 11px;
+    border: 1px solid var(--neon-blue);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--neon-blue);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.close-details:hover,
+.close-details:focus {
+    background: var(--neon-blue);
+    color: #000;
+    outline: none;
+}
+
 .level-badge {
-    padding: 5px 15px;
+    padding: 4px 11px;
     border-radius: 50px;
     font-size: 0.8rem;
     font-weight: bold;
     background: rgba(255, 255, 255, 0.1);
 }
 
-.level-1 { background: #238636; color: white; }
-.level-2 { background: #da3633; color: white; }
-.level-3 { background: #9b59b6; color: white; }
-.level-4 { background: #e67e22; color: white; }
-.level-5 { background: #c0392b; color: white; }
+.level-1 {
+    background: #238636;
+    color: white;
+}
+
+.level-2 {
+    background: #da3633;
+    color: white;
+}
+
+.level-3 {
+    background: #9b59b6;
+    color: white;
+}
+
+.level-4 {
+    background: #e67e22;
+    color: white;
+}
+
+.level-5 {
+    background: #c0392b;
+    color: white;
+}
 
 .details-content {
     width: 100%;
@@ -306,15 +413,17 @@ h1 {
 
 .details-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
 }
 
 .details-grid p {
+    min-width: 0;
+    overflow-wrap: anywhere;
     margin: 0;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.025);
+    border-radius: 7px;
     border-right: 3px solid var(--neon-blue);
 }
 
@@ -326,144 +435,74 @@ h1 {
 .details-grid span {
     color: white;
     font-weight: 600;
-    margin-right: 5px;
+    margin-right: 4px;
 }
 
 /* ============================================================
-   7. الرف السريع والبحث
-   ============================================================ */
-
-.shelf-wrapper {
-    margin: 30px 0;
-}
-
-.shelf-header {
-    color: var(--neon-blue);
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.quick-shelf {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    padding: 20px;
-    background: var(--card-bg);
-    border-radius: 20px;
-    border: 1px solid #30363d;
-}
-
-.shelf-btn {
-    background: #1a1a1a;
-    border: 1px solid var(--neon-blue);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: var(--transition);
-    font-size: 0.9rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.shelf-btn.element {
-    border-color: #ffcc00;
-    color: #ffcc00;
-}
-
-.shelf-btn:hover {
-    background: var(--neon-blue);
-    color: #000;
-    transform: scale(1.03);
-    box-shadow: 0 0 15px var(--neon-blue);
-}
-
-.shelf-btn.element:hover {
-    background: #ffcc00;
-    border-color: #ffcc00;
-    color: #000;
-}
-
-#shelf-search {
-    width: 100%;
-    padding: 12px 20px;
-    border-radius: 30px;
-    border: 1px solid var(--neon-blue);
-    background: rgba(0, 0, 0, 0.3);
-    color: white;
-    font-size: 1rem;
-    transition: var(--transition);
-    margin-bottom: 15px;
-}
-
-#shelf-search:focus {
-    box-shadow: 0 0 20px rgba(0, 180, 255, 0.2);
-    outline: none;
-    background: rgba(0, 0, 0, 0.4);
-}
-
-/* ============================================================
-   8. معمل الكيمياء الذكي
+   5. معمل الكيمياء الذكي
    ============================================================ */
 
 .lab-workspace {
-    margin: 40px auto;
+    margin: 22px auto;
     max-width: 900px;
+    min-width: 0;
     background: var(--card-bg);
     border: 1px solid #30363d;
-    border-radius: 20px;
-    padding: 25px;
+    border-radius: 16px;
+    padding: 18px;
     box-shadow: var(--box-shadow);
 }
 
 .lab-header {
     color: var(--neon-blue);
-    font-size: 1.5rem;
-    margin-bottom: 25px;
+    font-size: 1.35rem;
+    margin-bottom: 18px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .input-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .input-wrapper {
     flex: 1;
-    min-width: 200px;
+    min-width: 180px;
 }
 
 .chem-field {
     width: 100%;
+    min-width: 0;
     background: #0d1117;
     color: white;
     border: 1px solid #444;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-size: 1rem;
+    padding: 11px 14px;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 0.95rem;
     transition: var(--transition);
+}
+
+.chem-field::placeholder {
+    color: #888;
 }
 
 .chem-field:focus {
     border-color: var(--neon-blue);
-    box-shadow: 0 0 12px rgba(0, 180, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 180, 255, 0.15);
     outline: none;
 }
 
 .operator {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: var(--neon-blue);
     font-weight: bold;
 }
@@ -471,99 +510,127 @@ h1 {
 .controls-section {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 9px;
     flex-wrap: wrap;
-    margin: 25px 0;
+    margin: 18px 0;
 }
 
 .btn-lab {
-    padding: 10px 22px;
+    padding: 9px 17px;
     border: none;
-    border-radius: 50px;
+    border-radius: 30px;
     cursor: pointer;
+    font-family: inherit;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     transition: var(--transition);
     color: white;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    letter-spacing: 0.5px;
+    justify-content: center;
+    gap: 7px;
 }
 
-.btn-lab.react { background: #238636; box-shadow: 0 0 12px rgba(35, 134, 54, 0.2); }
-.btn-lab.heat { background: #da3633; box-shadow: 0 0 12px rgba(218, 54, 51, 0.2); }
-.btn-lab.redox { background: #9b59b6; box-shadow: 0 0 12px rgba(155, 89, 182, 0.2); }
-.btn-lab.clear { background: #484f58; }
+.btn-lab.react {
+    background: #238636;
+    box-shadow: 0 0 10px rgba(35, 134, 54, 0.15);
+}
+
+.btn-lab.heat {
+    background: #da3633;
+    box-shadow: 0 0 10px rgba(218, 54, 51, 0.15);
+}
+
+.btn-lab.redox {
+    background: #9b59b6;
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.15);
+}
+
+.btn-lab.clear {
+    background: #484f58;
+}
 
 .btn-lab:hover {
-    transform: translateY(-2px);
     filter: brightness(1.1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-lab:focus-visible {
+    outline: 2px solid var(--neon-blue);
+    outline-offset: 2px;
 }
 
 .result-display {
-    margin-top: 25px;
-    padding: 20px;
+    margin-top: 18px;
+    padding: 15px;
     background: #0d1117;
-    border-radius: 15px;
+    border-radius: 12px;
     text-align: right;
-    min-height: 120px;
+    min-height: 90px;
+    overflow-wrap: anywhere;
 }
 
 .placeholder-message {
     color: #888;
     border: 2px dashed #444;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 16px;
+    border-radius: 9px;
     text-align: center;
 }
 
 /* ============================================================
-   9. حاسبة الكتلة المولية
+   6. حاسبة الكتلة المولية
    ============================================================ */
 
 .molar-calculator {
-    margin: 30px auto;
+    margin: 22px auto;
     max-width: 900px;
-    padding: 25px;
+    min-width: 0;
+    padding: 18px;
     background: var(--card-bg);
-    border-radius: 20px;
+    border-radius: 16px;
     border: 1px solid var(--neon-blue);
     box-shadow: var(--box-shadow);
 }
 
 .molar-calculator h4 {
     color: var(--neon-blue);
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
 }
 
 .molar-input-group {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
 .molar-input-group .chem-field {
     flex: 1;
-    min-width: 200px;
+    min-width: 180px;
 }
 
 .molar-result {
-    margin-top: 15px;
-    padding: 15px;
+    margin-top: 12px;
+    padding: 12px;
     background: #0d1117;
-    border-radius: 12px;
+    border-radius: 10px;
     border-right: 4px solid var(--neon-green);
+    overflow-wrap: anywhere;
+}
+
+/* إخفاء نتيجة فارغة لتوفير المساحة */
+.molar-result:empty {
+    display: none;
 }
 
 /* ============================================================
-   10. زر المشاركة
+   7. زر المشاركة
    ============================================================ */
 
 .share-container {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 16px;
     display: none;
 }
 
@@ -571,29 +638,28 @@ h1 {
     background: #25d366;
     color: white;
     border: none;
-    padding: 12px 30px;
-    border-radius: 50px;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-family: inherit;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
     transition: var(--transition);
 }
 
 .share-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+    filter: brightness(1.08);
 }
 
 /* ============================================================
-   11. الفوتر والتذييل
+   8. الفوتر والتذييل
    ============================================================ */
 
 footer {
     text-align: center;
-    margin-top: 60px;
-    padding: 25px;
+    margin-top: 30px;
+    padding: 18px;
     background: var(--card-bg);
-    border-radius: 20px;
+    border-radius: 14px;
     border-top: 1px solid #30363d;
     color: #8b949e;
 }
@@ -605,7 +671,7 @@ footer {
 }
 
 /* ============================================================
-   12. الأنيميشن والتأثيرات
+   9. الأنيميشن والتأثيرات
    ============================================================ */
 
 @keyframes shake {
@@ -621,8 +687,9 @@ footer {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -630,9 +697,9 @@ footer {
 }
 
 @keyframes pulse {
-    0% { box-shadow: 0 0 5px currentColor; }
-    50% { box-shadow: 0 0 20px currentColor; }
-    100% { box-shadow: 0 0 5px currentColor; }
+    0% { box-shadow: 0 0 4px currentColor; }
+    50% { box-shadow: 0 0 12px currentColor; }
+    100% { box-shadow: 0 0 4px currentColor; }
 }
 
 .element.active {
@@ -640,65 +707,271 @@ footer {
 }
 
 /* ============================================================
-   13. استجابة الشاشة (Responsive Design)
+   10. استجابة الشاشة
    ============================================================ */
 
 @media (max-width: 1100px) {
     .periodic-table {
         gap: 4px;
     }
-    .symbol-large { font-size: 1rem; }
-    .atomic-number { font-size: 0.6rem; }
+
+    .symbol-large {
+        font-size: 1rem;
+    }
+
+    .atomic-number {
+        font-size: 0.6rem;
+    }
 }
 
 @media (max-width: 900px) {
+    body {
+        padding: 12px;
+    }
+
+    .table-wrapper {
+        padding: 10px;
+    }
+
     .periodic-table {
         gap: 3px;
     }
-    .symbol-large { font-size: 0.9rem; }
-    .arabic-name { 
+
+    .symbol-large {
+        font-size: 0.9rem;
+    }
+
+    .arabic-name {
         font-size: 0.55rem;
         white-space: nowrap;
     }
+
     .details-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
     .details-grid .full-row {
-        grid-column: span 1;
+        grid-column: span 2;
     }
 }
 
 @media (max-width: 700px) {
-    body { padding: 10px; }
-    h1 { font-size: 1.8rem; }
-    .periodic-table { gap: 2px; }
-    .symbol-large { font-size: 0.8rem; }
-    .atomic-number { font-size: 0.5rem; }
-    .arabic-name { display: none; }
-    .element { padding: 2px; }
-    .btn-lab { padding: 8px 16px; font-size: 0.85rem; }
-    .search-hint { display: none; }
+    body {
+        padding: 8px;
+    }
+
+    header {
+        padding: 14px 10px;
+        margin-bottom: 12px;
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .subtitle {
+        font-size: 0.85rem;
+    }
+
+    .table-wrapper {
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    .search-section {
+        padding: 8px;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .search-input {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .periodic-table {
+        gap: 2px;
+        min-width: 620px;
+    }
+
+    .symbol-large {
+        font-size: 0.8rem;
+    }
+
+    .atomic-number {
+        font-size: 0.5rem;
+    }
+
+    .arabic-name {
+        display: none;
+    }
+
+    .element {
+        padding: 2px;
+        border-radius: 4px;
+    }
+
+    .search-hint {
+        display: none;
+    }
+
+    .lab-workspace,
+    .molar-calculator {
+        padding: 13px;
+        margin: 16px auto;
+        border-radius: 12px;
+    }
+
+    .lab-header {
+        font-size: 1.15rem;
+        margin-bottom: 14px;
+    }
+
+    .btn-lab {
+        padding: 8px 12px;
+        font-size: 0.82rem;
+    }
+
+    .details-wrapper {
+        margin: 8px 0 12px;
+    }
+
+    .details-card {
+        padding: 13px;
+        border-radius: 12px;
+    }
+
+    .card-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .details-grid {
+        gap: 7px;
+    }
+
+    .details-grid p {
+        padding: 7px;
+        font-size: 0.85rem;
+    }
+
+    .close-details {
+        padding: 6px 9px;
+        font-size: 0.8rem;
+    }
+
+    footer {
+        margin-top: 20px;
+        padding: 14px;
+    }
 }
 
 @media (max-width: 500px) {
-    .periodic-table { gap: 1px; }
-    .symbol-large { font-size: 0.7rem; }
-    .element { border-width: 1px; }
-    .input-section { flex-direction: column; }
-    .chem-field { width: 100%; }
-    .operator { transform: rotate(90deg); margin: 5px 0; }
-    .molar-input-group { flex-direction: column; }
-    .molar-input-group .btn-lab { width: 100%; }
+    .periodic-table {
+        gap: 1px;
+    }
+
+    .symbol-large {
+        font-size: 0.7rem;
+    }
+
+    .atomic-number {
+        font-size: 0.45rem;
+        top: 1px;
+        right: 2px;
+    }
+
+    .element {
+        border-width: 1px;
+        padding: 1px;
+    }
+
+    .input-section {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .input-wrapper {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .chem-field {
+        width: 100%;
+    }
+
+    .operator {
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+
+    .controls-section {
+        gap: 7px;
+        margin: 14px 0;
+    }
+
+    .controls-section .btn-lab {
+        flex: 1 1 42%;
+    }
+
+    .molar-input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .molar-input-group .chem-field {
+        min-width: 0;
+    }
+
+    .molar-input-group .btn-lab {
+        width: 100%;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .details-grid .full-row {
+        grid-column: span 1;
+    }
+
+    .card-header {
+        align-items: flex-start;
+    }
+
+    .card-actions {
+        gap: 6px;
+    }
 }
 
 @media (max-width: 350px) {
-    .symbol-large { font-size: 0.6rem; }
-    .atomic-number { font-size: 0.4rem; }
-    .element { padding: 1px; }
+    h1 {
+        font-size: 1.45rem;
+    }
+
+    .symbol-large {
+        font-size: 0.6rem;
+    }
+
+    .atomic-number {
+        font-size: 0.4rem;
+    }
+
+    .element {
+        padding: 1px;
+    }
+
+    .details-card {
+        padding: 10px;
+    }
+
+    .card-header h2 {
+        font-size: 1.05rem;
+    }
 }
 
 /* ============================================================
-   14. تخصيص شريط التمرير
+   11. تخصيص شريط التمرير
    ============================================================ */
 
 ::-webkit-scrollbar {
@@ -720,7 +993,7 @@ footer {
 }
 
 /* ============================================================
-   15. تمييز العناصر المشعة
+   12. تمييز العناصر المشعة
    ============================================================ */
 
 .element[data-radioactive="true"]::after {
